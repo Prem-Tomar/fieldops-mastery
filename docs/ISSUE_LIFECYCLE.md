@@ -2,7 +2,7 @@
 
 ## Current publication state
 
-Fourteen week-one issues have been created: seven intended for Neha (@Neha2212-vi, #1–7) and seven assigned to Madhavi (@madhavichauhan1995, #8–14). Neha's assignment depends on repository invitation acceptance. Prem-Tomar is the reviewer, not an implementation assignee.
+Fourteen week-one issues have been created and assigned: seven to Neha (@Neha2212-vi, #1–7) and seven to Madhavi (@madhavichauhan1995, #8–14). Both collaborators have accepted their invitations. Prem-Tomar is the reviewer, not an implementation assignee.
 
 **Further issue creation and issue-generation automation are paused until Prem-Tomar explicitly authorizes them.** Updating the roadmap does not grant publication authorization. Keep curriculum/catalog.json and curriculum/roadmap.json creation gates false for further publication.
 

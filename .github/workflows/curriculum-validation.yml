@@ -16,3 +16,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/validate_curriculum.py
+      - run: python scripts/forecast_roadmap.py

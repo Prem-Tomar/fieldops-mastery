@@ -1,30 +1,36 @@
-# Incremental personal issue lifecycle
+# Complementary learner issue lifecycle
 
-## Current state
+## Current publication state
 
-**No issues or recurring issue-creation automation are started.** Prem-Tomar will explicitly say when to create issues. Separate issues for both learners are required; that scope does not waive the timing instruction.
+Fourteen week-one issues have been created and assigned: seven to Neha (@Neha2212-vi, #1–7) and seven to Madhavi (@madhavichauhan1995, #8–14). Both collaborators have accepted their invitations. Prem-Tomar is the reviewer, not an implementation assignee.
 
-## After start authorization
+**Further issue creation and issue-generation automation are paused until Prem-Tomar explicitly authorizes them.** Updating the roadmap does not grant publication authorization. Keep curriculum/catalog.json and curriculum/roadmap.json creation gates false for further publication.
 
-1. Map the two provided GitHub usernames to the learner folders.
-2. Create one JS-01 issue per learner with the full task and individual evidence requirements.
-3. Record task ID, learner, sequence, predecessor, and advancement/closure event in metadata.
-4. Enable a closure monitor/webhook only after authorization; record a baseline.
-5. Each newly closed recognized personal task produces exactly one successor in that person's sequence.
-6. Owner/coach verifies criteria, independent concepts, mastery score, and PR before successful closure.
-7. A closure without passing produces one remediation successor for the same task, preserving all missing concepts.
-8. After all 44 tasks pass, the successor is a final retention/audit issue. Subsequent closures produce one targeted retention exercise each; do not blindly repeat identical completed work.
+## Planning a future successor
 
-## Idempotency and prerequisites
+Use the [six-month roadmap](ROADMAP.md) and current feature state. Give each learner a different ask that integrates with accepted units; both cover the same concept requirements independently. The 44 source definitions organize concept references; publication counts follow the complementary product slices. Do not publish a generic source task verbatim or create test/documentation assignments.
 
-Before creating, search for a successor containing the predecessor issue and closure timestamp. Retries do not create duplicates. Reopening/reclosing an issue with an existing successor does not advance the sequence again.
+Every issue must include learner, distinct task ID, roadmap week, predecessor, product integration, plain-language concept explanations, per-function inputs/outputs/errors, worked examples, progressive hints, acceptance and mastery/coach criteria. Web/mobile implementation issues also include reference screen images and important states. Test-writing feedback remains optional in the PR.
 
-Prerequisites apply per learner. Keep at most one active curricular task per learner. Shared integration can wait at phase gates; isolated experiments continue.
+## Closure behavior after future authorization
 
-Use explicit metadata rather than title matching. Ignore unrelated bug/discussion closures. There are 88 initial personal instances, published incrementally; remediation and retention can add more.
+1. Validate that the closed issue is a recognized learner task and identify its learner and predecessor metadata.
+2. Require owner review of behavior, independent concept evidence, mastery result and integrated PR before successful advancement.
+3. First search for an existing successor in that learner's published batch. If present, make that queued issue ready instead of creating another.
+4. If none exists and creation is explicitly authorized, create exactly one distinct product successor for that learner, with the predecessor and closure event recorded.
+5. If the gate failed, choose one targeted remediation slice/experiment with precise missing concepts and hints; do not advance or repeat an accepted capability wholesale.
+6. At the final roadmap gate, use concept gaps and product needs to choose a retention/remediation successor rather than copying a completed task.
+
+The requested one-successor-per-closure policy applies only when further publication is authorized and no planned successor already exists. The existing seven-day batch must not be duplicated.
+
+## Idempotency, prerequisites and assignments
+
+Before creation, search by learner, predecessor and closure event. Retries and reopen/reclose events must not create duplicate successors. Ignore unrelated discussion/bug closures. Use explicit metadata, not title matching.
+
+Keep at most one active curricular issue per learner; future published issues remain queued until prerequisites pass. Cross-lane integrations may wait for the peer's accepted unit. Do not count a peer's completed work as the learner's mastery.
+
+Assign implementation only to the specified collaborator. If the invitation is pending, record intended ownership and awaiting-acceptance status; never assign the reviewer instead. Do not invent usernames or send duplicate invitations.
 
 ## Monitor behavior when activated later
 
-Stay quiet when unchanged. Notify only on successor creation, failure, roadmap completion, or required user action. Failed creation remains retryable. No automatic merges; only Prem-Tomar merges.
-
-No usernames, assignments, or invitations are invented. Issues include full task, why, outcome, concepts, progressive hints, acceptance criteria, mastery/coach checkpoint, prerequisites, and evidence path—not just a link.
+No monitor is activated by this change. When explicitly activated, remain quiet while unchanged and notify only for successor creation, failure, roadmap completion or required action. Failed creation stays retryable. Only Prem-Tomar merges to master; no automation merges.

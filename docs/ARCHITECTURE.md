@@ -2,6 +2,8 @@
 
 Start with React web, React Native mobile, a modular Node.js backend, PostgreSQL, and file storage. Share justified domain/contracts code; keep platform UI explicit. Add outbox/workers when delivery and CPU exercises require them.
 
+Implement in the [roadmap's order](ROADMAP.md): shared JavaScript/TypeScript domain units, a small Node/PostgreSQL API, web clients, then native clients and deeper product behavior. Jobs and inventory have distinct owners; both learners implement every platform and demonstrate all concepts.
+
 Suggested target layout (learners implement it):
 
 ```text
@@ -17,6 +19,7 @@ packages/
   contracts/
   design-tokens/
   mobile-jobs/
+  mobile-inventory/
   mobile-evidence/
   mobile-sync/
 experiments/

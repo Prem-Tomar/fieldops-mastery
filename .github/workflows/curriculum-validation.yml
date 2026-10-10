@@ -17,3 +17,9 @@ jobs:
           python-version: "3.12"
       - run: python scripts/validate_curriculum.py
       - run: python scripts/forecast_roadmap.py
+      - run: python scripts/test_dashboard.py
+      - run: python scripts/export_dashboard.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mastery-dashboard
+          path: output/dashboard/index.html

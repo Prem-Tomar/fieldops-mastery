@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FieldOps · Mastery dashboard</title>
+  <meta name="description" content="Individual learning evidence, product work and a mastery-driven finish forecast.">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to dashboard</a>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brand-mark">F</span><span>FieldOps<small>LEARNING TO MASTERY</small></span></a>
+    <div class="workspace-label">CURRICULUM WORKSPACE</div>
+    <nav aria-label="Dashboard sections">
+      <button data-tab="overview" class="nav active" aria-current="page"><span aria-hidden="true">◫</span> Overview</button>
+      <button data-tab="tasks" class="nav"><span aria-hidden="true">☷</span> Product tasks</button>
+      <button data-tab="concepts" class="nav"><span aria-hidden="true">◎</span> Concept mastery</button>
+      <button data-tab="reviews" class="nav"><span aria-hidden="true">✓</span> Reviews & gates</button>
+    </nav>
+    <div class="sidebar-note"><span class="dot"></span> Learning scope protected<p>26 product slices<br>338 concepts per contributor<br>Different asks. Shared standards.</p></div>
+    <div class="reviewer"><span class="avatar owner">PT</span><div>Prem-Tomar<small>Reviewer · only merger</small></div></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span>FIELDOPS / <strong id="section-name">Overview</strong></span><div><span class="pill quiet">Issue creation paused</span><button class="button subtle" id="refresh">↻ Refresh</button></div></header>
+    <main id="main" tabindex="-1">
+      <div id="notice" role="status" class="notice" hidden></div>
+      <div id="loading" class="panel">Loading roadmap and individual evidence…</div>
+      <section id="overview" class="view" hidden></section>
+      <section id="tasks" class="view" hidden></section>
+      <section id="concepts" class="view" hidden></section>
+      <section id="reviews" class="view" hidden></section>
+    </main>
+    <footer id="data-status">Records are saved in the repository checkout. GitHub merges remain reviewer-only.</footer>
+  </div>
+  <dialog id="editor" aria-labelledby="editor-title"><div class="dialog-head"><h2 id="editor-title"></h2><button class="icon-button" id="close-editor" aria-label="Close editor">×</button></div><div id="editor-body"></div></dialog>
+</body>
+</html>

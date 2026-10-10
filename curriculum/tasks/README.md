@@ -1,6 +1,6 @@
 # Concept reference index
 
-These 44 definitions retain every catalog concept and provide reference scenarios, hints and mastery prompts. The [22-week roadmap](../../docs/ROADMAP.md) controls implementation order and gives each learner a different product contribution. The order/phase/prerequisite columns below are the original reference index, not the current publication sequence; Node and light PostgreSQL now precede React clients.
+These 44 definitions retain every catalog concept and provide reference scenarios, hints and mastery prompts. The [six-month roadmap](../../docs/ROADMAP.md) controls implementation order and gives each learner a different product contribution. The order/phase/prerequisite columns below are the original reference index, not the current publication sequence; Node and light PostgreSQL now precede React clients.
 
 Both learners independently demonstrate every reference concept through their own features or bounded experiments. Do not assign the same definition to both as duplicate production work. Where legacy examples describe evidence documents or test deliverables, apply the current roadmap and assessment policy: PR/session evidence is sufficient, test-writing feedback is optional, and neither tests nor documentation is a standalone assigned issue.
 

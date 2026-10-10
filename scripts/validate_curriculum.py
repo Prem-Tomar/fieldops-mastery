@@ -70,8 +70,16 @@ check(roadmap["learners"] == learners, "Unexpected roadmap learners")
 check(roadmap["issueCreationAuthorized"] is False,
       "Further roadmap issue publication must remain paused")
 weeks = roadmap["weeks"]
-check([week["week"] for week in weeks] == list(range(1, 23)),
-      "Roadmap must contain exactly 22 consecutive weeks")
+check([week["week"] for week in weeks] == list(range(1, 27)),
+      "Roadmap must contain exactly 26 consecutive learning slices")
+plan = roadmap["planning"]
+check(plan["durationMonths"] == 6 and plan["targetWeeks"] == 26,
+      "Planning budget must be six months / 26 nominal weeks")
+check(plan["mode"] == "mastery-gated", "Advancement must use mastery gates")
+for field in ["advanceImmediatelyOnGatePass", "allowEarlyCompletion",
+              "requireBothLearners", "requireAllConcepts"]:
+    check(plan[field] is True, f"Missing mastery-gated planning rule: {field}")
+check(plan["autoPublishIssues"] is False, "Automatic issue publication remains paused")
 stage_ids = ["none", "foundation", "queries", "correctness",
              "sync", "delivery", "operations", "evolution"]
 check([stage["id"] for stage in roadmap["postgresStages"]] == stage_ids,
@@ -173,6 +181,7 @@ check(checks["parameters"]["required_status_checks"] == [
 workflow = (ROOT / ".github/workflows/curriculum-validation.yml").read_text()
 check("name: curriculum-validation" in workflow, "Missing matching CI job name")
 check("python scripts/validate_curriculum.py" in workflow, "CI does not run validator")
+check("python scripts/forecast_roadmap.py" in workflow, "CI does not recalculate forecast")
 
 if errors:
     print("Curriculum validation failed:", file=sys.stderr)

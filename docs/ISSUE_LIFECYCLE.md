@@ -8,7 +8,7 @@ Fourteen week-one issues have been created and assigned: seven to Neha (@Neha221
 
 ## Planning a future successor
 
-Use the [22-week roadmap](ROADMAP.md) and current feature state. Give each learner a different ask that integrates with accepted units; both cover the same concept requirements independently. The 44 source definitions organize concept references; publication counts follow the complementary product slices. Do not publish a generic source task verbatim or create test/documentation assignments.
+Use the [six-month roadmap](ROADMAP.md) and current feature state. Give each learner a different ask that integrates with accepted units; both cover the same concept requirements independently. The 44 source definitions organize concept references; publication counts follow the complementary product slices. Do not publish a generic source task verbatim or create test/documentation assignments.
 
 Every issue must include learner, distinct task ID, roadmap week, predecessor, product integration, plain-language concept explanations, per-function inputs/outputs/errors, worked examples, progressive hints, acceptance and mastery/coach criteria. Web/mobile implementation issues also include reference screen images and important states. Test-writing feedback remains optional in the PR.
 

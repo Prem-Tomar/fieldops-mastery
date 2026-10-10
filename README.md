@@ -9,16 +9,16 @@ This repository currently contains curriculum, assessment ledgers, contribution 
 ## Start here
 
 1. Read the [problem statement](docs/PROBLEM_STATEMENT.md).
-2. Follow the [22-week roadmap](docs/ROADMAP.md).
+2. Follow the [six-month roadmap](docs/ROADMAP.md).
 3. Use the [44 concept reference definitions](curriculum/tasks/README.md) alongside the roadmap's implementation order.
 4. Read the [two-person collaboration agreement](docs/COLLABORATION.md) and [assessment rubric](docs/ASSESSMENT.md).
 5. Track concepts separately: [5-year learner](evidence/learner-5y/coverage.csv), [10-year learner](evidence/learner-10y/coverage.csv).
 6. Review [architecture and micro frontend scope](docs/ARCHITECTURE.md).
-7. Download the [printable 22-week roadmap](output/pdf/fieldops-22-week-roadmap.pdf) for separate weekly contributions, concepts, mastery outcomes and the full glossary.
+7. Download the [printable six-month roadmap](output/pdf/fieldops-six-month-roadmap.pdf) for separate weekly contributions, concepts, mastery outcomes and the full glossary.
 
-**The existing 14 week-one issues are the authorized batch; further issue creation is paused.** Neha builds job features and Madhavi builds complementary inventory features. Each planned task adds integrated behavior, a correctness fix, a measured improvement or a recovery capability. Both independently demonstrate every concept, while accepted production units are reused. See the [22-week roadmap](docs/ROADMAP.md), its [structured schedule](curriculum/roadmap.json), and the [issue lifecycle](docs/ISSUE_LIFECYCLE.md).
+**The existing 14 week-one issues are the authorized batch; further issue creation is paused.** Neha builds job features and Madhavi builds complementary inventory features. Each planned task adds integrated behavior, a correctness fix, a measured improvement or a recovery capability. Both independently demonstrate every concept, while accepted production units are reused. See the [six-month roadmap](docs/ROADMAP.md), its [structured schedule](curriculum/roadmap.json), and the [issue lifecycle](docs/ISSUE_LIFECYCLE.md).
 
-PostgreSQL starts with a small Node API and basic SQL in week 5, before React clients. Its focus grows through real queries, concurrent transactions, offline reconciliation, reliable delivery, performance, migration safety and verified recovery.
+PostgreSQL starts with a small Node API and basic SQL in weeks 5-6, before React clients. Its focus grows through real queries, concurrent transactions, offline reconciliation, reliable delivery, performance, migration safety and verified recovery.
 
 ## Knowledge coverage
 
@@ -34,6 +34,9 @@ Run the curriculum checks using Python 3.12 or newer:
 
 ```sh
 python scripts/validate_curriculum.py
+python scripts/forecast_roadmap.py
 ```
 
 CI validates the concept references, roadmap sequence, complementary deliverables, gradual PostgreSQL stages, planned coverage for both learners, ledgers, internal links and governance. It checks curriculum integrity, not completed learning or application correctness. As tooling exists, run appropriate application checks/builds and demonstrate behavior; optional test-writing feedback stays within feature PRs.
+
+The six-month / 26-week plan is mastery-gated. Both learners advance as soon as their product slice and individual understanding are accepted. The finish forecast automatically recalculates from verified progress; early completion preserves all 338 concepts and every product outcome.

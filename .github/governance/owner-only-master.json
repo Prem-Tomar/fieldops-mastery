@@ -1,0 +1,8 @@
+{
+  "name": "Only Prem-Tomar may merge to master",
+  "target": "branch",
+  "enforcement": "active",
+  "conditions": {"ref_name": {"include": ["refs/heads/master"], "exclude": []}},
+  "bypass_actors": [{"actor_id": 6422761, "actor_type": "User", "bypass_mode": "pull_request"}],
+  "rules": [{"type": "update"}]
+}

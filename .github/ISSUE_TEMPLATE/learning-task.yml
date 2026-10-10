@@ -1,0 +1,54 @@
+name: Learning and mastery task
+description: Publish a personal task only after Prem-Tomar authorizes creation.
+title: "[TASK-ID][learner] Precise title"
+body:
+  - type: markdown
+    attributes:
+      value: "Owner-gated creation. Both learners need separate instances with full coverage."
+  - type: textarea
+    id: metadata
+    attributes:
+      label: Task metadata and prerequisites
+      description: Task ID, learner, phase/order, predecessor, closure event, evidence path.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Precise task
+      description: Behavior, inputs, outputs, constraints, failure cases.
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Why we do this and what we achieve
+    validations:
+      required: true
+  - type: textarea
+    id: concepts
+    attributes:
+      label: What this teaches
+      description: Fundamentals cannot be waived by experience.
+    validations:
+      required: true
+  - type: textarea
+    id: hints
+    attributes:
+      label: Progressive hints
+      description: Three hints, conceptual through diagnostic.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Measurable acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: mastery
+    attributes:
+      label: Independent mastery challenge and coach assessment
+      description: Explanation, prediction, debugging, tradeoffs, unseen transfer.
+    validations:
+      required: true

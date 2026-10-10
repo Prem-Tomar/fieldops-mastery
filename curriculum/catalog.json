@@ -1,0 +1,1583 @@
+{
+  "version": 1,
+  "owner": "Prem-Tomar",
+  "issueCreationAuthorized": false,
+  "phases": [
+    {
+      "id": "P01",
+      "title": "JavaScript foundations",
+      "weeks": "1–2",
+      "gate": "Predict asynchronous behavior and implement correct domain utilities without assistance."
+    },
+    {
+      "id": "P02",
+      "title": "TypeScript and domain contracts",
+      "weeks": "3–4",
+      "gate": "Reject invalid states statically and untrusted data at runtime."
+    },
+    {
+      "id": "P03",
+      "title": "React fundamentals",
+      "weeks": "5–6",
+      "gate": "Build an accessible job workflow and explain render, state, and effect behavior."
+    },
+    {
+      "id": "P04",
+      "title": "Advanced React",
+      "weeks": "7–8",
+      "gate": "Demonstrate correct cache, optimistic, rendering, and recovery behavior."
+    },
+    {
+      "id": "P05",
+      "title": "React Native fundamentals",
+      "weeks": "9–10",
+      "gate": "Demonstrate platform behavior and persisted workflows on Android and iOS."
+    },
+    {
+      "id": "P06",
+      "title": "Node.js and data correctness",
+      "weeks": "11–12",
+      "gate": "Prove HTTP contracts, transaction correctness, and idempotent completion."
+    },
+    {
+      "id": "P07",
+      "title": "Offline mobile synchronization",
+      "weeks": "13–14",
+      "gate": "Recover drafts and synchronize under conflicts, app termination, and repeated requests."
+    },
+    {
+      "id": "P08",
+      "title": "Real-time delivery and Node depth",
+      "weeks": "15–16",
+      "gate": "Recover missed events and demonstrate bounded background and streaming work."
+    },
+    {
+      "id": "P09",
+      "title": "Micro frontends and mobile feature modules",
+      "weeks": "17–18",
+      "gate": "Deploy an independent web remote, isolate its failures, and defend mobile module boundaries."
+    },
+    {
+      "id": "P10",
+      "title": "Security, performance, and operations",
+      "weeks": "19–20",
+      "gate": "Prove tenant boundaries, profile real bottlenecks, and rehearse recovery."
+    },
+    {
+      "id": "P11",
+      "title": "Evolution and mastery capstone",
+      "weeks": "21–22",
+      "gate": "Both developers independently solve unseen changes and incidents using evidence."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "JS-01",
+      "phase": "P01",
+      "title": "Build pure job and inventory utilities",
+      "problem": "Implement validateQuantity(value), summarizeJobs(jobs), and reservePart(stock, requested). Reject non-finite, fractional, negative, and zero requested quantities. Summaries count each job status; reservations return a new stock object or an explicit insufficient-stock result.",
+      "why": "Business rules need deterministic behavior before UI and network complexity is introduced.",
+      "outcome": "Reusable domain functions with unchanged inputs and explicit invalid-data behavior.",
+      "concepts": [
+        "values and types",
+        "coercion and strict equality",
+        "truthiness",
+        "functions",
+        "control flow",
+        "arrays and objects",
+        "destructuring and spread",
+        "Map and Set",
+        "immutability",
+        "operators and precedence",
+        "strings and numbers",
+        "array map filter reduce sort",
+        "shallow versus deep copy",
+        "complexity analysis"
+      ],
+      "hints": [
+        "Write input/output examples before code.",
+        "Check NaN, Infinity, numeric strings, and object references explicitly.",
+        "Compare loops, array methods, and a Map; justify the simplest implementation."
+      ],
+      "acceptance": [
+        "Check valid, invalid, empty, and boundary inputs; define whether numeric strings are accepted.",
+        "Freeze fixtures and prove no input object is mutated.",
+        "Explain the chosen behavior for duplicate job IDs and test it."
+      ],
+      "mastery": "Process 100,000 jobs; identify time and space complexity and remove an unnecessary intermediate allocation.",
+      "order": 1,
+      "dependsOn": [],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "JS-02",
+      "phase": "P01",
+      "title": "Predict scope, binding, prototypes, and module behavior",
+      "problem": "Write ten executable prediction cases: block scope, temporal dead zone, closure capture, detached method this, arrow this, prototype lookup, own versus inherited properties, destructuring defaults, a live ESM binding, and an ESM/CommonJS interop case. Record expected output or error before running. Add five predictions for finally on error, generator iteration, BigInt arithmetic, Symbol identity, and the limits of observing garbage collection/weak references.",
+      "why": "Many framework defects originate in misunderstood JavaScript semantics.",
+      "outcome": "A behavior notebook with predictions, actual outcomes, and corrected explanations.",
+      "concepts": [
+        "let const var",
+        "scope and hoisting",
+        "closures",
+        "this call bind apply",
+        "prototypes and classes",
+        "own properties",
+        "ES modules",
+        "CommonJS",
+        "exceptions and finally",
+        "iterables and generators",
+        "garbage collection",
+        "WeakMap and WeakSet",
+        "BigInt and Symbol"
+      ],
+      "hints": [
+        "Use minimal cases without framework code.",
+        "Separate object creation from prototype lookup.",
+        "Run module cases in the documented runtime and explain environment-specific behavior."
+      ],
+      "acceptance": [
+        "All ten cases include a pre-run prediction and an explanation.",
+        "Implement a factory and a class for the same tiny job counter; explain ownership of methods and state.",
+        "Reviewer changes three cases and the learner predicts the new result without execution."
+      ],
+      "mastery": "Identify and fix a closure retaining a large object after a job view is discarded.",
+      "order": 2,
+      "dependsOn": [
+        "JS-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "JS-03",
+      "phase": "P01",
+      "title": "Debounce search and prevent stale responses",
+      "problem": "Simulate searches for pump then motor. Make pump resolve last. Add a 250 ms debounce, cancel pending timers, and ensure only the latest query can display results or errors. Empty queries clear results.",
+      "why": "Network completion order must not determine the current UI.",
+      "outcome": "A search controller that remains correct under rapid typing and delayed responses.",
+      "concepts": [
+        "promises",
+        "async await",
+        "closures",
+        "timers",
+        "race conditions",
+        "AbortController",
+        "errors",
+        "cleanup"
+      ],
+      "hints": [
+        "Trace query generation and response arrival separately.",
+        "Cancellation and permission to update state solve different problems.",
+        "Use controllable promises and fake time rather than random delays."
+      ],
+      "acceptance": [
+        "Check reversed responses, stale failures, empty queries, and disposal.",
+        "No callback updates state after disposal.",
+        "Explain why debouncing alone cannot prevent a stale response."
+      ],
+      "mastery": "Add a cached immediate result followed by background refresh without showing results for another query.",
+      "order": 3,
+      "dependsOn": [
+        "JS-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "JS-04",
+      "phase": "P01",
+      "title": "Implement bounded asynchronous work",
+      "problem": "Implement runTasks(tasks, limit, signal) for 20 asynchronous jobs with concurrency limit 3. Preserve input order in returned success/error results. Cancellation prevents new jobs starting; document how already-started jobs cooperate with the signal.",
+      "why": "Unbounded concurrency creates overload and unpredictable failures.",
+      "outcome": "A bounded runner and a clear cancellation contract.",
+      "concepts": [
+        "event loop",
+        "microtasks versus timers",
+        "promise combinators",
+        "error propagation",
+        "concurrency versus parallelism",
+        "resource cleanup"
+      ],
+      "hints": [
+        "Track active jobs and the next index separately.",
+        "Decide whether one failure stops the batch before choosing a combinator.",
+        "Predict a trace containing a promise, a timer, and synchronous code."
+      ],
+      "acceptance": [
+        "Peak active jobs never exceeds three; invalid limits are rejected.",
+        "One rejected job follows the documented policy and produces no unhandled rejection.",
+        "Cancellation stops new work and all started work is observed."
+      ],
+      "mastery": "Introduce retry with exponential backoff and jitter while keeping the same concurrency ceiling.",
+      "order": 4,
+      "dependsOn": [
+        "JS-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "TS-01",
+      "phase": "P02",
+      "title": "Encode job-state invariants",
+      "problem": "Under strict TypeScript settings, model draft, assigned, inProgress, completed, and cancelled jobs. Assigned jobs require technicianId; completed jobs require completion evidence. Implement availableActions(job) with exhaustive state handling. Include four small compiler experiments for primitive annotations, typed arrays, tuples, and an enum versus a literal union.",
+      "why": "Contradictory domain objects should be difficult to construct.",
+      "outcome": "State-specific contracts and compile-time examples of illegal objects.",
+      "concepts": [
+        "type inference",
+        "interfaces and type aliases",
+        "optional properties",
+        "literal types",
+        "unions and intersections",
+        "discriminated unions",
+        "narrowing",
+        "never",
+        "primitive annotations",
+        "array and tuple types",
+        "enum versus literal union"
+      ],
+      "hints": [
+        "Use status as a discriminator.",
+        "Check where optional fields allow contradictions.",
+        "Use intentional compiler-error fixtures and an exhaustive branch."
+      ],
+      "acceptance": [
+        "Illegal completed and assigned objects fail compilation.",
+        "Every state has an explicit action policy.",
+        "No any or unchecked assertion is used to bypass domain validation."
+      ],
+      "mastery": "Add awaitingApproval; demonstrate which code must change and why compiler feedback is useful.",
+      "order": 5,
+      "dependsOn": [
+        "JS-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "TS-02",
+      "phase": "P02",
+      "title": "Create reusable typed pagination and projections",
+      "problem": "Implement Page<T>, Result<T,E>, and pickFields<T,K extends keyof T>(value, keys). Preserve field types in projections. Build one mapped readonly view type and one conditional type for extracting a Result success value.",
+      "why": "Shared web/mobile contracts must retain useful type information.",
+      "outcome": "Reusable primitives with demonstrated inference and documented limits.",
+      "concepts": [
+        "generics",
+        "constraints",
+        "keyof",
+        "indexed access",
+        "mapped types",
+        "conditional types",
+        "utility types",
+        "structural typing",
+        "readonly",
+        "function types",
+        "overloads",
+        "optional and rest parameters"
+      ],
+      "hints": [
+        "Begin with concrete Job and Technician examples.",
+        "Separate compile-time readonly from runtime freezing.",
+        "Use the smallest helper signatures that preserve inference."
+      ],
+      "acceptance": [
+        "Invalid field keys fail compilation; valid projections preserve exact types.",
+        "Show a structural-typing excess-property example and explain its behavior.",
+        "Explain one safe internal assertion, if required, instead of hiding it."
+      ],
+      "mastery": "Model a typed event map whose event name determines the corresponding payload.",
+      "order": 6,
+      "dependsOn": [
+        "TS-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "TS-03",
+      "phase": "P02",
+      "title": "Validate untrusted input and classify errors",
+      "problem": "Accept a job command as unknown at an API boundary. Validate object shape, command name, integer quantity, and required IDs. Return typed validation, authorization, conflict, or internal error results without exposing stack traces.",
+      "why": "Type annotations do not validate network input.",
+      "outcome": "A runtime boundary that produces trusted commands and predictable errors.",
+      "concepts": [
+        "unknown versus any",
+        "type guards",
+        "runtime schemas",
+        "narrowing",
+        "typed errors",
+        "null and undefined",
+        "serialization"
+      ],
+      "hints": [
+        "List invalid JSON examples before choosing a validator.",
+        "Distinguish malformed input from a valid but forbidden operation.",
+        "Avoid returning the original untrusted value as a trusted type."
+      ],
+      "acceptance": [
+        "Null, arrays, missing fields, wrong types, and unknown commands are rejected.",
+        "The successful result has a narrowed trusted type.",
+        "Clients receive stable error codes without internal secrets."
+      ],
+      "mastery": "Reject a syntactically valid payload with excessive size or unexpected nested complexity.",
+      "order": 7,
+      "dependsOn": [
+        "TS-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "TS-04",
+      "phase": "P02",
+      "title": "Define versioned web and mobile contracts",
+      "problem": "Define v1 and v2 job response contracts and explicit conversion to an internal domain model. v2 adds approval status while v1 clients retain their documented behavior. Enable strict, noUncheckedIndexedAccess, and exactOptionalPropertyTypes.",
+      "why": "Client versions evolve at different speeds.",
+      "outcome": "A shared contracts package plan with explicit compatibility boundaries.",
+      "concepts": [
+        "strict compiler options",
+        "exhaustiveness",
+        "type-only imports",
+        "module boundaries",
+        "declaration output",
+        "type compatibility",
+        "runtime versus compile-time contracts",
+        "tsconfig",
+        "source maps",
+        "TypeScript compilation versus execution"
+      ],
+      "hints": [
+        "Keep wire DTOs separate from domain objects.",
+        "Define absent versus null fields.",
+        "Test the contract that an older client actually consumes."
+      ],
+      "acceptance": [
+        "Both version fixtures parse and map correctly.",
+        "A missing map lookup and an incorrectly supplied optional value are caught or handled.",
+        "Explain why a shared TypeScript package does not prove deployed clients are compatible."
+      ],
+      "mastery": "Deprecate a field without requiring simultaneous web, mobile, and API deployment.",
+      "order": 8,
+      "dependsOn": [
+        "TS-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-01",
+      "phase": "P03",
+      "title": "Build a predictable component and state model",
+      "problem": "Build job list, status filter, and job detail components using 20 fixtures. Selecting and filtering must retain the correct job identity. Add a draft notes editor whose reset behavior is explicitly tied to job selection. Compare useState with useReducer and Context for the same state ownership; demonstrate a Rules of Hooks violation and its correction.",
+      "why": "Component identity and state ownership determine whether data survives the right interactions.",
+      "outcome": "A usable job browser with intentional state lifetime.",
+      "concepts": [
+        "JSX",
+        "components",
+        "props",
+        "composition",
+        "events",
+        "state",
+        "reconciliation",
+        "keys",
+        "derived state",
+        "immutable updates",
+        "Rules of Hooks",
+        "useReducer",
+        "Context"
+      ],
+      "hints": [
+        "Draw the ownership of selected ID, filter, and draft.",
+        "Use stable job IDs and deliberately reorder fixtures.",
+        "Decide when a component should preserve or reset state."
+      ],
+      "acceptance": [
+        "Reordering and filtering never move one job's draft to another.",
+        "Explain every stored value and why it cannot simply be derived.",
+        "Fix an injected mutation and an unstable-key bug."
+      ],
+      "mastery": "Add selection encoded in the URL without creating two conflicting sources of truth.",
+      "order": 9,
+      "dependsOn": [
+        "TS-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-02",
+      "phase": "P03",
+      "title": "Build an accessible assignment form",
+      "problem": "Build technician selection, appointment date, and notes fields with validation. Prevent duplicate submission while pending. Show field errors, submission errors, success, loading, and empty-technician states.",
+      "why": "Forms connect browser behavior, domain validation, and accessibility.",
+      "outcome": "A keyboard-usable form with explicit feedback.",
+      "concepts": [
+        "controlled and uncontrolled inputs",
+        "form events",
+        "validation",
+        "refs",
+        "focus",
+        "routing",
+        "URL state",
+        "accessibility",
+        "loading and empty states",
+        "portals",
+        "focus management"
+      ],
+      "hints": [
+        "Start with labels and keyboard interactions.",
+        "Separate field validity from server acceptance.",
+        "Define where focus moves after an error and successful submission."
+      ],
+      "acceptance": [
+        "All controls work by keyboard and have accessible names.",
+        "Invalid fields preserve entered values; failed submission allows retry.",
+        "Deep-link navigation and browser back restore the intended job."
+      ],
+      "mastery": "Introduce a slow validation request and prevent its result from overwriting validation for newer input.",
+      "order": 10,
+      "dependsOn": [
+        "REACT-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-03",
+      "phase": "P03",
+      "title": "Use effects and custom hooks safely",
+      "problem": "Implement useJobSubscription(jobId) against a fake subscription service. Changing jobs replaces the subscription; unmount removes it. Fetch detail data with explicit stale-response protection and cleanup.",
+      "why": "Effects synchronize external systems and require correct dependency and lifetime reasoning.",
+      "outcome": "Reusable hooks without leaked subscriptions or stale updates.",
+      "concepts": [
+        "useEffect",
+        "dependency arrays",
+        "closures",
+        "useRef",
+        "custom hooks",
+        "StrictMode",
+        "cleanup",
+        "render versus commit"
+      ],
+      "hints": [
+        "List the external resource each effect owns.",
+        "Simulate setup-cleanup-setup before assuming one mount.",
+        "Prefer deriving values during render when no external synchronization is needed."
+      ],
+      "acceptance": [
+        "After changing job IDs exactly one current subscription remains.",
+        "Unmount and StrictMode-style replay leave no active resource.",
+        "Explain and repair missing-dependency and unnecessary-effect examples."
+      ],
+      "mastery": "Move a cross-component external store subscription to a concurrency-safe subscription API.",
+      "order": 11,
+      "dependsOn": [
+        "REACT-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-04",
+      "phase": "P03",
+      "title": "Test user behavior and isolate UI failures",
+      "problem": "Add component tests for assignment success, rejection, and job switching. Add one browser test through the full fixture workflow. A broken job detail widget must show a recovery fallback while navigation remains usable.",
+      "why": "Behavioral evidence matters more than snapshots of markup.",
+      "outcome": "A tested flow with intentional error boundaries.",
+      "concepts": [
+        "component testing",
+        "integration testing",
+        "mock boundaries",
+        "error boundaries",
+        "async event errors",
+        "render errors",
+        "test isolation"
+      ],
+      "hints": [
+        "Test visible outcomes and interactions.",
+        "Distinguish exceptions an error boundary catches from rejected async operations.",
+        "Use controllable failures rather than arbitrary sleeps."
+      ],
+      "acceptance": [
+        "Tests expose an intentionally injected stale-response bug.",
+        "A render failure is isolated; an API failure receives explicit handling.",
+        "Recovery resets the failed widget without losing unrelated navigation."
+      ],
+      "mastery": "Remove an unnecessary mock and explain what confidence the more integrated test adds.",
+      "order": 12,
+      "dependsOn": [
+        "REACT-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-05",
+      "phase": "P04",
+      "title": "Design server-state caching and invalidation",
+      "problem": "Cache paginated jobs by organization, status, and page. Navigate between filters and update one job. Define freshness, refetch, cancellation, and which queries must change after mutation.",
+      "why": "Incorrect cache keys and invalidation can display stale or cross-tenant data.",
+      "outcome": "Correct cache ownership with observable fetch behavior.",
+      "concepts": [
+        "server state versus client state",
+        "query keys",
+        "pagination",
+        "freshness",
+        "invalidation",
+        "request deduplication",
+        "race conditions"
+      ],
+      "hints": [
+        "List every input that changes the response.",
+        "Separate cached remote data from unsaved local drafts.",
+        "Inspect actual requests during filter and tenant changes."
+      ],
+      "acceptance": [
+        "Different tenants and filters never share results.",
+        "The documented mutations refresh or update all affected views.",
+        "Fast navigation never displays a late result from another query."
+      ],
+      "mastery": "Switch organizations with in-flight requests and prove old data cannot reappear.",
+      "order": 13,
+      "dependsOn": [
+        "REACT-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-06",
+      "phase": "P04",
+      "title": "Implement optimistic assignment with rollback",
+      "problem": "Immediately show a selected technician and pending status before the API confirms. On failure restore the last confirmed value. Define behavior for overlapping assignments and a server-side competing update.",
+      "why": "Optimistic UI requires a correctness policy under failure.",
+      "outcome": "Responsive assignment with recoverable disagreement.",
+      "concepts": [
+        "optimistic state",
+        "mutation ordering",
+        "rollback",
+        "state machines",
+        "closures",
+        "accessible status feedback"
+      ],
+      "hints": [
+        "Separate confirmed state from local intent.",
+        "Choose whether overlapping commands are queued, blocked, or superseded.",
+        "Consider which response is still allowed to update the UI."
+      ],
+      "acceptance": [
+        "Success, rejection, reversed responses, and competing updates follow the written policy.",
+        "Errors expose retry or conflict resolution.",
+        "Rollback never restores a value made obsolete by a later accepted operation."
+      ],
+      "mastery": "Cancel the current view while its mutation completes and keep the shared cache correct.",
+      "order": 14,
+      "dependsOn": [
+        "REACT-05"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-07",
+      "phase": "P04",
+      "title": "Compare client rendering and streamed rendering",
+      "problem": "Build a small read-only customer job page with slow history data. Compare client rendering with streamed server rendering using Suspense. Record shell delivery, content delivery, hydration, and error behavior.",
+      "why": "Rendering architecture changes user experience, caching, and deployment requirements.",
+      "outcome": "An evidence-based rendering decision for a specific route.",
+      "concepts": [
+        "lazy loading",
+        "Suspense",
+        "transitions",
+        "streaming SSR",
+        "hydration",
+        "server/client boundaries",
+        "framework integration",
+        "bundle size"
+      ],
+      "hints": [
+        "Keep the dispatcher SPA separate from this focused experiment.",
+        "Measure when useful content appears and when it becomes interactive.",
+        "Identify which data sources actually integrate with Suspense."
+      ],
+      "acceptance": [
+        "Demonstrate slow history without blocking the useful page shell.",
+        "Reproduce and fix a hydration mismatch.",
+        "Explain SSR versus Server Components and when this project benefits from each."
+      ],
+      "mastery": "Introduce a personalized field and explain how shared caching could leak it.",
+      "order": 15,
+      "dependsOn": [
+        "REACT-06"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "REACT-08",
+      "phase": "P04",
+      "title": "Profile a busy dispatch board",
+      "problem": "Render 10,000 fixture jobs using a list or table and simulate updates to 50 jobs per second for one minute. Keep filtering and selection usable. Record a baseline and improve the measured bottleneck.",
+      "why": "Performance work should follow measurements.",
+      "outcome": "A responsive board with justified rendering changes.",
+      "concepts": [
+        "React Profiler",
+        "memoization",
+        "referential equality",
+        "context propagation",
+        "virtualization",
+        "transitions",
+        "bundle splitting",
+        "memory cleanup",
+        "useMemo versus useCallback"
+      ],
+      "hints": [
+        "Profile before adding useMemo or memo.",
+        "Separate update ingestion from visible rendering.",
+        "Test whether a high-level context update rerenders unrelated rows."
+      ],
+      "acceptance": [
+        "Record hardware, dataset, render costs, and interaction latency before and after.",
+        "No lost visible updates or selection corruption.",
+        "Explain one optimization rejected because it added complexity without benefit."
+      ],
+      "mastery": "Inject an expensive derived calculation and choose between scheduling, caching, or offloading it.",
+      "order": 16,
+      "dependsOn": [
+        "REACT-07"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RN-01",
+      "phase": "P05",
+      "title": "Build navigation and adaptive technician screens",
+      "problem": "Build job list, detail, and completion screens. Support small and large screens, safe areas, keyboard visibility, Android back, and an incoming job deep link.",
+      "why": "Native navigation and layout have different constraints from browser UI.",
+      "outcome": "A usable technician workflow with predictable navigation.",
+      "concepts": [
+        "native components",
+        "Flexbox",
+        "safe areas",
+        "navigation",
+        "deep links",
+        "keyboard handling",
+        "platform differences",
+        "accessibility"
+      ],
+      "hints": [
+        "Specify the expected back stack for an external deep link.",
+        "Test with the keyboard open and enlarged text.",
+        "Separate reusable domain behavior from platform-specific presentation."
+      ],
+      "acceptance": [
+        "Demonstrate the flow on Android and iOS and record device/OS versions.",
+        "Keyboard and enlarged text do not hide submission controls.",
+        "An invalid or unauthorized deep link produces a safe recovery screen."
+      ],
+      "mastery": "Restore the selected job after process termination without restoring an expired authenticated session.",
+      "order": 17,
+      "dependsOn": [
+        "REACT-08"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RN-02",
+      "phase": "P05",
+      "title": "Capture and retain completion evidence",
+      "problem": "Capture or select a photo, add notes, and store a draft locally. Represent granted, denied, and unavailable permissions. Only display saved after both draft data and a durable photo reference are persisted.",
+      "why": "Mobile files and permissions have lifetimes that must be managed.",
+      "outcome": "A completion draft that survives app termination.",
+      "concepts": [
+        "camera and media permissions",
+        "local files",
+        "local persistence",
+        "app lifecycle",
+        "async writes",
+        "secure versus ordinary storage"
+      ],
+      "hints": [
+        "Determine whether the camera returns a temporary file.",
+        "Distinguish draft saving from server submission.",
+        "A background callback is not a guarantee of execution before termination."
+      ],
+      "acceptance": [
+        "After saved appears, termination and reopen preserve notes and photo.",
+        "Permission denial and storage failure have actionable UI.",
+        "Deleting a draft handles its owned files without deleting another draft's evidence."
+      ],
+      "mastery": "Simulate a missing local photo and recover the draft without crashing.",
+      "order": 18,
+      "dependsOn": [
+        "RN-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RN-03",
+      "phase": "P05",
+      "title": "Profile native lists and interaction",
+      "problem": "Display 5,000 jobs and implement swipe-to-open actions. Measure scrolling, rendering, and memory on a declared device. Profile image sizes and list configuration before optimizing.",
+      "why": "Native performance includes JS work, UI rendering, images, and device limits.",
+      "outcome": "A measured list with smooth interaction and bounded resource use.",
+      "concepts": [
+        "FlatList",
+        "virtualization",
+        "stable keys",
+        "gestures",
+        "animations",
+        "JS and UI threads",
+        "image memory",
+        "Hermes profiling"
+      ],
+      "hints": [
+        "Test a release build rather than using only development timings.",
+        "Distinguish a JS-thread stall from a UI-thread problem.",
+        "Compare image dimensions with the size actually displayed."
+      ],
+      "acceptance": [
+        "Publish reproducible before/after measurements and device details.",
+        "Reordered data retains correct row identity.",
+        "Repeated screen entry and exit show no steadily growing owned subscriptions or retained images."
+      ],
+      "mastery": "Inject synchronous JS work during scrolling and demonstrate its effect on gestures and rendering.",
+      "order": 19,
+      "dependsOn": [
+        "RN-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RN-04",
+      "phase": "P05",
+      "title": "Implement and diagnose native integration",
+      "problem": "Create a small typed native module exposing device uptime on Android and iOS. Document availability and error behavior. Trace its invocation through the React Native rendering and native-module architecture.",
+      "why": "Senior mobile work sometimes requires crossing the JavaScript/native boundary.",
+      "outcome": "A minimal native integration and a reproducible build/debug guide.",
+      "concepts": [
+        "native modules",
+        "typed specifications",
+        "code generation",
+        "JSI concepts",
+        "Fabric concepts",
+        "render commit mount",
+        "threading",
+        "native build tools"
+      ],
+      "hints": [
+        "Choose one small API with no sensitive data.",
+        "Investigate whether a call must be synchronous.",
+        "Keep rendering architecture separate from the native module system."
+      ],
+      "acceptance": [
+        "The module builds and returns a documented unit on both platforms.",
+        "Unavailable-module behavior is handled explicitly.",
+        "Explain where expensive native work runs and why a successful JS call does not prove UI responsiveness."
+      ],
+      "mastery": "Introduce an intentionally slow native operation and redesign it to avoid blocking user interaction.",
+      "order": 20,
+      "dependsOn": [
+        "RN-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "NODE-01",
+      "phase": "P06",
+      "title": "Build validated HTTP job endpoints",
+      "problem": "Implement create, list, detail, assign, and complete job endpoints with runtime validation, stable error codes, pagination, request IDs, and centralized error handling. Document response behavior for malformed and missing resources. Include isolated experiments for a Buffer, a filesystem promise, EventEmitter subscription cleanup, headers/cookies, and an oversized JSON body.",
+      "why": "Clients need stable HTTP contracts under valid and invalid input.",
+      "outcome": "A documented API with integrated request-level tests.",
+      "concepts": [
+        "HTTP semantics",
+        "routing",
+        "middleware",
+        "request lifecycle",
+        "async errors",
+        "configuration",
+        "logging",
+        "dependency injection",
+        "ESM",
+        "headers and cookies",
+        "JSON parsing limits",
+        "Buffer",
+        "filesystem promises",
+        "EventEmitter",
+        "package scripts and lockfiles"
+      ],
+      "hints": [
+        "Separate transport validation from business rules.",
+        "Decide which errors are client conflicts versus internal failures.",
+        "Exercise thrown synchronous errors and rejected asynchronous operations."
+      ],
+      "acceptance": [
+        "Invalid input, not-found resources, conflicts, and unexpected failures have tested responses.",
+        "Logs correlate to a request without including credentials.",
+        "Pagination ordering is deterministic when records share a timestamp."
+      ],
+      "mastery": "Disconnect a client mid-request and account for cleanup of owned resources.",
+      "order": 21,
+      "dependsOn": [
+        "RN-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "NODE-02",
+      "phase": "P06",
+      "title": "Design schema and prevent inventory races",
+      "problem": "Model organizations, users, jobs, technicians, inventory, and stock movements in PostgreSQL. Reserve the final available part using two concurrent requests. Add a migration and inspect the job-list query plan.",
+      "why": "Application checks alone cannot preserve invariants during concurrent writes.",
+      "outcome": "A constrained schema with demonstrated transactional correctness.",
+      "concepts": [
+        "relational modelling",
+        "foreign keys",
+        "unique and check constraints",
+        "SQL",
+        "indexes",
+        "transactions",
+        "locking",
+        "isolation",
+        "migrations",
+        "query plans"
+      ],
+      "hints": [
+        "Write stock and tenant invariants before choosing tables.",
+        "Force requests to overlap at the read/write boundary.",
+        "Compare optimistic updates and locks; document any transaction retry policy."
+      ],
+      "acceptance": [
+        "Exactly one of two final-part reservations succeeds.",
+        "Stock never becomes negative; required relationships are enforced.",
+        "Show an EXPLAIN plan before and after a justified index and test migration behavior."
+      ],
+      "mastery": "Generate a deadlock or serialization conflict and retry the complete transaction safely.",
+      "order": 22,
+      "dependsOn": [
+        "NODE-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "NODE-03",
+      "phase": "P06",
+      "title": "Make completion idempotent",
+      "problem": "Complete a job and deduct inventory in one transactional operation. Accept an idempotency key scoped to the tenant and operation. Send ten concurrent identical requests; reject key reuse with a different payload.",
+      "why": "Clients cannot know whether a timed-out response represents a committed operation.",
+      "outcome": "One completion and one stock movement despite retries.",
+      "concepts": [
+        "idempotency",
+        "transactions",
+        "unique constraints",
+        "atomicity",
+        "request fingerprints",
+        "concurrent promises",
+        "business-state guards"
+      ],
+      "hints": [
+        "Define key scope, retention, and response replay.",
+        "Enforce the guarantee in storage, not only an in-memory map.",
+        "Consider a crash after commit but before response."
+      ],
+      "acceptance": [
+        "Concurrent duplicates have one effect and a consistent documented result.",
+        "Different payload reuse is rejected.",
+        "A new key cannot bypass the rule against completing an already-completed job."
+      ],
+      "mastery": "Retry after a lost response and after restarting the API process.",
+      "order": 23,
+      "dependsOn": [
+        "NODE-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "NODE-04",
+      "phase": "P06",
+      "title": "Protect tenant and role boundaries",
+      "problem": "Implement dispatcher, technician, and administrator permissions. Scope list, detail, write, and attachment access to an organization. A technician can modify only their assigned jobs. Document session expiration and revocation.",
+      "why": "Authentication does not prove access to a particular resource.",
+      "outcome": "An API that enforces identity, tenant, role, and resource permissions.",
+      "concepts": [
+        "authentication versus authorization",
+        "sessions versus tokens",
+        "password hashing when applicable",
+        "RBAC and resource rules",
+        "tenant isolation",
+        "CSRF and CORS",
+        "rate limiting",
+        "TLS basics",
+        "HTTP security headers"
+      ],
+      "hints": [
+        "Build an actor-resource-operation matrix.",
+        "Change IDs in valid requests instead of testing only logged-out access.",
+        "Never trust a tenant ID merely because the client supplied it."
+      ],
+      "acceptance": [
+        "Cross-tenant IDs fail for reads, writes, lists, and attachments.",
+        "Role and assignment changes take effect according to a documented policy.",
+        "Choose a credential transport and demonstrate its relevant CSRF/CORS behavior."
+      ],
+      "mastery": "Revoke a technician's permissions while an offline operation is waiting to synchronize.",
+      "order": 24,
+      "dependsOn": [
+        "NODE-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "SYNC-01",
+      "phase": "P07",
+      "title": "Persist a durable offline operation queue",
+      "problem": "Queue job edits locally with stable operation IDs, tenant, job, payload version, creation time, and pending/sending/accepted/rejected state. Persist before acknowledging locally. Restore after process termination.",
+      "why": "Offline usability depends on durable intent rather than in-memory state.",
+      "outcome": "A restart-safe queue with clear local versus server acknowledgement.",
+      "concepts": [
+        "local transactions",
+        "state machines",
+        "durability",
+        "serialization",
+        "local database migrations",
+        "app lifecycle"
+      ],
+      "hints": [
+        "Specify crash behavior around each state transition.",
+        "Keep local ordering independent from device wall-clock accuracy.",
+        "Separate immutable command intent from current UI state."
+      ],
+      "acceptance": [
+        "Termination after local acknowledgement loses no operation.",
+        "A sending operation is recoverable on restart.",
+        "Migration preserves previously queued commands and malformed records are surfaced."
+      ],
+      "mastery": "Fill local storage and explain how the UI avoids reporting an unsaved operation as saved.",
+      "order": 25,
+      "dependsOn": [
+        "NODE-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "SYNC-02",
+      "phase": "P07",
+      "title": "Synchronize 500 queued operations",
+      "problem": "Replay 500 offline operations with bounded concurrency. Preserve required order for operations on the same job while allowing independent jobs to proceed. Classify retryable, permanently rejected, and authorization failures.",
+      "why": "Large reconnect batches must not overload servers or silently discard work.",
+      "outcome": "A resumable synchronizer with visible progress and failures.",
+      "concepts": [
+        "retry and backoff",
+        "jitter",
+        "idempotency",
+        "per-entity ordering",
+        "batching",
+        "cancellation",
+        "connectivity signals"
+      ],
+      "hints": [
+        "A connectivity indicator does not prove the API is reachable.",
+        "Do not let one permanently invalid item block unrelated work forever.",
+        "Reuse durable operation IDs across retries."
+      ],
+      "acceptance": [
+        "Network loss and restart resume from durable state.",
+        "Retryable responses follow bounded backoff; permanent errors remain inspectable.",
+        "No same-job dependent command overtakes its prerequisite."
+      ],
+      "mastery": "Return rate-limit responses and verify the client respects server retry guidance.",
+      "order": 26,
+      "dependsOn": [
+        "SYNC-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "SYNC-03",
+      "phase": "P07",
+      "title": "Resolve offline completion versus cancellation",
+      "problem": "Simulate a technician completing a job offline while a dispatcher cancels it online. Compare automatic overwrite, version-checked rejection, and human reconciliation. Choose a policy and implement its user flow.",
+      "why": "Concurrent edits can express business conflicts that timestamps cannot resolve.",
+      "outcome": "A documented conflict policy that preserves evidence and intent.",
+      "concepts": [
+        "optimistic concurrency",
+        "versions",
+        "conflict detection",
+        "domain policy",
+        "audit history",
+        "clock skew",
+        "reconciliation"
+      ],
+      "hints": [
+        "Identify which fields can merge independently.",
+        "Ask whether completion evidence should survive cancellation.",
+        "Consider why latest timestamp is unreliable across devices."
+      ],
+      "acceptance": [
+        "The conflict is detected rather than silently overwritten.",
+        "Both histories and completion evidence remain traceable.",
+        "A user can resolve or escalate the conflict, with authorization checked again."
+      ],
+      "mastery": "Introduce delete-versus-edit and permission revocation during reconciliation.",
+      "order": 27,
+      "dependsOn": [
+        "SYNC-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "SYNC-04",
+      "phase": "P07",
+      "title": "Resume attachments safely",
+      "problem": "Upload a 100 MB test attachment in resumable chunks. Persist upload identity and progress. Verify final integrity and associate the file with a job only after completion. Define cancellation and abandoned-upload cleanup.",
+      "why": "Large uploads fail frequently on mobile networks and own server resources.",
+      "outcome": "A recoverable upload with explicit integrity and ownership.",
+      "concepts": [
+        "chunking",
+        "checksums",
+        "resumability",
+        "file streams",
+        "resource lifecycle",
+        "upload authorization",
+        "mobile background limits"
+      ],
+      "hints": [
+        "Choose a protocol before choosing a library.",
+        "Do not assume background execution will finish.",
+        "Make retried chunks safe and verify tenant/job ownership on each relevant step."
+      ],
+      "acceptance": [
+        "Interrupt and restart after several chunks without uploading the whole file again.",
+        "Corrupt content is rejected; partial files are not presented as complete.",
+        "Cancellation and expiration clean up abandoned resources."
+      ],
+      "mastery": "Revoke upload permission halfway through and define what happens to already-stored chunks.",
+      "order": 28,
+      "dependsOn": [
+        "SYNC-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RT-01",
+      "phase": "P08",
+      "title": "Recover live updates after disconnection",
+      "problem": "Publish job updates to the dispatch board with SSE or WebSockets. Include an ordering/cursor strategy, reconnect recovery, and a resnapshot policy when replay history expires.",
+      "why": "Real-time transport alone does not guarantee a correct client state.",
+      "outcome": "A client that converges after missed or duplicate updates.",
+      "concepts": [
+        "SSE versus WebSockets",
+        "ordering",
+        "cursors",
+        "deduplication",
+        "reconnect",
+        "authentication",
+        "snapshot plus event stream"
+      ],
+      "hints": [
+        "Define delivery and ordering guarantees explicitly.",
+        "Find the gap between fetching a snapshot and subscribing.",
+        "Treat transport connection and application synchronization as separate states."
+      ],
+      "acceptance": [
+        "Disconnected clients recover missed changes or request a fresh snapshot.",
+        "Duplicate events do not corrupt state.",
+        "Updates for other tenants never enter the subscription."
+      ],
+      "mastery": "Deliver events out of order and reconnect during snapshot acquisition.",
+      "order": 29,
+      "dependsOn": [
+        "SYNC-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RT-02",
+      "phase": "P08",
+      "title": "Make background side effects recoverable",
+      "problem": "Record a completion notification intent atomically with job completion. A worker sends it and records delivery state. Inject crashes before send, after send, and before acknowledgement.",
+      "why": "Database commits and external side effects do not share a transaction.",
+      "outcome": "A recoverable notification workflow with honest duplicate-delivery guarantees.",
+      "concepts": [
+        "transactional outbox",
+        "at-least-once processing",
+        "idempotent consumers",
+        "queues",
+        "dead letters",
+        "retry budgets",
+        "distributed transactions"
+      ],
+      "hints": [
+        "Distinguish exactly one business effect from exactly one transport delivery.",
+        "Check whether the downstream provider supports an idempotency key.",
+        "Retain enough state to retry or investigate failures."
+      ],
+      "acceptance": [
+        "A committed completion always has durable notification intent.",
+        "Crashes do not lose intent; duplicate behavior is documented and tested.",
+        "Permanently failing notifications can be inspected and replayed."
+      ],
+      "mastery": "Take the notification provider offline for 30 minutes and recover without a retry storm.",
+      "order": 30,
+      "dependsOn": [
+        "RT-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RT-03",
+      "phase": "P08",
+      "title": "Stream a large report with backpressure",
+      "problem": "Export one million generated job rows to CSV while a deliberately slow client downloads it. Bound memory, support cancellation, escape CSV fields safely, and clean up the database cursor on disconnect.",
+      "why": "Large responses expose memory, event-loop, and resource-management mistakes.",
+      "outcome": "A streaming export that does not accumulate the entire result.",
+      "concepts": [
+        "Node streams",
+        "backpressure",
+        "pipeline",
+        "async iterators",
+        "buffering",
+        "database cursors",
+        "CSV correctness",
+        "cancellation"
+      ],
+      "hints": [
+        "Measure retained memory while slowing the consumer.",
+        "Inspect where data can accumulate between producer and client.",
+        "Define handling of CSV formula-leading values for spreadsheet consumers."
+      ],
+      "acceptance": [
+        "Memory stays within a declared budget on documented hardware.",
+        "Disconnect closes owned database and stream resources.",
+        "Concurrent lightweight requests remain within the agreed latency budget."
+      ],
+      "mastery": "Make the producer faster and inject a midstream error; explain what HTTP recovery remains possible.",
+      "order": 31,
+      "dependsOn": [
+        "RT-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "RT-04",
+      "phase": "P08",
+      "title": "Offload CPU work and shut down gracefully",
+      "problem": "Add a CPU-heavy scheduling simulation. Compare execution on the main thread and in a bounded worker pool. On shutdown stop admission, drain or persist accepted work, and close connections within a documented deadline.",
+      "why": "Async syntax does not prevent synchronous CPU work from blocking Node.",
+      "outcome": "A measured execution strategy and predictable process termination.",
+      "concepts": [
+        "event-loop delay",
+        "worker_threads",
+        "pool sizing",
+        "CPU versus I/O",
+        "message serialization",
+        "signals",
+        "graceful shutdown",
+        "timeouts"
+      ],
+      "hints": [
+        "Profile CPU use and event-loop delay before offloading.",
+        "Account for worker startup and serialization cost.",
+        "Define what accepted means before choosing shutdown behavior."
+      ],
+      "acceptance": [
+        "Compare unrelated API latency and throughput for both implementations.",
+        "The worker queue is bounded and overload has an explicit response.",
+        "A shutdown simulation loses no durably acknowledged job."
+      ],
+      "mastery": "Crash a worker and cancel an expensive task without leaving hung callers.",
+      "order": 32,
+      "dependsOn": [
+        "RT-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "MFE-01",
+      "phase": "P09",
+      "title": "Define and challenge micro frontend boundaries",
+      "problem": "Compare a modular React application with a shell plus dispatch and reporting micro frontends. Define ownership of routes, authentication context, navigation, design tokens, data access, and deployment. Write an architecture decision record before implementation.",
+      "why": "Independent deployment can introduce costs that a two-person team must justify.",
+      "outcome": "A bounded experiment with explicit reasons for using or rejecting each boundary.",
+      "concepts": [
+        "micro frontends versus modules",
+        "build-time versus runtime integration",
+        "ownership",
+        "coupling",
+        "shared dependencies",
+        "architecture decisions"
+      ],
+      "hints": [
+        "Choose a feature whose release can be independent.",
+        "List everything the shell must know about a remote.",
+        "Count deployment, testing, and runtime costs alongside benefits."
+      ],
+      "acceptance": [
+        "Compare at least two integration approaches and a modular monolith.",
+        "Document contracts and a measurable independence goal.",
+        "Explain why code splitting alone does not demonstrate independent deployment."
+      ],
+      "mastery": "Add a third team requirement and identify which boundary would fail first.",
+      "order": 33,
+      "dependsOn": [
+        "RT-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "MFE-02",
+      "phase": "P09",
+      "title": "Build independently deployable shell and remotes",
+      "problem": "Build a web shell and separately built dispatch and reporting remotes. Load them at runtime with a documented integration mechanism. Deploy a reporting change without rebuilding the shell or dispatch remote.",
+      "why": "Independent delivery must be demonstrated rather than inferred from folder structure.",
+      "outcome": "Two micro frontends with versioned build artifacts and reproducible loading.",
+      "concepts": [
+        "module federation or equivalent",
+        "runtime manifests",
+        "shared React identity",
+        "bundler configuration",
+        "lazy loading",
+        "CSS isolation",
+        "routing"
+      ],
+      "hints": [
+        "Use a supported integration tool and pin compatible versions.",
+        "Inspect whether host and remote load incompatible React runtimes.",
+        "Treat a remote URL as trusted executable code configuration."
+      ],
+      "acceptance": [
+        "Record shell and dispatch artifact hashes before and after the reporting-only deployment; they stay unchanged.",
+        "Direct navigation and browser back work.",
+        "Styles and React dependencies do not cause cross-app breakage."
+      ],
+      "mastery": "Inject an incompatible shared dependency and demonstrate a safe rejection or rollback.",
+      "order": 34,
+      "dependsOn": [
+        "MFE-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "MFE-03",
+      "phase": "P09",
+      "title": "Version contracts and isolate remote failures",
+      "problem": "Define typed and runtime-validated shell/remote events without sharing a global mutable store. Simulate a missing remote, a render exception, and an incompatible contract. Keep shell navigation usable and provide retry or fallback.",
+      "why": "Distributed UI releases must tolerate disagreement and partial failure.",
+      "outcome": "Observable remote loading with compatible contracts and bounded failure.",
+      "concepts": [
+        "event contracts",
+        "schema validation",
+        "version negotiation",
+        "error boundaries",
+        "timeouts",
+        "cache invalidation",
+        "rollbacks",
+        "contract tests"
+      ],
+      "hints": [
+        "Distinguish load errors, render errors, and asynchronous operation failures.",
+        "Publish the minimum event payload needed.",
+        "Verify compatibility with the previously deployed shell."
+      ],
+      "acceptance": [
+        "All three injected failures leave unrelated routes usable.",
+        "Contract tests cover supported previous/current versions.",
+        "A reporting rollback works without a synchronized shell release."
+      ],
+      "mastery": "Change an event field and support old and new remotes during a staged rollout.",
+      "order": 35,
+      "dependsOn": [
+        "MFE-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "MFE-04",
+      "phase": "P09",
+      "title": "Create mobile feature modules with clear boundaries",
+      "problem": "Split the technician app into jobs, evidence, and sync feature packages with explicit public interfaces. Give each feature a focused test harness. Share contracts/domain rules with web where useful, while keeping native UI and lifecycle behavior platform-specific.",
+      "why": "Mobile teams benefit from modular ownership, but web runtime loading assumptions cannot simply be copied.",
+      "outcome": "A modular mobile app and a comparison with web micro frontend deployment.",
+      "concepts": [
+        "package boundaries",
+        "dependency graphs",
+        "navigation contracts",
+        "shared domain code",
+        "dependency injection",
+        "native build compatibility",
+        "mobile release constraints"
+      ],
+      "hints": [
+        "Inspect accidental imports across feature internals.",
+        "Treat sync as an explicit service boundary.",
+        "Separate independent testing from independent native app delivery."
+      ],
+      "acceptance": [
+        "Feature tests run through public interfaces.",
+        "A dependency rule detects imports into another feature's internals.",
+        "Document what requires a native rebuild/release and what the selected update mechanism can actually change."
+      ],
+      "mastery": "Replace the evidence implementation without changing job-domain rules or breaking stored drafts.",
+      "order": 36,
+      "dependsOn": [
+        "MFE-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "OPS-01",
+      "phase": "P10",
+      "title": "Threat-model and test sensitive boundaries",
+      "problem": "Threat-model tenant access, file uploads, credentials, and offline cached data. Add focused checks for malicious uploads, request flooding, leaked logs, revoked sessions, and unauthorized cached-data exposure after logout.",
+      "why": "Security depends on several layers agreeing on access and data lifetime.",
+      "outcome": "An attack-to-control matrix with reproducible regression tests.",
+      "concepts": [
+        "threat modelling",
+        "secure storage",
+        "input and upload limits",
+        "content validation",
+        "credential lifecycle",
+        "CSRF CORS CSP",
+        "least privilege",
+        "dependency security"
+      ],
+      "hints": [
+        "Start from what an authenticated attacker can change.",
+        "Do not assume a client bundle can keep a server secret.",
+        "Test cached data and local files as well as API endpoints."
+      ],
+      "acceptance": [
+        "Each listed threat has an explicit control and verification.",
+        "Logout and tenant switching follow documented offline-data retention rules.",
+        "Logs and public fixtures contain no tokens, credentials, or real customer data."
+      ],
+      "mastery": "Exploit an injected insecure attachment lookup, then prove the fix covers both metadata and file access.",
+      "order": 37,
+      "dependsOn": [
+        "MFE-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "OPS-02",
+      "phase": "P10",
+      "title": "Measure end-to-end performance and capacity",
+      "problem": "Define a workload of 100 concurrent API users, a 10,000-job web board, and a 5,000-job mobile list. Agree budgets before measuring; an initial API target is p95 below 300 ms for lightweight endpoints on recorded hardware. Diagnose one web, one mobile, and one backend bottleneck.",
+      "why": "Latency budgets and capacity claims need reproducible context.",
+      "outcome": "Baseline and improved performance evidence across all three runtimes.",
+      "concepts": [
+        "load models",
+        "percentiles",
+        "profiling",
+        "event-loop delay",
+        "database plans",
+        "network cost",
+        "memory leaks",
+        "capacity and cost"
+      ],
+      "hints": [
+        "Separate end-to-end latency from server processing time.",
+        "Use release builds for native measurements.",
+        "Change one suspected bottleneck at a time."
+      ],
+      "acceptance": [
+        "Publish dataset, hardware, build mode, load script, duration, and results.",
+        "Both developers independently diagnose a different injected bottleneck.",
+        "Explain any missed budget and the measured limiting resource."
+      ],
+      "mastery": "Double the workload and predict the first failure before running the experiment.",
+      "order": 38,
+      "dependsOn": [
+        "OPS-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "OPS-03",
+      "phase": "P10",
+      "title": "Trace and diagnose a failed workflow",
+      "problem": "Propagate correlation across mobile command, API transaction, outbox, and worker. Add structured logs, latency/error metrics, and traces. Reproduce a delayed notification and identify its cause from telemetry.",
+      "why": "An incident must be explainable beyond one process's logs.",
+      "outcome": "A diagnostic path from user action to final side effect.",
+      "concepts": [
+        "structured logging",
+        "metrics",
+        "tracing",
+        "context propagation",
+        "AsyncLocalStorage",
+        "SLIs and SLOs",
+        "alert design",
+        "privacy"
+      ],
+      "hints": [
+        "Trace a single operation through all boundaries.",
+        "Use low-cardinality metric labels.",
+        "Choose alerts that indicate user impact rather than every retry."
+      ],
+      "acceptance": [
+        "A command can be traced through the worker using a stable correlation.",
+        "An injected queue delay and an API error are distinguishable.",
+        "No tenant PII or credentials are added to diagnostic payloads."
+      ],
+      "mastery": "Diagnose an incident using only telemetry and the runbook, without opening the source first.",
+      "order": 39,
+      "dependsOn": [
+        "OPS-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "OPS-04",
+      "phase": "P10",
+      "title": "Rehearse deployment, rollback, and recovery",
+      "problem": "Create CI for actual application type checking, tests, builds, and contract checks when those apps exist. Deploy a staged environment, perform an expand/contract database change, roll back an app release, restore a backup, and send termination during active work.",
+      "why": "Delivery is incomplete until failure recovery is demonstrated.",
+      "outcome": "A rehearsed release and recovery procedure with measured limits.",
+      "concepts": [
+        "CI/CD",
+        "artifact reproducibility",
+        "configuration",
+        "migration safety",
+        "backups",
+        "restore verification",
+        "graceful shutdown",
+        "recovery objectives",
+        "unit versus integration versus end-to-end tests",
+        "property-based testing"
+      ],
+      "hints": [
+        "Keep application rollback separate from database rollback.",
+        "Declare recovery-time and data-loss objectives before rehearsal.",
+        "A backup exists only usefully if a restore succeeds."
+      ],
+      "acceptance": [
+        "A failed required check blocks a PR and secrets are not in artifacts.",
+        "Restore verifies domain invariants and reports actual recovery time/data loss.",
+        "Shutdown preserves durably acknowledged work and releases resources."
+      ],
+      "mastery": "Recover from a faulty migration while an older mobile client continues synchronizing.",
+      "order": 40,
+      "dependsOn": [
+        "OPS-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "CAP-01",
+      "phase": "P11",
+      "title": "Support an older client during domain evolution",
+      "problem": "Add awaitingApproval to the completion workflow while retaining a declared supported v1 mobile contract. Preserve old queued commands and document how the old client presents jobs requiring approval.",
+      "why": "Real deployments contain multiple client and data versions.",
+      "outcome": "A compatible rollout with explicit limitations.",
+      "concepts": [
+        "API compatibility",
+        "domain migrations",
+        "local migrations",
+        "feature negotiation",
+        "deprecation",
+        "contract testing"
+      ],
+      "hints": [
+        "Compare wire compatibility with business-semantic compatibility.",
+        "Replay old serialized commands.",
+        "Write the supported-version policy before adapting the response."
+      ],
+      "acceptance": [
+        "Previous-client fixtures and stored commands still work within the policy.",
+        "New approval rules cannot be bypassed by the old client.",
+        "The rollout and deprecation paths are documented and tested."
+      ],
+      "mastery": "The coach selects a previously unseen field removal or approval-policy change.",
+      "order": 41,
+      "dependsOn": [
+        "OPS-04"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "CAP-02",
+      "phase": "P11",
+      "title": "Handle disputed inventory and job evidence",
+      "problem": "Introduce a returned-part workflow and a cancelled job with captured evidence. Define stock reversal rules, authorization, audit history, and user reconciliation. Implement one vertical slice on web, mobile, and API.",
+      "why": "New product rules test whether the domain model can evolve coherently.",
+      "outcome": "A traceable reversal and dispute-resolution flow.",
+      "concepts": [
+        "domain invariants",
+        "state transitions",
+        "transactions",
+        "compensating actions",
+        "UX",
+        "audit trails",
+        "cross-platform contracts"
+      ],
+      "hints": [
+        "Do not edit historical stock movements silently.",
+        "Separate evidence preservation from job status.",
+        "Compare compensating entries with destructive updates."
+      ],
+      "acceptance": [
+        "Retries cannot reverse stock twice.",
+        "Both clients show the same accepted outcome and unresolved conflicts.",
+        "Each developer defends a different proposed design before choosing the integrated solution."
+      ],
+      "mastery": "The coach introduces a partial return and a revoked technician permission.",
+      "order": 42,
+      "dependsOn": [
+        "CAP-01"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "CAP-03",
+      "phase": "P11",
+      "title": "Run an unseen incident investigation",
+      "problem": "The coach selects two undisclosed incidents from duplicate delivery, lost response, stale cache, worker crash, remote failure, or database contention. Each developer independently records hypotheses, identifies the cause, proposes a fix, and verifies recovery.",
+      "why": "Mastery includes diagnosing unfamiliar behavior without following a recipe.",
+      "outcome": "Independent incident reports with reproducible evidence.",
+      "concepts": [
+        "debugging",
+        "distributed failure",
+        "observability",
+        "hypothesis testing",
+        "regression testing",
+        "incident communication"
+      ],
+      "hints": [
+        "Identify the earliest violated invariant.",
+        "Use telemetry to falsify hypotheses.",
+        "Reduce the reproduction before changing multiple layers."
+      ],
+      "acceptance": [
+        "Each developer explains cause versus symptom and demonstrates a regression check.",
+        "The fix preserves earlier invariants.",
+        "The coach states expected outcomes before seeing the solution and accepts justified alternatives."
+      ],
+      "mastery": "Investigate a second incident where the first proposed fix is plausible but incorrect.",
+      "order": 43,
+      "dependsOn": [
+        "CAP-02"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    },
+    {
+      "id": "CAP-04",
+      "phase": "P11",
+      "title": "Defend architecture and prove concept coverage",
+      "problem": "Each developer presents the complete system and answers one unseen basic and one advanced question for every curriculum phase. Compare modular monolith and service extraction, modular web and micro frontends, and shared versus platform-specific code. Audit the personal coverage ledger.",
+      "why": "Experience and shared commits do not prove individual mastery.",
+      "outcome": "An independently assessed portfolio with no unverified concept coverage.",
+      "concepts": [
+        "architecture tradeoffs",
+        "complexity analysis",
+        "system boundaries",
+        "cost",
+        "communication",
+        "fundamental recall",
+        "knowledge transfer"
+      ],
+      "hints": [
+        "Use measurements and concrete failure scenarios.",
+        "Identify conditions that would change a decision.",
+        "Acknowledge gaps and schedule remediation rather than marking them passed."
+      ],
+      "acceptance": [
+        "All catalog concepts have independent evidence for both learners.",
+        "Each phase has a score of at least 2/3 in understanding, implementation, debugging, tradeoffs, and transfer.",
+        "Unpassed concepts receive remediation tasks before final completion."
+      ],
+      "mastery": "The coach changes team size, device constraints, or reliability requirements and asks for a revised architecture.",
+      "order": 44,
+      "dependsOn": [
+        "CAP-03"
+      ],
+      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+    }
+  ]
+}

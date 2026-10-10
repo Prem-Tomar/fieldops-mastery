@@ -63,6 +63,62 @@ for index, task in enumerate(tasks):
     for concept in task["concepts"]:
         concept_map.setdefault(concept, []).append(task_id)
 
+roadmap = read_json("curriculum/roadmap.json")
+learners = ["Neha2212-vi", "madhavichauhan1995"]
+check(roadmap["reviewer"] == catalog["owner"], "Unexpected roadmap reviewer")
+check(roadmap["learners"] == learners, "Unexpected roadmap learners")
+check(roadmap["issueCreationAuthorized"] is False,
+      "Further roadmap issue publication must remain paused")
+weeks = roadmap["weeks"]
+check([week["week"] for week in weeks] == list(range(1, 23)),
+      "Roadmap must contain exactly 22 consecutive weeks")
+stage_ids = ["none", "foundation", "queries", "correctness",
+             "sync", "delivery", "operations", "evolution"]
+check([stage["id"] for stage in roadmap["postgresStages"]] == stage_ids,
+      "PostgreSQL stages must preserve gradual depth")
+for stage in roadmap["postgresStages"]:
+    for field in ["label", "weeks", "focus", "checkpoint"]:
+        check(isinstance(stage.get(field), str) and bool(stage[field].strip()),
+              f"PostgreSQL stage {stage['id']}: missing {field}")
+planned_tasks = {learner: set() for learner in learners}
+deliverables = []
+stage_order = []
+for week in weeks:
+    label = f"Week {week['week']}"
+    for field in ["focus", "productOutcome"]:
+        check(isinstance(week.get(field), str) and bool(week[field].strip()),
+              f"{label}: missing {field}")
+    asks = week.get("deliverables", {})
+    check(set(asks) == set(learners), f"{label}: missing or extra learner ask")
+    for learner in learners:
+        ask = asks.get(learner, "")
+        check(isinstance(ask, str) and bool(ask.strip()),
+              f"{label}: missing product contribution for {learner}")
+        deliverables.append(ask)
+    references = week.get("referenceTaskIds", [])
+    check(bool(references) and len(references) == len(set(references)),
+          f"{label}: missing or duplicate concept references")
+    check(set(references).issubset(ids), f"{label}: unknown concept reference")
+    for learner in learners:
+        planned_tasks[learner].update(references)
+    stage = week.get("postgresStage")
+    check(stage in stage_ids, f"{label}: unknown PostgreSQL stage")
+    if stage in stage_ids:
+        stage_order.append(stage_ids.index(stage))
+check(len(deliverables) == len(set(deliverables)),
+      "Learners must have distinct weekly product contributions")
+check(stage_order == sorted(stage_order), "PostgreSQL depth moves backwards")
+check(set(stage_order) == set(range(len(stage_ids))),
+      "A PostgreSQL learning stage is missing")
+for learner in learners:
+    check(planned_tasks[learner] == set(ids),
+          f"{learner}: roadmap omits a concept reference group")
+    planned_concepts = {concept for task in tasks
+                        if task["id"] in planned_tasks[learner]
+                        for concept in task["concepts"]}
+    check(planned_concepts == set(concept_map),
+          f"{learner}: roadmap does not plan every catalog concept")
+
 states = {"not-started", "learning", "assisted", "independent", "mastered"}
 for learner in ["learner-5y", "learner-10y"]:
     ledger = ROOT / "evidence" / learner / "coverage.csv"
@@ -124,5 +180,8 @@ if errors:
         print(f"- {error}", file=sys.stderr)
     sys.exit(1)
 
-print(f"Validated {len(phases)} phases, {len(tasks)} tasks, "
-      f"{len(concept_map)} concepts per learner, two ledgers, links, and governance.")
+print(f"Validated {len(phases)} reference areas, {len(tasks)} concept groups, "
+      f"{len(weeks)} roadmap weeks, {len(deliverables)} distinct contributions, "
+      f"{len(stage_ids)} PostgreSQL stages, "
+      f"{len(concept_map)} planned concepts per learner, "
+      "two ledgers, links, and governance. Actual mastery requires review evidence.")

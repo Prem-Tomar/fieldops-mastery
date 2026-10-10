@@ -1,10 +1,10 @@
 ## Task and learner
 
 Task ID:
-Personal issue (after creation is authorized):
+Personal issue:
 Learner:
 
-## Problem and resulting behavior
+## Problem, new product behavior and integration point
 
 ## Why and tradeoffs
 
@@ -12,15 +12,15 @@ Learner:
 
 ## Personal concept evidence
 
-Evidence path:
-Ledger changes:
+Demonstration or review-session evidence:
+Concepts for reviewer ledger update:
 Hints used:
 Unseen challenge/coach score:
 
 ## Review
 
-- [ ] Criteria verified with meaningful tests/experiments.
+- [ ] Criteria demonstrated with reproducible behavior/experiments; any test-writing feedback is optional.
 - [ ] Every concept has personal evidence, including basics.
-- [ ] Shared integration is not duplicated unnecessarily.
+- [ ] The change adds a distinct product capability and reuses accepted units.
 - [ ] Reciprocal review completed; only Prem-Tomar merges.
 - [ ] No secrets or real customer data.

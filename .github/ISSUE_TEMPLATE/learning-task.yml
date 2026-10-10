@@ -4,19 +4,19 @@ title: "[TASK-ID][learner] Precise title"
 body:
   - type: markdown
     attributes:
-      value: "Owner-gated creation. Both learners need separate instances with full coverage."
+      value: "Further issue creation is paused until owner authorization. Give each learner a distinct product contribution with full independent concept coverage."
   - type: textarea
     id: metadata
     attributes:
       label: Task metadata and prerequisites
-      description: Task ID, learner, phase/order, predecessor, closure event, evidence path.
+      description: Distinct task ID, learner, roadmap week, predecessor, closure event and prior product dependencies.
     validations:
       required: true
   - type: textarea
     id: problem
     attributes:
       label: Precise task
-      description: Behavior, inputs, outputs, constraints, failure cases.
+      description: Per-function inputs/types/defaults, exact success/error outputs, validation order, worked examples, constraints and integration point. Frontend work includes screen images and relevant states.
     validations:
       required: true
   - type: textarea
@@ -29,7 +29,7 @@ body:
     id: concepts
     attributes:
       label: What this teaches
-      description: Fundamentals cannot be waived by experience.
+      description: Explain every concept in plain language with an example. Both learners cover basics independently through different features.
     validations:
       required: true
   - type: textarea
@@ -42,7 +42,8 @@ body:
   - type: textarea
     id: acceptance
     attributes:
-      label: Measurable acceptance criteria
+      label: Observable acceptance and product progress
+      description: Demonstrate integrated behavior and failure/recovery cases. Test writing is optional PR feedback; tests and documentation are not separate assignments.
     validations:
       required: true
   - type: textarea

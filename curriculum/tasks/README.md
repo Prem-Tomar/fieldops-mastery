@@ -1,6 +1,10 @@
-# Ordered task backlog
+# Concept reference index
 
-No GitHub issues have been created. Both learners follow all 44 definitions independently, producing 88 personal task instances after owner authorization. Each task includes purpose, learning outcomes, progressive hints, acceptance criteria, mastery variation, and coach assessment.
+These 44 definitions retain every catalog concept and provide reference scenarios, hints and mastery prompts. The [22-week roadmap](../../docs/ROADMAP.md) controls implementation order and gives each learner a different product contribution. The order/phase/prerequisite columns below are the original reference index, not the current publication sequence; Node and light PostgreSQL now precede React clients.
+
+Both learners independently demonstrate every reference concept through their own features or bounded experiments. Do not assign the same definition to both as duplicate production work. Where legacy examples describe evidence documents or test deliverables, apply the current roadmap and assessment policy: PR/session evidence is sufficient, test-writing feedback is optional, and neither tests nor documentation is a standalone assigned issue.
+
+Fourteen week-one issues already exist. No more issues are authorized by this index or roadmap update. Future issues need explained terms, unit input/output contracts, progressive hints, distinct product integration and frontend screen images where applicable.
 
 | Order | Task | Phase | Prerequisite |
 |---|---|---|---|

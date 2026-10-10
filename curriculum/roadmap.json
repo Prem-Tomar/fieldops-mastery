@@ -1,0 +1,387 @@
+{
+  "version": 1,
+  "issueCreationAuthorized": false,
+  "reviewer": "Prem-Tomar",
+  "learners": [
+    "Neha2212-vi",
+    "madhavichauhan1995"
+  ],
+  "coveragePolicy": "Both learners demonstrate every catalog concept independently through complementary product work, bounded experiments and unseen variations; no duplicate production implementation is required.",
+  "postgresStages": [
+    {
+      "id": "none",
+      "label": "No database yet",
+      "weeks": "1–4",
+      "focus": "Use fixture data while mastering JavaScript and TypeScript; agree domain and transport contracts.",
+      "checkpoint": "Both can explain accepted inputs, state transitions and numeric boundaries."
+    },
+    {
+      "id": "foundation",
+      "label": "Light foundation",
+      "weeks": "5",
+      "focus": "Tables/rows, primary and foreign keys, simple constraints, INSERT/SELECT/UPDATE/DELETE, parameterized queries, a small repository and initial migration. Start a reproducible local database and a small connection pool. Add basic resource authorization with the first endpoints.",
+      "checkpoint": "Create and read a valid job and part; reject an invalid/unauthorized request. Keep real stock commitment behind the later transaction gate."
+    },
+    {
+      "id": "queries",
+      "label": "Everyday product queries",
+      "weeks": "6–11",
+      "focus": "Joins, filtering, ordering, aggregates and stable pagination; extend the schema for pending requests and attachment metadata. Use constrained, small migrations. Learn a basic index from an actual list query rather than adding indexes everywhere.",
+      "checkpoint": "Both independently write and explain a feature query and its data constraints; client screens consume its actual result."
+    },
+    {
+      "id": "correctness",
+      "label": "Heavy correctness work",
+      "weeks": "12",
+      "focus": "Atomic multi-step transactions, conditional updates/row locks, isolation, concurrent reservations/completions, deadlocks and bounded retries, idempotency keys/fingerprints and unique constraints. Separate pool wait time from query time.",
+      "checkpoint": "With stock 5, concurrent requests for 3 and 3 accept at most one; stock never becomes negative. Replay of an accepted request has no duplicate effect. Both demonstrate different transaction paths."
+    },
+    {
+      "id": "sync",
+      "label": "Offline reconciliation",
+      "weeks": "13–14",
+      "focus": "PostgreSQL version checks, optimistic concurrency, audit/conflict records and durable server receipts. Distinguish these from the device's local database transactions and migrations.",
+      "checkpoint": "An offline stale completion/reservation produces an explicit domain conflict; retries preserve accepted work and audit history."
+    },
+    {
+      "id": "delivery",
+      "label": "Reliable delivery and scale",
+      "weeks": "15–18",
+      "focus": "Transactional outbox, consumer deduplication, event cursors, report/database cursors, streaming and bounded buffering; investigate indexes/query plans on the real event/report workloads.",
+      "checkpoint": "Crash after database commit does not lose eventual event delivery; duplicate deliveries do not duplicate effects; export memory stays bounded."
+    },
+    {
+      "id": "operations",
+      "label": "Heavy performance and recovery work",
+      "weeks": "19–20",
+      "focus": "EXPLAIN/EXPLAIN ANALYZE on safe representative workloads, index selectivity/tradeoffs, contention and pool sizing, migration/backfill safety, database privileges, backups, restore verification and recovery objectives.",
+      "checkpoint": "Both measure and improve a different query/transaction, then recover data and verify business invariants after a migration or failure."
+    },
+    {
+      "id": "evolution",
+      "label": "Mastery under change",
+      "weeks": "21–22",
+      "focus": "Backward-compatible schema evolution, compensating operations, auditability and diagnosis of unseen concurrency/performance/recovery failures.",
+      "checkpoint": "Each independently defends a database decision and solves a new product incident; accepted data remains correct."
+    }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "focus": "JavaScript product foundations",
+      "deliverables": {
+        "Neha2212-vi": "Implement the job-input parser, allocation preview, job view, draft queue and lookup controller from existing issues #1–7.",
+        "madhavichauhan1995": "Implement the quantity boundary, pricing, immutable stock reservation, catalog and submit controller from existing issues #8–14."
+      },
+      "productOutcome": "One composed fixture-driven job and inventory workflow.",
+      "referenceTaskIds": [
+        "JS-01",
+        "JS-02",
+        "JS-03"
+      ],
+      "postgresStage": "none"
+    },
+    {
+      "week": 2,
+      "focus": "JavaScript depth and bounded work",
+      "deliverables": {
+        "Neha2212-vi": "Add a cancellable, bounded job-prefetch queue and a generator that streams job summaries without materializing every row.",
+        "madhavichauhan1995": "Add bounded bulk-stock previews with per-item failure results and weakly held session metadata; integrate exact external IDs without unsafe Number conversion."
+      },
+      "productOutcome": "Bulk job and stock processing share predictable concurrency, cancellation and cleanup contracts.",
+      "referenceTaskIds": [
+        "JS-01",
+        "JS-02",
+        "JS-04"
+      ],
+      "postgresStage": "none"
+    },
+    {
+      "week": 3,
+      "focus": "TypeScript fundamentals and domain states",
+      "deliverables": {
+        "Neha2212-vi": "Type the job queue, legal assignment/completion transitions and discriminated job results.",
+        "madhavichauhan1995": "Type inventory/reservation states, quantity/value results and safe stock projections."
+      },
+      "productOutcome": "Existing JavaScript workflows gain strict typed boundaries without changing their accepted behavior.",
+      "referenceTaskIds": [
+        "TS-01",
+        "TS-02"
+      ],
+      "postgresStage": "none"
+    },
+    {
+      "week": 4,
+      "focus": "TypeScript advanced contracts and runtime validation",
+      "deliverables": {
+        "Neha2212-vi": "Build typed job pagination/projections and runtime-validated job request/response schemas.",
+        "madhavichauhan1995": "Build generic inventory projections and versioned reservation request/receipt schemas with classified errors."
+      },
+      "productOutcome": "A shared contracts package supports future web, mobile and Node consumers.",
+      "referenceTaskIds": [
+        "TS-02",
+        "TS-03",
+        "TS-04"
+      ],
+      "postgresStage": "none"
+    },
+    {
+      "week": 5,
+      "focus": "Small Node API and light PostgreSQL",
+      "deliverables": {
+        "Neha2212-vi": "Implement job create/list/read endpoints, the jobs/technicians schema and assignment lookup repository.",
+        "madhavichauhan1995": "Implement part create/list/read endpoints, the parts schema and reservation-request intake repository."
+      },
+      "productOutcome": "The job-read adapter connects to a small API; real jobs, parts and pending reservation requests persist. The commit adapter remains fixture-backed until week 12.",
+      "referenceTaskIds": [
+        "NODE-01",
+        "NODE-02",
+        "NODE-04"
+      ],
+      "postgresStage": "foundation"
+    },
+    {
+      "week": 6,
+      "focus": "React foundations with real reads",
+      "deliverables": {
+        "Neha2212-vi": "Build the dispatcher job board, summary components and job-detail route against the API.",
+        "madhavichauhan1995": "Build the stock board, part-detail route and cost-preview panel against the API."
+      },
+      "productOutcome": "Dispatchers can browse persisted jobs and stock in one React shell.",
+      "referenceTaskIds": [
+        "REACT-01",
+        "REACT-02",
+        "NODE-02"
+      ],
+      "postgresStage": "queries"
+    },
+    {
+      "week": 7,
+      "focus": "React forms, effects and failure recovery",
+      "deliverables": {
+        "Neha2212-vi": "Implement an accessible job-assignment form, URL filters and cancellable job-detail hook.",
+        "madhavichauhan1995": "Implement an accessible reservation-request form, part filters and stock-detail hook; isolate panel failures."
+      },
+      "productOutcome": "Both workflows handle invalid input, focus, loading, empty and failed requests; requests remain pending until the safe reservation service exists.",
+      "referenceTaskIds": [
+        "REACT-02",
+        "REACT-03",
+        "REACT-04"
+      ],
+      "postgresStage": "queries"
+    },
+    {
+      "week": 8,
+      "focus": "React server state and optimistic changes",
+      "deliverables": {
+        "Neha2212-vi": "Add job-list caching, pagination and optimistic assignment with rollback and accessible status feedback.",
+        "madhavichauhan1995": "Add stock/request caching, invalidation and optimistic editing of pending requests with rollback."
+      },
+      "productOutcome": "Both features stay consistent after writes, errors and reordered responses.",
+      "referenceTaskIds": [
+        "REACT-05",
+        "REACT-06"
+      ],
+      "postgresStage": "queries"
+    },
+    {
+      "week": 9,
+      "focus": "Advanced React rendering and measured performance",
+      "deliverables": {
+        "Neha2212-vi": "Add lazy job-route loading and an authenticated job-summary rendering experiment; profile and fix dispatch-board rerenders.",
+        "madhavichauhan1995": "Add a lazy inventory report route and an authenticated report rendering experiment; profile and fix large stock-list interactions."
+      },
+      "productOutcome": "Compare client rendering with supported streamed rendering/hydration on both routes and improve one measured bottleneck per feature.",
+      "referenceTaskIds": [
+        "REACT-07",
+        "REACT-08"
+      ],
+      "postgresStage": "queries"
+    },
+    {
+      "week": 10,
+      "focus": "React Native foundations",
+      "deliverables": {
+        "Neha2212-vi": "Build assigned-job navigation, adaptive job-detail screens and deep links.",
+        "madhavichauhan1995": "Build mobile part lookup, inventory-request navigation and deep links."
+      },
+      "productOutcome": "One technician app contains both job and inventory features with safe areas, keyboard handling and accessible states.",
+      "referenceTaskIds": [
+        "RN-01"
+      ],
+      "postgresStage": "queries"
+    },
+    {
+      "week": 11,
+      "focus": "Mobile media, persistence and interaction",
+      "deliverables": {
+        "Neha2212-vi": "Add completion photos, permission/recovery states and persisted completion drafts; profile the job/evidence list.",
+        "madhavichauhan1995": "Add stock evidence photos and persisted request drafts; profile stock/evidence lists and interactions."
+      },
+      "productOutcome": "Technicians retain drafts and local media across app restarts; the API stores attachment metadata.",
+      "referenceTaskIds": [
+        "RN-02",
+        "RN-03",
+        "NODE-02"
+      ],
+      "postgresStage": "queries"
+    },
+    {
+      "week": 12,
+      "focus": "Node and PostgreSQL correctness: deep focus",
+      "deliverables": {
+        "Neha2212-vi": "Implement atomic completion that consumes already-reserved parts without a second stock deduction, with authorization and replay-safe results.",
+        "madhavichauhan1995": "Implement atomic reservation/release, concurrent-stock guards and replay-safe reservation receipts."
+      },
+      "productOutcome": "Concurrent completion/reservation cannot overspend stock or duplicate effects; pending requests now commit through protected transactional services.",
+      "referenceTaskIds": [
+        "NODE-02",
+        "NODE-03",
+        "NODE-04"
+      ],
+      "postgresStage": "correctness"
+    },
+    {
+      "week": 13,
+      "focus": "Durable offline queues and native boundaries",
+      "deliverables": {
+        "Neha2212-vi": "Persist a job-completion operation queue; add a small native attachment-checksum adapter through the jobs/evidence boundary.",
+        "madhavichauhan1995": "Persist an inventory-operation queue; add a small native local-file metadata adapter through the inventory/evidence boundary."
+      },
+      "productOutcome": "Both mobile features preserve pending work across termination; each has a bounded native integration exercise with platform evidence.",
+      "referenceTaskIds": [
+        "SYNC-01",
+        "RN-04"
+      ],
+      "postgresStage": "sync"
+    },
+    {
+      "week": 14,
+      "focus": "Offline conflict resolution and resumable uploads",
+      "deliverables": {
+        "Neha2212-vi": "Add completion-versus-cancellation conflict handling and resumable completion-photo upload.",
+        "madhavichauhan1995": "Add reservation-versus-stock-change conflict handling and resumable stock-evidence upload."
+      },
+      "productOutcome": "Queued operations retry, preserve per-entity ordering and expose conflicts instead of silently overwriting accepted state.",
+      "referenceTaskIds": [
+        "SYNC-02",
+        "SYNC-03",
+        "SYNC-04"
+      ],
+      "postgresStage": "sync"
+    },
+    {
+      "week": 15,
+      "focus": "Recoverable live events and background work",
+      "deliverables": {
+        "Neha2212-vi": "Deliver job events with reconnect cursors and a recoverable completion-notification consumer.",
+        "madhavichauhan1995": "Deliver stock/reservation events and an inventory-alert consumer with bounded retries/dead-letter handling."
+      },
+      "productOutcome": "Committed events and background effects recover after disconnects, crashes and duplicate delivery.",
+      "referenceTaskIds": [
+        "RT-01",
+        "RT-02"
+      ],
+      "postgresStage": "delivery"
+    },
+    {
+      "week": 16,
+      "focus": "Node streams, workers and resource limits",
+      "deliverables": {
+        "Neha2212-vi": "Stream a job/evidence CSV export with cancellation and bounded memory; enforce graceful API shutdown.",
+        "madhavichauhan1995": "Add an inventory-reconciliation report worker with a bounded pool and graceful worker shutdown."
+      },
+      "productOutcome": "Large reports and CPU work preserve API responsiveness and release resources correctly.",
+      "referenceTaskIds": [
+        "RT-03",
+        "RT-04"
+      ],
+      "postgresStage": "delivery"
+    },
+    {
+      "week": 17,
+      "focus": "Web micro frontends and mobile feature modules",
+      "deliverables": {
+        "Neha2212-vi": "Extract dispatch as an independently built web remote; establish jobs/evidence mobile package interfaces.",
+        "madhavichauhan1995": "Build the reporting remote and shell integration; establish inventory/sync mobile package interfaces."
+      },
+      "productOutcome": "Two independently built web features compose through explicit contracts; mobile features remain compatible within the native app release.",
+      "referenceTaskIds": [
+        "MFE-01",
+        "MFE-02",
+        "MFE-04"
+      ],
+      "postgresStage": "delivery"
+    },
+    {
+      "week": 18,
+      "focus": "Micro frontend compatibility and failure recovery",
+      "deliverables": {
+        "Neha2212-vi": "Add dispatch contract negotiation, remote-load failure fallback and a compatible dispatch release.",
+        "madhavichauhan1995": "Add reporting contract negotiation, runtime manifest/cache handling and an independent reporting rollback."
+      },
+      "productOutcome": "A remote can fail or evolve without breaking the shell; mobile navigation/package contracts survive compatible changes.",
+      "referenceTaskIds": [
+        "MFE-03",
+        "MFE-04"
+      ],
+      "postgresStage": "delivery"
+    },
+    {
+      "week": 19,
+      "focus": "Security and end-to-end performance",
+      "deliverables": {
+        "Neha2212-vi": "Harden job/evidence authorization and upload limits; measure and fix a dispatch/API/SQL bottleneck.",
+        "madhavichauhan1995": "Harden inventory/report authorization and credential handling; measure and fix a stock/report/SQL bottleneck."
+      },
+      "productOutcome": "Tenant/security boundaries withstand invalid requests, and capacity decisions follow measured query, runtime and device behavior.",
+      "referenceTaskIds": [
+        "OPS-01",
+        "OPS-02"
+      ],
+      "postgresStage": "operations"
+    },
+    {
+      "week": 20,
+      "focus": "Observability, deployment and database recovery",
+      "deliverables": {
+        "Neha2212-vi": "Trace a failed completion across mobile/API/worker; ship a safe completion-service migration and demonstrate restore/recovery.",
+        "madhavichauhan1995": "Trace a failed reservation/report; ship a safe inventory migration and demonstrate rollback/recovery."
+      },
+      "productOutcome": "The team can diagnose a real workflow failure, deploy reproducible artifacts and recover verified PostgreSQL data.",
+      "referenceTaskIds": [
+        "OPS-03",
+        "OPS-04"
+      ],
+      "postgresStage": "operations"
+    },
+    {
+      "week": 21,
+      "focus": "Compatible product evolution and disputed work",
+      "deliverables": {
+        "Neha2212-vi": "Support an older mobile client while adding disputed completion/evidence resolution and a compensating action.",
+        "madhavichauhan1995": "Support an older web/client contract while adding disputed reservation resolution and a compensating inventory action."
+      },
+      "productOutcome": "A domain change preserves older clients, audit history and cross-platform invariants.",
+      "referenceTaskIds": [
+        "CAP-01",
+        "CAP-02"
+      ],
+      "postgresStage": "evolution"
+    },
+    {
+      "week": 22,
+      "focus": "Independent mastery and product acceptance",
+      "deliverables": {
+        "Neha2212-vi": "Fix an unseen inventory/report incident or change, improve that product path and defend its tradeoffs without peer implementation.",
+        "madhavichauhan1995": "Fix an unseen job/mobile incident or change, improve that product path and defend its tradeoffs without peer implementation."
+      },
+      "productOutcome": "Both deliver an accepted change outside their usual feature lane and close every remaining independent concept gap.",
+      "referenceTaskIds": [
+        "CAP-03",
+        "CAP-04"
+      ],
+      "postgresStage": "evolution"
+    }
+  ]
+}

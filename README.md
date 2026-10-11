@@ -15,6 +15,7 @@ This repository currently contains curriculum, assessment ledgers, contribution 
 5. Track concepts separately: [5-year learner](evidence/learner-5y/coverage.csv), [10-year learner](evidence/learner-10y/coverage.csv).
 6. Review [architecture and micro frontend scope](docs/ARCHITECTURE.md).
 7. Download the [printable six-month roadmap](output/pdf/fieldops-six-month-roadmap.pdf) for separate weekly contributions, concepts, mastery outcomes and the full glossary.
+8. Open the [progress dashboard](docs/DASHBOARD.md) to review both contributors, record concept evidence and accept gates that immediately update the finish forecast.
 
 **The existing 14 week-one issues are the authorized batch; further issue creation is paused.** Neha builds job features and Madhavi builds complementary inventory features. Each planned task adds integrated behavior, a correctness fix, a measured improvement or a recovery capability. Both independently demonstrate every concept, while accepted production units are reused. See the [six-month roadmap](docs/ROADMAP.md), its [structured schedule](curriculum/roadmap.json), and the [issue lifecycle](docs/ISSUE_LIFECYCLE.md).
 

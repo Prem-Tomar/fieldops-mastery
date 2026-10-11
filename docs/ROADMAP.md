@@ -89,6 +89,8 @@ The weekly source references in roadmap.json plan all 44 concept groups for both
 
 ## Automatic schedule compression
 
+Use the [reviewer dashboard](DASHBOARD.md) to record individual concept evidence and scores, then accept the next gate. Saving acceptance updates progress and the forecast immediately. CI also produces a dated read-only dashboard artifact for sharing after the records are committed.
+
 The reviewer records jointly accepted gates in [progress.json](../curriculum/progress.json), with each learner's evidence and independent scores. Run `python scripts/forecast_roadmap.py` to recalculate the projected finish from elapsed time and accepted slices; CI runs it alongside curriculum validation. The calculation shortens the forecast when verified pace is faster and includes elapsed idle time when progress stalls.
 
 Set `actualStartDate` when work starts. Add accepted gates in order only after product acceptance, required platform checks and both individual assessments. Each gate has this structure (illustrative only; no gate has been claimed):

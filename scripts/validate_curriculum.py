@@ -127,6 +127,38 @@ for learner in learners:
     check(planned_concepts == set(concept_map),
           f"{learner}: roadmap does not plan every catalog concept")
 
+reviews = read_json("curriculum/reviews.json")
+check(reviews["version"] == 1, "Unexpected dashboard review version")
+review_ids = [entry["slice"] for entry in reviews["slices"]]
+check(len(review_ids) == len(set(review_ids)), "Duplicate dashboard review slice")
+dimensions = {"understanding", "implementation", "debugging", "tradeoffs", "transfer"}
+for entry in reviews["slices"]:
+    number = entry["slice"]
+    check(type(number) is int and 1 <= number <= 26, "Unknown reviewed slice")
+    check(bool(entry["learners"]) and set(entry["learners"]).issubset(learners),
+          f"Slice {number}: unexpected assessment contributor")
+    for login, review in entry["learners"].items():
+        check(review["status"] in {"not-started", "in-progress", "ready-for-review", "needs-revision"},
+              f"Slice {number} {login}: invalid review status")
+        check(set(review["scores"]) == dimensions and all(
+            type(score) is int and 0 <= score <= 3 for score in review["scores"].values()),
+            f"Slice {number} {login}: invalid review scores")
+        check(review["assessedBy"] == catalog["owner"],
+              f"Slice {number} {login}: unexpected reviewer")
+        check(isinstance(review["evidence"], str) and isinstance(review["notes"], str),
+              f"Slice {number} {login}: invalid evidence or feedback")
+        if review["status"] == "ready-for-review":
+            check(bool(review["evidence"].strip()), f"Slice {number} {login}: missing individual evidence")
+
+issue_snapshot = read_json("curriculum/issue-status.json")
+numbers = [issue["number"] for issue in issue_snapshot["items"]]
+check(len(numbers) == len(set(numbers)), "Duplicate issue in dashboard snapshot")
+for issue in issue_snapshot["items"]:
+    check(type(issue["number"]) is int and issue["number"] > 0, "Invalid issue number")
+    check(issue["state"] in {"OPEN", "CLOSED"}, "Invalid dashboard issue state")
+    check(issue["url"] == f"https://github.com/Prem-Tomar/fieldops-mastery/issues/{issue['number']}",
+          "Unexpected dashboard issue URL")
+
 states = {"not-started", "learning", "assisted", "independent", "mastered"}
 for learner in ["learner-5y", "learner-10y"]:
     ledger = ROOT / "evidence" / learner / "coverage.csv"
@@ -182,6 +214,8 @@ workflow = (ROOT / ".github/workflows/curriculum-validation.yml").read_text()
 check("name: curriculum-validation" in workflow, "Missing matching CI job name")
 check("python scripts/validate_curriculum.py" in workflow, "CI does not run validator")
 check("python scripts/forecast_roadmap.py" in workflow, "CI does not recalculate forecast")
+check("python scripts/test_dashboard.py" in workflow, "CI does not verify dashboard writes")
+check("python scripts/export_dashboard.py" in workflow, "CI does not export progress dashboard")
 
 if errors:
     print("Curriculum validation failed:", file=sys.stderr)

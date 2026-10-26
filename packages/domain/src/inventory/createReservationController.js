@@ -4,7 +4,9 @@ function createReservationController({ submit, onState }) {
   }
 
   let disposed = false;
-  let activeOperation = null;
+  let active = false;
+  let operationId = 0;
+  let activeAbortController = null;
 
   let state = {
     status: "idle",
@@ -13,16 +15,13 @@ function createReservationController({ submit, onState }) {
     error: null,
   };
 
-  function snapshot(value) {
-    return structuredClone(value);
+  function clone(value) {
+    return value == null ? value : structuredClone(value);
   }
 
-  function emit(nextState) {
-    state = snapshot(nextState);
-
-    try {
-      onState(snapshot(state));
-    } catch {}
+  function emit(next) {
+    state = clone(next);
+    onState(clone(state));
   }
 
   function validateRequest(request) {
@@ -45,104 +44,100 @@ function createReservationController({ submit, onState }) {
 
     return null;
   }
-  emit({
-    status: "idle",
-    request: null,
-    receipt: null,
-    error: null,
-  });
+
+  emit(state);
 
   async function confirm(request) {
     if (disposed) {
       return { ok: false, code: "DISPOSED" };
     }
 
-    if (activeOperation !== null) {
+    if (active) {
       return { ok: false, code: "BUSY" };
     }
 
-    const validationFailure = validateRequest(request);
-
-    if (validationFailure) {
-      return validationFailure;
+    if (!validateRequest(request)) {
+      return { ok: false, code: "INVALID_REQUEST" };
     }
 
-    const requestCopy = snapshot(request);
+    const snapshot = clone(request);
+    const id = ++operationId;
+    const abortController = new AbortController();
 
-    const operation = {
-      abortController: new AbortController(),
-    };
-
-    activeOperation = operation;
+    active = true;
+    activeAbortController = abortController;
 
     emit({
       status: "submitting",
-      request: requestCopy,
+      request: snapshot,
       receipt: null,
       error: null,
     });
 
     try {
-      let result;
+      const result = await submit(snapshot, abortController.signal);
 
-      try {
-        result = await submit(
-          snapshot(requestCopy),
-          operation.abortController.signal,
-        );
-      } catch {
-        result = { ok: false, code: "SUBMIT_FAILED" };
-      }
-
-      if (disposed || activeOperation !== operation) {
+      if (disposed || id !== operationId) {
         return { ok: false, code: "DISPOSED" };
       }
 
-      if (result && result.ok === true) {
-        emit({
-          status: "success",
-          request: requestCopy,
-          receipt: result.receipt,
-          error: null,
-        });
-      } else {
-        const failure =
-          result && result.ok === false
-            ? result
-            : { ok: false, code: "SUBMIT_FAILED" };
-
+      if (!result.ok) {
         emit({
           status: "error",
-          request: requestCopy,
+          request: snapshot,
           receipt: null,
-          error: failure.code,
+          error: result?.code || "SUBMIT_FAILED",
         });
 
-        return snapshot(failure);
+        return result;
       }
 
-      return snapshot(result);
+      emit({
+        status: "success",
+        request: snapshot,
+        receipt: result?.receipt ?? null,
+        error: null,
+      });
+
+      return result;
+    } catch (error) {
+      if (disposed || id !== operationId) {
+        return { ok: false, code: "DISPOSED" };
+      }
+
+      emit({
+        status: "error",
+        request: snapshot,
+        receipt: null,
+        error: "SUBMIT_FAILED",
+      });
+
+      return { ok: false, code: "SUBMIT_FAILED" };
     } finally {
-      if (activeOperation === operation) {
-        activeOperation = null;
+      if (id === operationId) {
+        active = false;
+        activeAbortController = null;
       }
     }
   }
 
   function dispose() {
-    if (disposed) {
-      return;
-    }
+    if (disposed) return;
 
     disposed = true;
+    operationId++;
 
-    const operation = activeOperation;
-    activeOperation = null;
-
-    if (operation !== null) {
-      operation.abortController.abort();
-    }
+    activeAbortController?.abort();
+    activeAbortController = null;
+    active = false;
   }
 
-  return { confirm, dispose };
+  async function retry() {
+    if (!state.request) {
+      return { ok: false, code: "NO_REQUEST" };
+    }
+
+    return confirm(state.request);
+  }
+  return { confirm, dispose, retry };
 }

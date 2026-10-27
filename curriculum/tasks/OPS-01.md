@@ -1,10 +1,18 @@
 # OPS-01 — Threat-model and test sensitive boundaries
 
-Phase: P10 | Order: 37 | Prerequisite: MFE-04
+Phase: P10 | Order: 37 | Reference prerequisite: MFE-04
+
+**Concept reference, not a ready learner assignment.** The [mandatory learning rules](../../docs/LEARNING_RULES.md) and [roadmap](../../docs/ROADMAP.md) control actual scope and implementation order. Split this capability into small product increments before future publication. Existing GitHub issues remain unchanged.
+
+## Primary learning idea
+
+An enforced sensitive-resource boundary
 
 ## Precise task
 
 Threat-model tenant access, file uploads, credentials, and offline cached data. Add focused checks for malicious uploads, request flooding, leaked logs, revoked sessions, and unauthorized cached-data exposure after logout.
+
+This reference scenario may span several tasks. Each actual assignment must select one bounded implementation goal, name the existing product integration, give exact function input/output/error contracts and worked examples, and state its observable completion criteria before work starts.
 
 ## Why we are doing this
 
@@ -12,24 +20,30 @@ Security depends on several layers agreeing on access and data lifetime.
 
 ## What you achieve
 
-An attack-to-control matrix with reproducible regression tests.
+Sensitive product paths reject hostile inputs and unauthorized operations in reproducible scenarios.
+
+## Out of scope
+
+- Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.
+- Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.
+- Do not assign standalone tests, documentation or a duplicate accepted product capability.
 
 ## What this teaches
 
-- threat modelling
-- secure storage
-- input and upload limits
-- content validation
-- credential lifecycle
-- CSRF CORS CSP
-- least privilege
-- dependency security
+- **threat modelling:** Threat modelling identifies assets, possible attackers and abuse paths so protections address actual product risks.
+- **secure storage:** Sensitive credentials need protected storage appropriate to the platform; ordinary preferences are not a secret store. Example: Keep session credentials out of unencrypted draft storage.
+- **input and upload limits:** Size, count and format limits bound incoming data so requests cannot exhaust resources or bypass rules.
+- **content validation:** Content validation inspects the actual data or file, rather than trusting its name or declared type.
+- **credential lifecycle:** Credential lifecycle covers creation, storage, use, rotation, expiry and revocation of secrets or access credentials.
+- **CSRF CORS CSP:** CSRF protects authenticated actions, CORS governs browser cross-origin access, and CSP limits allowed content execution. Example: Apply the controls relevant to the deployed browser architecture.
+- **least privilege:** Least privilege grants only the permissions needed for a person, service or database operation.
+- **dependency security:** Dependency security examines third-party packages, known vulnerabilities and update risks in the application's dependencies.
 
-## Progressive hints
+## Research hints
 
-1. Start from what an authenticated attacker can change.
-2. Do not assume a client bundle can keep a server secret.
-3. Test cached data and local files as well as API endpoints.
+1. Search for "threat modelling" and "An enforced sensitive-resource boundary"; find a small example and predict its observable result before trying it.
+2. Investigate "secure storage" in the current product unit; compare the valid and failing paths without copying a complete solution.
+3. Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change.
 
 ## Acceptance criteria
 
@@ -37,24 +51,26 @@ An attack-to-control matrix with reproducible regression tests.
 - [ ] Logout and tenant switching follow documented offline-data retention rules.
 - [ ] Logs and public fixtures contain no tokens, credentials, or real customer data.
 
+Use these reference scenarios to choose observable criteria for the selected product increment. Maintainers may supply routine checks; a demonstration is required, while learner-authored tests or formal reports are not.
+
 ## Independent mastery challenge
 
 Exploit an injected insecure attachment lookup, then prove the fix covers both metadata and file access.
 
-The coach adds one undisclosed variation after both learners submit their own predictions and implementation evidence. Each learner explains every listed concept, predicts an observable behavior, and demonstrates it in code or an experiment. Fixing the shared product alone does not mark either learner's coverage complete.
+This is separate coaching, not a surprise product requirement. A short explanation, walkthrough or bounded unseen variation establishes understanding; any genuinely new product capability needs its own authorized successor. A failure of the original implementation contract remains an implementation defect. Both learners must independently cover every referenced concept before the relevant mastery gate passes.
 
 ## Pair collaboration
 
-Both learners complete the same concepts and criteria. Alternate driver/reviewer on shared integration; use isolated spikes for individual alternatives. The second PR adds tests, a validated alternative, or personal evidence rather than duplicating production code. Review each other's reasoning only after independent predictions are recorded. Pairing is allowed; assisted work remains marked assisted until independently repeated.
+Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.
+
+Each PR adds a different integrated behavior, correctness fix, measured improvement or recovery capability. Do not create a second PR merely for tests, documentation or personal evidence. Review the peer's decisions and use a small experiment only for an individual concept gap. Assistance remains recorded until independent verification.
 
 ## Evidence to submit
 
-- Linked personal issue (only after the owner authorizes issue creation), task ID, learner handle, and PR.
-- Predictions made before execution; observed output and explanation for every concept.
-- Tests or reproducible experiment, runtime/device details, and failures encountered.
-- Design alternatives, accepted tradeoffs, and the unseen challenge result.
-- Per-concept assessment in the learner's coverage ledger; five-dimension mastery score.
+A runnable product demonstration and short PR/review-session walkthrough are sufficient. Identify the learner, existing task/PR, relevant input and observed output. The reviewer records individual concept evidence, assistance and scores in the existing ledgers; the optional submission template is not a required document.
+
+Report the checks actually run and the concrete gap exposed by any failure. Keep implementation completion separate from mastery assessment. No new issue publication or issue editing is authorized by this reference.
 
 ## Coach checkpoint
 
-Record expected behavior before inspecting the solution. Inject a changed constraint, request a diagnosis, and score understanding, implementation, debugging, tradeoffs, and transfer from 0–3. Every dimension must reach 2 independently. Failed concepts receive remediation; experience level never waives a basic concept.
+State expected behavior before inspecting the solution. Use the [review format](../../docs/REVIEW_GUIDE.md): exact code location, requested change, components, unfamiliar terms explained briefly, behavior/risk and a research hint. Keep a high-level summary and distinguish implementation blockers, prerequisite blockers, optional feedback and mastery coaching. For mastery, score understanding, implementation, debugging, tradeoffs and transfer independently; every dimension must reach 2. Years of experience waive no concept.

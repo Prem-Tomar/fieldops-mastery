@@ -1,10 +1,18 @@
 # REACT-07 — Compare client rendering and streamed rendering
 
-Phase: P04 | Order: 15 | Prerequisite: REACT-06
+Phase: P04 | Order: 15 | Reference prerequisite: REACT-06
+
+**Concept reference, not a ready learner assignment.** The [mandatory learning rules](../../docs/LEARNING_RULES.md) and [roadmap](../../docs/ROADMAP.md) control actual scope and implementation order. Split this capability into small product increments before future publication. Existing GitHub issues remain unchanged.
+
+## Primary learning idea
+
+Useful page content during a slow render
 
 ## Precise task
 
 Build a small read-only customer job page with slow history data. Compare client rendering with streamed server rendering using Suspense. Record shell delivery, content delivery, hydration, and error behavior.
+
+This reference scenario may span several tasks. Each actual assignment must select one bounded implementation goal, name the existing product integration, give exact function input/output/error contracts and worked examples, and state its observable completion criteria before work starts.
 
 ## Why we are doing this
 
@@ -14,22 +22,28 @@ Rendering architecture changes user experience, caching, and deployment requirem
 
 An evidence-based rendering decision for a specific route.
 
+## Out of scope
+
+- Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.
+- Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.
+- Do not assign standalone tests, documentation or a duplicate accepted product capability.
+
 ## What this teaches
 
-- lazy loading
-- Suspense
-- transitions
-- streaming SSR
-- hydration
-- server/client boundaries
-- framework integration
-- bundle size
+- **lazy loading:** Lazy loading delays acquiring code or data until it is needed. Example: Load reporting UI only when the reporting route is opened.
+- **Suspense:** Suspense coordinates fallback UI for supported suspending work through React/framework integration. Example: Show a history fallback while streamed history is pending.
+- **transitions:** Transitions mark suitable React updates as lower priority so urgent interaction can proceed. Example: Keep typing responsive while a large filter result updates.
+- **streaming SSR:** Streaming server rendering sends useful HTML progressively rather than waiting for all sections. Example: Deliver the job summary before slow history finishes.
+- **hydration:** Hydration connects client React behavior to existing server-rendered markup. Example: Match initial server/client content to avoid mismatch.
+- **server/client boundaries:** Boundaries decide which work runs on the server and which requires browser interaction. Example: Keep credentialed data access on an appropriate server boundary.
+- **framework integration:** A framework supplies routing, rendering, and data-loading conventions around React. Example: Use supported data loading for a Suspense experiment.
+- **bundle size:** Bundle size affects transfer, parsing, and startup cost. Example: Measure the initial download before adding a large library.
 
-## Progressive hints
+## Research hints
 
-1. Keep the dispatcher SPA separate from this focused experiment.
-2. Measure when useful content appears and when it becomes interactive.
-3. Identify which data sources actually integrate with Suspense.
+1. Search for "lazy loading" and "Useful page content during a slow render"; find a small example and predict its observable result before trying it.
+2. Investigate "Suspense" in the current product unit; compare the valid and failing paths without copying a complete solution.
+3. Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change.
 
 ## Acceptance criteria
 
@@ -37,24 +51,26 @@ An evidence-based rendering decision for a specific route.
 - [ ] Reproduce and fix a hydration mismatch.
 - [ ] Explain SSR versus Server Components and when this project benefits from each.
 
+Use these reference scenarios to choose observable criteria for the selected product increment. Maintainers may supply routine checks; a demonstration is required, while learner-authored tests or formal reports are not.
+
 ## Independent mastery challenge
 
 Introduce a personalized field and explain how shared caching could leak it.
 
-The coach adds one undisclosed variation after both learners submit their own predictions and implementation evidence. Each learner explains every listed concept, predicts an observable behavior, and demonstrates it in code or an experiment. Fixing the shared product alone does not mark either learner's coverage complete.
+This is separate coaching, not a surprise product requirement. A short explanation, walkthrough or bounded unseen variation establishes understanding; any genuinely new product capability needs its own authorized successor. A failure of the original implementation contract remains an implementation defect. Both learners must independently cover every referenced concept before the relevant mastery gate passes.
 
 ## Pair collaboration
 
-Both learners complete the same concepts and criteria. Alternate driver/reviewer on shared integration; use isolated spikes for individual alternatives. The second PR adds tests, a validated alternative, or personal evidence rather than duplicating production code. Review each other's reasoning only after independent predictions are recorded. Pairing is allowed; assisted work remains marked assisted until independently repeated.
+Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.
+
+Each PR adds a different integrated behavior, correctness fix, measured improvement or recovery capability. Do not create a second PR merely for tests, documentation or personal evidence. Review the peer's decisions and use a small experiment only for an individual concept gap. Assistance remains recorded until independent verification.
 
 ## Evidence to submit
 
-- Linked personal issue (only after the owner authorizes issue creation), task ID, learner handle, and PR.
-- Predictions made before execution; observed output and explanation for every concept.
-- Tests or reproducible experiment, runtime/device details, and failures encountered.
-- Design alternatives, accepted tradeoffs, and the unseen challenge result.
-- Per-concept assessment in the learner's coverage ledger; five-dimension mastery score.
+A runnable product demonstration and short PR/review-session walkthrough are sufficient. Identify the learner, existing task/PR, relevant input and observed output. The reviewer records individual concept evidence, assistance and scores in the existing ledgers; the optional submission template is not a required document.
+
+Report the checks actually run and the concrete gap exposed by any failure. Keep implementation completion separate from mastery assessment. No new issue publication or issue editing is authorized by this reference.
 
 ## Coach checkpoint
 
-Record expected behavior before inspecting the solution. Inject a changed constraint, request a diagnosis, and score understanding, implementation, debugging, tradeoffs, and transfer from 0–3. Every dimension must reach 2 independently. Failed concepts receive remediation; experience level never waives a basic concept.
+State expected behavior before inspecting the solution. Use the [review format](../../docs/REVIEW_GUIDE.md): exact code location, requested change, components, unfamiliar terms explained briefly, behavior/risk and a research hint. Keep a high-level summary and distinguish implementation blockers, prerequisite blockers, optional feedback and mastery coaching. For mastery, score understanding, implementation, debugging, tradeoffs and transfer independently; every dimension must reach 2. Years of experience waive no concept.

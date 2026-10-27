@@ -9,7 +9,14 @@ body:
     id: metadata
     attributes:
       label: Task metadata and prerequisites
-      description: Distinct task ID, learner, roadmap week, predecessor, closure event and prior product dependencies.
+      description: Distinct task ID, learner, roadmap slice/day, reviewed predecessor, closure event and prior product dependencies. W1 D7 requires D1-D6 in order.
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: One primary learning idea and product goal
+      description: Name one main idea and a small implementation increment in the actual product path. Split unrelated capabilities before publication.
     validations:
       required: true
   - type: textarea
@@ -17,6 +24,13 @@ body:
     attributes:
       label: Precise task
       description: Per-function inputs/types/defaults, exact success/error outputs, validation order, worked examples, constraints and integration point. Frontend work includes screen images and relevant states.
+    validations:
+      required: true
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: Out of scope
+      description: Name adjacent features, abstractions and optimizations deferred to successors. Introduce only the boundaries this task needs.
     validations:
       required: true
   - type: textarea
@@ -35,21 +49,21 @@ body:
   - type: textarea
     id: hints
     attributes:
-      label: Progressive hints
-      description: Three hints, conceptual through diagnostic.
+      label: Progressive research hints
+      description: Three useful search phrases, comparisons or diagnostic questions. Help investigation without dictating the architecture or supplying solution steps.
     validations:
       required: true
   - type: textarea
     id: acceptance
     attributes:
-      label: Observable acceptance and product progress
-      description: Demonstrate integrated behavior and failure/recovery cases. Test writing is optional PR feedback; tests and documentation are not separate assignments.
+      label: Observable implementation completion and product progress
+      description: State the bounded behavior and failure/recovery criteria before work starts. A demonstration is required; formal reports and test authoring are not required deliverables. Maintainers may own routine checks.
     validations:
       required: true
   - type: textarea
     id: mastery
     attributes:
-      label: Independent mastery challenge and coach assessment
-      description: Explanation, prediction, debugging, tradeoffs, unseen transfer.
+      label: Separate mastery coaching and Question of the Day
+      description: Explanation, prediction, debugging, tradeoffs and unseen transfer are learning checks, not surprise product requirements. From D2 revisit earlier completed learning in the review discussion, without supplying answers. Unanswered questions do not block an otherwise correct implementation.
     validations:
       required: true

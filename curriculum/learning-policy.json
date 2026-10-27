@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "mandatory": true,
+  "taskFields": ["primaryIdea", "goal", "context", "implementation", "unitContracts", "outOfScope", "completionCriteria", "explainedConcepts", "researchHints", "masteryCoaching"],
+  "reviewFields": ["summary", "prerequisites", "location", "requestedChange", "components", "termExplanation", "behaviorOrRisk", "researchHint", "validation", "masteryStatus"],
+  "rules": {
+    "smallProductIncrements": true,
+    "onePrimaryIdea": true,
+    "exactUnitContracts": true,
+    "explicitExclusions": true,
+    "explainTerms": true,
+    "researchHintsWithoutSolutions": true,
+    "prerequisitesInOrder": true,
+    "differentAsksForBothLearners": true,
+    "allConceptsForBothLearners": true,
+    "implementationSeparateFromMastery": true,
+    "noSurpriseImplementationRequirements": true,
+    "summaryAndPreciseInlineReview": true,
+    "maintainersMayOwnRoutineValidation": true,
+    "transparentValidation": true,
+    "noStandaloneTestOrDocumentationAssignments": true,
+    "oneCoherentSuccessorWhenAuthorized": true,
+    "preserveOriginalLearningAnswers": true,
+    "targetedLearningCorrections": true,
+    "learningAnswersDoNotBlockCorrectImplementation": true,
+    "ownerOnlyMerge": true
+  },
+  "weekOne": {
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "daySevenRequires": [1, 2, 3, 4, 5, 6],
+    "existingIssueOrder": {
+      "Neha2212-vi": [1, 2, 3, 4, 5, 6, 7],
+      "madhavichauhan1995": [8, 9, 10, 11, 12, 13, 14]
+    }
+  },
+  "questionOfTheDay": {
+    "startsOnDay": 2,
+    "previouslyCompletedWorkOnly": true,
+    "noFutureTopicAssumptions": true,
+    "answerEveryPartInOwnWords": true,
+    "answerInReviewDiscussion": true,
+    "initialQuestionContainsNoAnswer": true,
+    "recordUnderstandingSeparately": true,
+    "requiresLearnerTestsOrDocumentation": false,
+    "blocksOtherwiseCorrectImplementation": false
+  },
+  "issueMutationAuthorizedByThisChange": false,
+  "automaticIssuePublication": false
+}

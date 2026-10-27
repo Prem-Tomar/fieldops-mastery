@@ -1,0 +1,1288 @@
+{
+  "version": 1,
+  "concepts": {
+    "values and types": {
+      "definition": "A value is data; its type determines which operations make sense. JavaScript has primitive values and objects.",
+      "example": "3 is a number; '3' is a string; {available:3} is an object."
+    },
+    "coercion and strict equality": {
+      "definition": "Coercion converts one type into another. === compares without that conversion; == can convert before comparing.",
+      "example": "'0' == 0 is true, but '0' === 0 is false."
+    },
+    "truthiness": {
+      "definition": "Conditions convert values to true or false. A nonempty string is truthy even when its contents say false.",
+      "example": "Boolean('false') is true; Boolean('') is false."
+    },
+    "functions": {
+      "definition": "A function is reusable behavior with parameters, a return value, and possibly side effects.",
+      "example": "validateQuantity(3) returns a result; it should not change outside state."
+    },
+    "control flow": {
+      "definition": "Control flow determines which statements execute and in what order, using branches, loops, and early returns.",
+      "example": "Reject an invalid quantity before reserving stock."
+    },
+    "arrays and objects": {
+      "definition": "Arrays are ordered collections; objects associate property names with values.",
+      "example": "A jobs array contains objects with id and status properties."
+    },
+    "destructuring and spread": {
+      "definition": "Destructuring extracts fields; spread copies enumerable properties or expands an iterable. Object spread is shallow.",
+      "example": "{...stock, available:2} creates a new outer object."
+    },
+    "Map and Set": {
+      "definition": "Map stores key/value associations; Set stores unique values. They suit lookup and duplicate detection.",
+      "example": "Index jobs by ID with a Map and track seen IDs with a Set."
+    },
+    "immutability": {
+      "definition": "Treat existing data as unchanged and create new values when updating it.",
+      "example": "Return a new stock object instead of decrementing the input object."
+    },
+    "operators and precedence": {
+      "definition": "Operators perform calculations or comparisons. Precedence decides grouping when parentheses are absent.",
+      "example": "2 + 3 * 4 evaluates to 14; (2 + 3) * 4 evaluates to 20."
+    },
+    "strings and numbers": {
+      "definition": "Strings represent text; numbers represent numeric values. Their operators and conversions can behave differently.",
+      "example": "'2' + 3 produces '23'; 2 + 3 produces 5."
+    },
+    "array map filter reduce sort": {
+      "definition": "map transforms items, filter selects items, reduce combines them, and sort orders them; sort mutates its array.",
+      "example": "Count completed jobs with reduce; copy before sorting."
+    },
+    "shallow versus deep copy": {
+      "definition": "A shallow copy shares nested references; a deep copy duplicates supported nested data.",
+      "example": "Copying stock with spread still shares stock.metadata."
+    },
+    "complexity analysis": {
+      "definition": "Describe how time and memory requirements grow with input size, rather than relying only on one timing.",
+      "example": "Repeated linear searches may cost more than building an index once."
+    },
+    "let const var": {
+      "definition": "let and const are block scoped; var is function scoped. const prevents rebinding, not object mutation.",
+      "example": "const stock={available:3} still permits changing stock.available."
+    },
+    "scope and hoisting": {
+      "definition": "Scope controls where bindings can be accessed. Bindings are created before execution, but initialization rules differ.",
+      "example": "Reading a let binding before initialization throws a ReferenceError."
+    },
+    "closures": {
+      "definition": "A function can retain access to bindings from the scope where it was created.",
+      "example": "A counter function remembers its private count between calls."
+    },
+    "this call bind apply": {
+      "definition": "this depends on invocation for ordinary functions; call/apply supply it, and bind creates a bound function.",
+      "example": "Detaching counter.increment can lose the counter receiver."
+    },
+    "prototypes and classes": {
+      "definition": "Objects can inherit property lookup through prototypes. Class syntax builds on this object model.",
+      "example": "A class method is normally found on the class prototype."
+    },
+    "own properties": {
+      "definition": "Own properties exist directly on an object, rather than being inherited from its prototype.",
+      "example": "Object.hasOwn(counter,'count') distinguishes direct state from inherited methods."
+    },
+    "ES modules": {
+      "definition": "JavaScript modules use import/export with explicit dependencies and live exported bindings.",
+      "example": "An imported counter binding reflects updates made by its exporting module."
+    },
+    "CommonJS": {
+      "definition": "Node's CommonJS module system uses require and module.exports; interoperability depends on runtime rules.",
+      "example": "A .cjs module exports a normalizeStatus function."
+    },
+    "exceptions and finally": {
+      "definition": "throw interrupts normal control flow; catch handles errors; finally runs cleanup when the try block exits.",
+      "example": "A finally block releases a subscription after work throws."
+    },
+    "iterables and generators": {
+      "definition": "An iterable produces an iterator; a generator function can yield values lazily and preserve execution state.",
+      "example": "jobIds(jobs) yields one ID at a time."
+    },
+    "garbage collection": {
+      "definition": "The runtime can reclaim objects that are no longer reachable. Exact collection timing is not guaranteed.",
+      "example": "A lingering subscription closure can retain an otherwise unused job."
+    },
+    "WeakMap and WeakSet": {
+      "definition": "Weak collections reference object keys without keeping them alive solely through that collection; they are not enumerable.",
+      "example": "Associate private metadata with an object using a WeakMap."
+    },
+    "BigInt and Symbol": {
+      "definition": "BigInt represents integers beyond ordinary number precision; Symbol creates unique identity values.",
+      "example": "Two Symbol('job') calls differ; 2n + 3n produces 5n."
+    },
+    "promises": {
+      "definition": "A Promise represents an eventual fulfilled value or rejection; callbacks run after the current synchronous work.",
+      "example": "searchJobs('pump') returns a Promise of matching jobs."
+    },
+    "async await": {
+      "definition": "async returns a Promise; await pauses that function's continuation while other work can proceed.",
+      "example": "Await a request without treating CPU-heavy loops as nonblocking."
+    },
+    "timers": {
+      "definition": "Timers schedule callbacks after a delay threshold; execution can be later when the runtime is busy.",
+      "example": "A 250 ms debounce timer waits before starting search."
+    },
+    "race conditions": {
+      "definition": "An outcome depends on timing or ordering between operations that overlap.",
+      "example": "An old search response arrives after the current query's response."
+    },
+    "AbortController": {
+      "definition": "An AbortController sends a cancellation signal to APIs that support it; cancellation remains cooperative.",
+      "example": "Abort an old fetch and separately prevent stale publication."
+    },
+    "errors": {
+      "definition": "Errors describe failed operations; programs need a deliberate policy for reporting and recovering from them.",
+      "example": "A failed current search shows a retryable error."
+    },
+    "cleanup": {
+      "definition": "Cleanup releases resources your operation owns when it completes, fails, or is abandoned.",
+      "example": "Clear timers, unsubscribe listeners, and close owned cursors."
+    },
+    "event loop": {
+      "definition": "The event loop coordinates execution of scheduled callbacks around synchronous JavaScript work.",
+      "example": "A long synchronous report calculation delays other callbacks."
+    },
+    "microtasks versus timers": {
+      "definition": "Promise reactions run as microtasks; timer callbacks run through later scheduled tasks. Runtime details still matter.",
+      "example": "Predict synchronous logging, then a Promise reaction, then a timer."
+    },
+    "promise combinators": {
+      "definition": "Promise helpers combine multiple operations with different completion and rejection policies.",
+      "example": "Compare Promise.all with Promise.allSettled for a batch."
+    },
+    "error propagation": {
+      "definition": "A thrown error or rejected Promise must reach a handler that owns the failure policy.",
+      "example": "Await worker results so rejected jobs do not become unhandled failures."
+    },
+    "concurrency versus parallelism": {
+      "definition": "Concurrency overlaps progress; parallelism executes work simultaneously. Async I/O does not itself imply multiple CPU threads.",
+      "example": "Three network requests can overlap on one JavaScript thread."
+    },
+    "resource cleanup": {
+      "definition": "Cleanup releases resources your operation owns when it completes, fails, or is abandoned.",
+      "example": "Clear timers, unsubscribe listeners, and close owned cursors."
+    },
+    "type inference": {
+      "definition": "TypeScript often derives a value's type from its expression and context.",
+      "example": "A numeric initializer can infer number without an explicit annotation."
+    },
+    "interfaces and type aliases": {
+      "definition": "Both describe types; aliases can also name unions and other type expressions.",
+      "example": "Use a Job alias for a union of state-specific object types."
+    },
+    "optional properties": {
+      "definition": "An optional property may be absent; absence is not always interchangeable with a supplied undefined.",
+      "example": "Distinguish a missing notes field from an explicitly cleared value."
+    },
+    "literal types": {
+      "definition": "A literal type allows one exact value rather than every value of its primitive type.",
+      "example": "status:'completed' identifies a particular job variant."
+    },
+    "unions and intersections": {
+      "definition": "A union accepts one of several shapes; an intersection combines requirements.",
+      "example": "Job is a union; a tenant-scoped entity can intersect with {tenantId:string}."
+    },
+    "discriminated unions": {
+      "definition": "A union has a shared tag whose value identifies which object shape applies.",
+      "example": "status:'completed' narrows the job to a shape with evidence."
+    },
+    "narrowing": {
+      "definition": "Checks refine a broad type into a more specific type within a branch.",
+      "example": "Check typeof input === 'number' before numeric operations."
+    },
+    "never": {
+      "definition": "never describes a value that cannot occur, useful for unreachable and exhaustive branches.",
+      "example": "An exhaustive status switch assigns its impossible remainder to never."
+    },
+    "primitive annotations": {
+      "definition": "TypeScript annotations describe allowed primitive values at compile time.",
+      "example": "quantity:number rejects a string in checked TypeScript code."
+    },
+    "array and tuple types": {
+      "definition": "An array repeats an element type; a tuple describes specific positions and their types.",
+      "example": "[string,number] can represent [jobId,quantity]."
+    },
+    "enum versus literal union": {
+      "definition": "An enum names related constants; a literal union limits values to specific alternatives.",
+      "example": "'draft' | 'completed' restricts a job status without an enum object."
+    },
+    "generics": {
+      "definition": "Generics parameterize a type or function while preserving relationships between input and output types.",
+      "example": "Page<Job> retains Job as the item type."
+    },
+    "constraints": {
+      "definition": "A generic constraint limits which types a parameter accepts.",
+      "example": "K extends keyof T restricts a projection to valid property keys."
+    },
+    "keyof": {
+      "definition": "keyof produces the union of a type's property names.",
+      "example": "keyof Job can restrict permitted field selections."
+    },
+    "indexed access": {
+      "definition": "Indexed access extracts a property or collection element type from another type.",
+      "example": "T[K] describes the selected field's value type."
+    },
+    "mapped types": {
+      "definition": "A mapped type transforms properties according to a rule.",
+      "example": "Create a readonly view from every property of a domain object."
+    },
+    "conditional types": {
+      "definition": "A conditional type selects a type result based on a type relationship.",
+      "example": "Extract the success value from Result<T,E>."
+    },
+    "utility types": {
+      "definition": "Built-in helpers transform types for common needs.",
+      "example": "Pick<Job,'id'|'status'> selects two fields."
+    },
+    "structural typing": {
+      "definition": "Compatibility depends largely on shape rather than a type's declared name.",
+      "example": "Two objects with required id/status fields may be compatible."
+    },
+    "readonly": {
+      "definition": "readonly prevents certain mutations through a TypeScript reference; it does not freeze runtime objects.",
+      "example": "Readonly<Job> is a compile-time view."
+    },
+    "function types": {
+      "definition": "A function type specifies parameters and return type, including callback contracts.",
+      "example": "A listener accepts a JobEvent and returns void."
+    },
+    "overloads": {
+      "definition": "Overloads describe distinct supported calling shapes while sharing one implementation.",
+      "example": "A lookup can accept one ID or an array with matching return contracts."
+    },
+    "optional and rest parameters": {
+      "definition": "Optional parameters can be omitted; rest parameters collect a variable number of arguments.",
+      "example": "A logger accepts an optional context and additional message values."
+    },
+    "unknown versus any": {
+      "definition": "unknown requires checking before use; any bypasses many compiler guarantees.",
+      "example": "Accept network input as unknown and validate it."
+    },
+    "type guards": {
+      "definition": "A predicate or checked condition narrows a type by establishing a property.",
+      "example": "isJobCommand verifies required command fields."
+    },
+    "runtime schemas": {
+      "definition": "A runtime schema checks actual data shapes; static types alone do not inspect incoming JSON.",
+      "example": "Reject a quantity string at the API boundary."
+    },
+    "typed errors": {
+      "definition": "Explicit error shapes make failure handling predictable without relying on message text.",
+      "example": "Return {code:'CONFLICT'} for a rejected state transition."
+    },
+    "null and undefined": {
+      "definition": "null commonly represents an explicit empty value; undefined often represents absence or an uninitialized result.",
+      "example": "An API must define whether omitted and null fields differ."
+    },
+    "serialization": {
+      "definition": "Serialization converts values into a representation another process or storage can consume.",
+      "example": "A worker message must represent its payload safely."
+    },
+    "strict compiler options": {
+      "definition": "tsconfig controls compilation and checks; strict options expose unsafe assumptions.",
+      "example": "Enable strict and noUncheckedIndexedAccess for missing lookups."
+    },
+    "exhaustiveness": {
+      "definition": "Every declared variant must be handled; adding a variant should expose missing decisions.",
+      "example": "Add awaitingApproval and find incomplete status switches."
+    },
+    "type-only imports": {
+      "definition": "Type-only imports carry compile-time information and can be removed from emitted JavaScript.",
+      "example": "import type {Job} avoids treating Job as a runtime value."
+    },
+    "module boundaries": {
+      "definition": "Public interfaces separate packages; consumers use exported behavior without depending on a module's internal details."
+    },
+    "declaration output": {
+      "definition": "Declaration files publish type information for consumers of compiled packages.",
+      "example": "A contracts package emits .d.ts files."
+    },
+    "type compatibility": {
+      "definition": "A type is compatible when it can be used safely where another type is expected under compiler rules.",
+      "example": "A narrowed completed job can be used as a general job."
+    },
+    "runtime versus compile-time contracts": {
+      "definition": "Compile-time contracts check source code; runtime contracts check deployed interactions and actual data.",
+      "example": "A typed mobile client can still receive malformed JSON."
+    },
+    "tsconfig": {
+      "definition": "tsconfig controls compilation and checks; strict options expose unsafe assumptions.",
+      "example": "Enable strict and noUncheckedIndexedAccess for missing lookups."
+    },
+    "source maps": {
+      "definition": "Source maps relate generated code locations to original source for debugging.",
+      "example": "Trace a production stack frame back to its TypeScript line."
+    },
+    "TypeScript compilation versus execution": {
+      "definition": "TypeScript checks/transforms source; the runtime executes JavaScript and does not automatically enforce annotations.",
+      "example": "A compiled API still needs JSON validation."
+    },
+    "JSX": {
+      "definition": "JSX describes UI elements using syntax transformed into JavaScript; it is not an HTML string.",
+      "example": "Render a JobRow with properties inside a list."
+    },
+    "components": {
+      "definition": "Components package UI behavior and presentation into reusable units.",
+      "example": "JobDetails receives a selected job and renders its status."
+    },
+    "props": {
+      "definition": "Props are inputs passed from a parent to a component.",
+      "example": "Pass jobId rather than copying unrelated parent state."
+    },
+    "composition": {
+      "definition": "Composition builds larger behavior by connecting smaller units through explicit interfaces.",
+      "example": "A detail view composes a status badge and evidence panel."
+    },
+    "events": {
+      "definition": "Events represent user or system actions; handlers decide how state changes.",
+      "example": "A submit handler prevents default navigation and starts assignment."
+    },
+    "state": {
+      "definition": "State is stored information that can change and influence behavior or rendering.",
+      "example": "Store selectedJobId and an unsaved notes draft."
+    },
+    "reconciliation": {
+      "definition": "Reconciliation resolves differences between local and authoritative state through a defined policy.",
+      "example": "Present a completion conflict for an authorized decision."
+    },
+    "keys": {
+      "definition": "Keys identify siblings across list changes; stable domain IDs avoid mismatched identity.",
+      "example": "Use job.id rather than a changing array position."
+    },
+    "derived state": {
+      "definition": "Derived state can be computed from other inputs instead of separately stored.",
+      "example": "Compute selectedJob from selectedJobId and the job list."
+    },
+    "immutable updates": {
+      "definition": "Treat existing data as unchanged and create new values when updating it.",
+      "example": "Return a new stock object instead of decrementing the input object."
+    },
+    "Rules of Hooks": {
+      "definition": "Hooks follow stable calling order and permitted call locations so React can associate state correctly.",
+      "example": "Do not call useState only when a condition is true."
+    },
+    "useReducer": {
+      "definition": "useReducer expresses state changes through actions and a reducer function.",
+      "example": "An assignment reducer handles pending, success, and conflict."
+    },
+    "Context": {
+      "definition": "Context distributes values through a component tree without passing each intermediate prop.",
+      "example": "Provide the current organization to nested views."
+    },
+    "controlled and uncontrolled inputs": {
+      "definition": "Controlled inputs take their current value from React state; uncontrolled inputs retain it in the host input.",
+      "example": "Choose a controlled notes field for live validation."
+    },
+    "form events": {
+      "definition": "Events represent user or system actions; handlers decide how state changes.",
+      "example": "A submit handler prevents default navigation and starts assignment."
+    },
+    "validation": {
+      "definition": "Validation checks incoming data against explicit rules before business code accepts or changes it."
+    },
+    "refs": {
+      "definition": "A ref retains a mutable value across renders without its changes causing a render.",
+      "example": "Keep a timer handle or input reference in useRef."
+    },
+    "focus": {
+      "definition": "Focus determines where keyboard input goes; intentional movement makes recovery and navigation usable.",
+      "example": "Move focus to an invalid field after submission."
+    },
+    "routing": {
+      "definition": "Routing selects an endpoint; middleware applies cross-cutting request behavior around handlers.",
+      "example": "Validate input and attach a request ID before domain work."
+    },
+    "URL state": {
+      "definition": "URL state represents shareable navigation/filter values in the address.",
+      "example": "Encode selected job and status filter in query parameters."
+    },
+    "accessibility": {
+      "definition": "Accessibility makes interactions understandable and usable with different input methods and assistive technology.",
+      "example": "Label controls and support keyboard navigation."
+    },
+    "loading and empty states": {
+      "definition": "Loading means data is pending; empty means loading completed without matching data.",
+      "example": "Show a loading indicator separately from no matching jobs."
+    },
+    "portals": {
+      "definition": "A portal renders UI into another host container while retaining its React relationship.",
+      "example": "Render an assignment dialog above the main page layout."
+    },
+    "focus management": {
+      "definition": "Focus determines where keyboard input goes; intentional movement makes recovery and navigation usable.",
+      "example": "Move focus to an invalid field after submission."
+    },
+    "useEffect": {
+      "definition": "An effect synchronizes a component with an external system after rendering.",
+      "example": "Subscribe to job updates and return unsubscribe cleanup."
+    },
+    "dependency arrays": {
+      "definition": "Effect dependencies describe reactive values used by the effect and when synchronization changes.",
+      "example": "Changing jobId replaces its subscription."
+    },
+    "useRef": {
+      "definition": "A ref retains a mutable value across renders without its changes causing a render.",
+      "example": "Keep a timer handle or input reference in useRef."
+    },
+    "custom hooks": {
+      "definition": "A custom hook extracts reusable React behavior while retaining normal hook rules.",
+      "example": "useJobSubscription owns connection setup and cleanup."
+    },
+    "StrictMode": {
+      "definition": "StrictMode adds development checks that expose unsafe behavior, including effect lifecycle problems.",
+      "example": "A setup-cleanup-setup check reveals a leaked subscription."
+    },
+    "render versus commit": {
+      "definition": "Rendering calculates UI; committing applies an accepted result to the host environment.",
+      "example": "Avoid opening a subscription during render calculation."
+    },
+    "component testing": {
+      "definition": "Component testing exercises a UI unit's observable behavior with controlled inputs.",
+      "example": "Discuss how an assignment widget should react to rejection."
+    },
+    "integration testing": {
+      "definition": "Integration testing exercises connected parts and their boundaries.",
+      "example": "Verify the API and database agree on inventory reservations."
+    },
+    "mock boundaries": {
+      "definition": "A mock replaces a dependency; the chosen boundary determines which real behavior is verified.",
+      "example": "Control a network response without replacing all UI behavior."
+    },
+    "error boundaries": {
+      "definition": "A boundary renders a fallback for supported descendant render/lifecycle failures; it does not catch every async error.",
+      "example": "Keep navigation working when a detail widget fails."
+    },
+    "async event errors": {
+      "definition": "An async event operation can reject outside render-error boundary handling.",
+      "example": "Handle a failed assignment request explicitly."
+    },
+    "render errors": {
+      "definition": "Render errors occur while calculating or processing a component's UI.",
+      "example": "A broken detail widget throws before it can display."
+    },
+    "test isolation": {
+      "definition": "Isolation prevents one verification scenario's state from contaminating another.",
+      "example": "Reset database fixtures between independent scenarios."
+    },
+    "server state versus client state": {
+      "definition": "Server state is remote authoritative data; client state includes local interaction and unsaved intent.",
+      "example": "Keep a draft separate from the cached confirmed job."
+    },
+    "query keys": {
+      "definition": "Query keys identify which remote result is cached and must include relevant inputs.",
+      "example": "Include tenant, status, and page in a jobs key."
+    },
+    "pagination": {
+      "definition": "Pagination divides a large result into ordered portions with a continuation strategy.",
+      "example": "Return jobs with a cursor for the next stable page."
+    },
+    "freshness": {
+      "definition": "Freshness describes how current cached data must be for a use case.",
+      "example": "A dispatch view may refresh sooner than a historical report."
+    },
+    "invalidation": {
+      "definition": "Invalidation marks cached data as outdated after a relevant change.",
+      "example": "Completing a job invalidates affected status lists."
+    },
+    "request deduplication": {
+      "definition": "Deduplication shares identical in-flight work rather than issuing redundant requests.",
+      "example": "Two widgets use one current-job request."
+    },
+    "optimistic state": {
+      "definition": "Optimistic state displays expected success before the server confirms, with a recovery policy.",
+      "example": "Show a technician assignment while its request is pending."
+    },
+    "mutation ordering": {
+      "definition": "Mutation ordering decides which overlapping changes may update confirmed or displayed state.",
+      "example": "A late first assignment cannot overwrite a newer accepted one."
+    },
+    "rollback": {
+      "definition": "Rollback restores a safe earlier application or state version after failure; database reversal requires separate reasoning.",
+      "example": "Revert a failed optimistic change without losing newer accepted data."
+    },
+    "state machines": {
+      "definition": "A state machine defines allowed states and transitions rather than scattered flags.",
+      "example": "A queued operation moves from pending to sending to accepted."
+    },
+    "accessible status feedback": {
+      "definition": "Status feedback must be perceivable without depending only on color or sight.",
+      "example": "Announce pending assignment and errors with appropriate semantics."
+    },
+    "lazy loading": {
+      "definition": "Lazy loading delays acquiring code or data until it is needed.",
+      "example": "Load reporting UI only when the reporting route is opened."
+    },
+    "Suspense": {
+      "definition": "Suspense coordinates fallback UI for supported suspending work through React/framework integration.",
+      "example": "Show a history fallback while streamed history is pending."
+    },
+    "transitions": {
+      "definition": "Transitions mark suitable React updates as lower priority so urgent interaction can proceed.",
+      "example": "Keep typing responsive while a large filter result updates."
+    },
+    "streaming SSR": {
+      "definition": "Streaming server rendering sends useful HTML progressively rather than waiting for all sections.",
+      "example": "Deliver the job summary before slow history finishes."
+    },
+    "hydration": {
+      "definition": "Hydration connects client React behavior to existing server-rendered markup.",
+      "example": "Match initial server/client content to avoid mismatch."
+    },
+    "server/client boundaries": {
+      "definition": "Boundaries decide which work runs on the server and which requires browser interaction.",
+      "example": "Keep credentialed data access on an appropriate server boundary."
+    },
+    "framework integration": {
+      "definition": "A framework supplies routing, rendering, and data-loading conventions around React.",
+      "example": "Use supported data loading for a Suspense experiment."
+    },
+    "bundle size": {
+      "definition": "Bundle size affects transfer, parsing, and startup cost.",
+      "example": "Measure the initial download before adding a large library."
+    },
+    "React Profiler": {
+      "definition": "Profiling measures where time and resources go so changes address actual bottlenecks.",
+      "example": "Measure row renders before memoizing them."
+    },
+    "memoization": {
+      "definition": "Memoization reuses a result when relevant inputs have not changed.",
+      "example": "Cache an expensive derived summary when justified."
+    },
+    "referential equality": {
+      "definition": "Referential equality compares object identity, not a deep comparison of contents.",
+      "example": "Two separately created {id:1} objects are different references."
+    },
+    "context propagation": {
+      "definition": "Changes in a context value can update consumers; placement and identity influence the scope.",
+      "example": "Avoid changing an unrelated global value on every job update."
+    },
+    "virtualization": {
+      "definition": "Virtualization renders a visible window of a large collection rather than every item.",
+      "example": "Render only nearby rows in a 10,000-job list."
+    },
+    "bundle splitting": {
+      "definition": "Bundle splitting divides code into loadable chunks.",
+      "example": "Separate reporting code from the initial dispatch bundle."
+    },
+    "memory cleanup": {
+      "definition": "Cleanup releases resources your operation owns when it completes, fails, or is abandoned.",
+      "example": "Clear timers, unsubscribe listeners, and close owned cursors."
+    },
+    "useMemo versus useCallback": {
+      "definition": "useMemo caches a calculated value; useCallback retains a function identity between relevant changes.",
+      "example": "Stabilize a callback only when its identity affects measured behavior."
+    },
+    "native components": {
+      "definition": "Native components map React Native UI descriptions to platform views.",
+      "example": "Use Text and View rather than browser div elements."
+    },
+    "Flexbox": {
+      "definition": "Flexbox lays out items within a container using direction, alignment, and size rules.",
+      "example": "Arrange technician actions in an adaptive row."
+    },
+    "safe areas": {
+      "definition": "Safe areas avoid content being obscured by device cutouts and system UI.",
+      "example": "Keep the completion button above the bottom inset."
+    },
+    "navigation": {
+      "definition": "Navigation manages screen transitions and their history.",
+      "example": "Open job detail and return to the prior list."
+    },
+    "deep links": {
+      "definition": "A deep link routes an external location to a particular application screen.",
+      "example": "Open a job from a notification."
+    },
+    "keyboard handling": {
+      "definition": "Keyboard handling keeps fields and actions usable when the software keyboard changes available space.",
+      "example": "Scroll the focused notes field into view."
+    },
+    "platform differences": {
+      "definition": "Android and iOS can differ in permission, layout, navigation, and lifecycle behavior.",
+      "example": "Verify the Android back action separately from iOS navigation."
+    },
+    "camera and media permissions": {
+      "definition": "Apps must request and handle platform access to capture or select media.",
+      "example": "Show recovery when camera permission is denied."
+    },
+    "local files": {
+      "definition": "Local files have storage locations and lifetimes; temporary files may not be durable evidence.",
+      "example": "Copy an owned camera result into an appropriate durable location."
+    },
+    "local persistence": {
+      "definition": "Persistence stores data beyond the current process's memory.",
+      "example": "Reopen the app and recover completion notes."
+    },
+    "app lifecycle": {
+      "definition": "The OS can foreground, background, suspend, or terminate a mobile process.",
+      "example": "Persist a draft before claiming it is saved."
+    },
+    "async writes": {
+      "definition": "An asynchronous write finishes later; acknowledgement must reflect actual durable completion.",
+      "example": "Display saved only after the persistence operation succeeds."
+    },
+    "secure versus ordinary storage": {
+      "definition": "Sensitive credentials need protected storage appropriate to the platform; ordinary preferences are not a secret store.",
+      "example": "Keep session credentials out of unencrypted draft storage."
+    },
+    "FlatList": {
+      "definition": "FlatList is a React Native component for efficiently presenting scrollable collections.",
+      "example": "Use stable IDs and measure a 5,000-job list."
+    },
+    "stable keys": {
+      "definition": "Keys identify siblings across list changes; stable domain IDs avoid mismatched identity.",
+      "example": "Use job.id rather than a changing array position."
+    },
+    "gestures": {
+      "definition": "Gestures translate touch movement into interactions with cancellation and conflict rules.",
+      "example": "A row swipe opens an action without breaking scrolling."
+    },
+    "animations": {
+      "definition": "Animations change visual properties over time and must respect responsiveness and user preferences.",
+      "example": "Measure a swipe transition under JS load."
+    },
+    "JS and UI threads": {
+      "definition": "JavaScript execution and platform UI work have distinct scheduling concerns.",
+      "example": "A JS stall and a UI rendering stall can have different symptoms."
+    },
+    "image memory": {
+      "definition": "Decoded image memory can exceed compressed download size.",
+      "example": "Resize a large photo for a small thumbnail."
+    },
+    "Hermes profiling": {
+      "definition": "Hermes profiling inspects JavaScript work in React Native's JavaScript engine.",
+      "example": "Find CPU-heavy work in a release-build interaction."
+    },
+    "native modules": {
+      "definition": "Native modules expose platform functionality through a JavaScript-accessible interface.",
+      "example": "Expose a small device-uptime API."
+    },
+    "typed specifications": {
+      "definition": "A typed native specification describes the interface shared across language boundaries.",
+      "example": "Declare a native method's parameter and return shapes."
+    },
+    "code generation": {
+      "definition": "Code generation produces integration code from a declared interface or schema.",
+      "example": "Generate native glue from a module specification."
+    },
+    "JSI concepts": {
+      "definition": "JSI is an interface enabling JavaScript and native code to interact; it is not a guarantee of cheap or safe synchronous work.",
+      "example": "Explain why a slow native call can still block interaction."
+    },
+    "Fabric concepts": {
+      "definition": "Fabric is React Native's renderer architecture that coordinates React and native view work.",
+      "example": "Trace how a changed layout reaches the platform view."
+    },
+    "render commit mount": {
+      "definition": "React Native rendering calculates a tree, commits an accepted result, then mounts host changes.",
+      "example": "Distinguish calculating a row from updating its native view."
+    },
+    "threading": {
+      "definition": "Threading determines where work executes and how access is coordinated.",
+      "example": "Keep expensive work off an interaction-critical thread."
+    },
+    "native build tools": {
+      "definition": "Native build tools compile and package platform code and dependencies.",
+      "example": "Use Android tooling and Xcode for platform builds."
+    },
+    "HTTP semantics": {
+      "definition": "HTTP methods, status codes, headers, and bodies describe requests and their outcomes.",
+      "example": "Use a stable conflict response for a rejected assignment."
+    },
+    "middleware": {
+      "definition": "Routing selects an endpoint; middleware applies cross-cutting request behavior around handlers.",
+      "example": "Validate input and attach a request ID before domain work."
+    },
+    "request lifecycle": {
+      "definition": "A request passes through admission, handling, response, and cleanup, including disconnects.",
+      "example": "Release owned resources if a downloading client leaves."
+    },
+    "async errors": {
+      "definition": "A thrown error or rejected Promise must reach a handler that owns the failure policy.",
+      "example": "Await worker results so rejected jobs do not become unhandled failures."
+    },
+    "configuration": {
+      "definition": "Configuration supplies environment-specific behavior without hardcoding secrets.",
+      "example": "Read a database URL from a controlled environment setting."
+    },
+    "logging": {
+      "definition": "Logging records diagnostic events with relevant context.",
+      "example": "Log a request ID and failure category without credentials."
+    },
+    "dependency injection": {
+      "definition": "Dependency injection supplies collaborators through interfaces rather than hardcoded global imports.",
+      "example": "Inject a fake subscription service into an isolated exercise."
+    },
+    "ESM": {
+      "definition": "JavaScript modules use import/export with explicit dependencies and live exported bindings.",
+      "example": "An imported counter binding reflects updates made by its exporting module."
+    },
+    "headers and cookies": {
+      "definition": "Headers carry request/response metadata; cookies can store browser session identifiers with access rules.",
+      "example": "Explain HttpOnly and SameSite for a chosen session transport."
+    },
+    "JSON parsing limits": {
+      "definition": "Parsing limits bound untrusted body size and complexity before expensive processing.",
+      "example": "Reject an oversized job command."
+    },
+    "Buffer": {
+      "definition": "A Buffer represents binary bytes in Node.js.",
+      "example": "Stream attachment chunks rather than treating bytes as a text string."
+    },
+    "filesystem promises": {
+      "definition": "Promise-based filesystem APIs provide asynchronous file operations with explicit errors.",
+      "example": "Await a file write and handle permission failure."
+    },
+    "EventEmitter": {
+      "definition": "EventEmitter lets producers emit named events and listeners subscribe; listener lifetime needs management.",
+      "example": "Remove a job listener when its owner is disposed."
+    },
+    "package scripts and lockfiles": {
+      "definition": "Scripts name repeatable commands; lockfiles record resolved dependency versions.",
+      "example": "Run a consistent build and install from a committed lockfile."
+    },
+    "relational modelling": {
+      "definition": "Relational modelling organizes entities and relationships into constrained tables.",
+      "example": "Link stock movements to jobs and organizations."
+    },
+    "foreign keys": {
+      "definition": "A foreign key constrains a reference to a valid related record.",
+      "example": "A job assignment must reference an existing technician."
+    },
+    "unique and check constraints": {
+      "definition": "Database constraints enforce rules even under concurrent application access.",
+      "example": "Reject duplicate completion keys and negative available stock."
+    },
+    "SQL": {
+      "definition": "SQL queries and changes relational data through declared statements.",
+      "example": "Select jobs in a stable order within an organization."
+    },
+    "indexes": {
+      "definition": "Indexes organize data to accelerate selected access patterns, at a write/storage cost.",
+      "example": "Index the tenant and status columns for a common job query."
+    },
+    "transactions": {
+      "definition": "A transaction groups changes that commit together or are rolled back.",
+      "example": "Complete a job and record inventory movement atomically."
+    },
+    "locking": {
+      "definition": "Locks coordinate access when concurrent work would violate a rule.",
+      "example": "Protect the final stock unit during reservation."
+    },
+    "isolation": {
+      "definition": "Isolation determines how concurrent transactions observe and affect one another.",
+      "example": "Compare update behavior under competing reservations."
+    },
+    "migrations": {
+      "definition": "Migrations change stored schema or data in a controlled, versioned way.",
+      "example": "Add approval state without corrupting existing jobs."
+    },
+    "query plans": {
+      "definition": "A query plan shows how the database intends to execute a query.",
+      "example": "Inspect whether a job list scans all rows or uses an index."
+    },
+    "idempotency": {
+      "definition": "An idempotent operation has no extra business effect when repeated according to its contract.",
+      "example": "Retry completion without deducting stock twice."
+    },
+    "unique constraints": {
+      "definition": "Database constraints enforce rules even under concurrent application access.",
+      "example": "Reject duplicate completion keys and negative available stock."
+    },
+    "atomicity": {
+      "definition": "Atomicity means grouped changes succeed together or do not take effect.",
+      "example": "Avoid a completed job without its required stock movement."
+    },
+    "request fingerprints": {
+      "definition": "A fingerprint identifies the relevant contents of a request for repeat comparison.",
+      "example": "Reject the same idempotency key with a different quantity."
+    },
+    "concurrent promises": {
+      "definition": "Multiple Promise-producing operations can be in flight at once, requiring bounded admission and error handling.",
+      "example": "Limit a batch to three active jobs."
+    },
+    "business-state guards": {
+      "definition": "State guards reject operations that are not legal for the current business state.",
+      "example": "A new key cannot complete an already-completed job twice."
+    },
+    "authentication versus authorization": {
+      "definition": "Authentication establishes identity; authorization decides whether that identity may perform an action.",
+      "example": "A logged-in technician still cannot edit another tenant's job."
+    },
+    "sessions versus tokens": {
+      "definition": "Sessions and tokens are ways to carry identity; expiration, storage, and revocation depend on the design.",
+      "example": "Define how a revoked mobile session stops queued commands."
+    },
+    "password hashing when applicable": {
+      "definition": "Password hashing stores a one-way, deliberately expensive verifier instead of a recoverable password.",
+      "example": "Use a suitable maintained password-hashing implementation if passwords are supported."
+    },
+    "RBAC and resource rules": {
+      "definition": "Role permissions describe categories of actions; resource rules check the particular object's ownership or assignment.",
+      "example": "Technician role alone does not permit changing every job."
+    },
+    "tenant isolation": {
+      "definition": "Tenant isolation prevents one organization's data from leaking into another's operations.",
+      "example": "Scope API queries, files, caches, and subscriptions by organization."
+    },
+    "CSRF and CORS": {
+      "definition": "CSRF abuses ambient credentials for unwanted actions; CORS controls browser cross-origin response access, not API authorization.",
+      "example": "Choose relevant protections for cookie-based mutation requests."
+    },
+    "rate limiting": {
+      "definition": "Rate limiting bounds how often callers can consume a service.",
+      "example": "Limit abusive upload or login traffic with a documented response."
+    },
+    "TLS basics": {
+      "definition": "TLS protects transport confidentiality and integrity and authenticates endpoints through certificate validation.",
+      "example": "Use validated HTTPS for mobile API calls."
+    },
+    "HTTP security headers": {
+      "definition": "Security headers tell browsers about content, framing, transport, and related restrictions.",
+      "example": "Choose content and framing policies for the web shell."
+    },
+    "local transactions": {
+      "definition": "Local transactions commit related offline records together.",
+      "example": "Store an operation and its draft update consistently."
+    },
+    "durability": {
+      "definition": "Durability means acknowledged data survives the failures covered by the storage contract.",
+      "example": "A saved draft survives process termination."
+    },
+    "local database migrations": {
+      "definition": "Local migrations evolve device storage while preserving supported old data.",
+      "example": "Upgrade a queued v1 command record."
+    },
+    "retry and backoff": {
+      "definition": "Retry transient failures with increasing delays and a bounded stopping policy.",
+      "example": "Retry an upload after a temporary timeout, not a validation error."
+    },
+    "jitter": {
+      "definition": "Jitter adds randomized delay so many clients do not retry at the same instant.",
+      "example": "Spread reconnect retries after a network outage."
+    },
+    "per-entity ordering": {
+      "definition": "Ordering is preserved for operations that depend on the same entity while independent entities can proceed.",
+      "example": "A job start must not overtake its earlier assignment."
+    },
+    "batching": {
+      "definition": "Batching combines work to reduce overhead while preserving limits and error visibility.",
+      "example": "Send bounded groups of queued changes after reconnect."
+    },
+    "cancellation": {
+      "definition": "Cancellation defines how unfinished work stops and how owned resources are released.",
+      "example": "Disposed search must not publish a later response."
+    },
+    "connectivity signals": {
+      "definition": "A device connection signal is a hint, not proof that a particular service is reachable.",
+      "example": "Handle API failure even when the phone reports Wi-Fi."
+    },
+    "optimistic concurrency": {
+      "definition": "An operation checks that the stored version still matches the version it edited.",
+      "example": "Reject completion based on an outdated cancelled-job version."
+    },
+    "versions": {
+      "definition": "Versions identify revisions of data or contracts so changes can be detected and negotiated.",
+      "example": "Include a job revision with an edit."
+    },
+    "conflict detection": {
+      "definition": "Conflict detection recognizes incompatible concurrent intent rather than silently overwriting it.",
+      "example": "Notice offline completion against online cancellation."
+    },
+    "domain policy": {
+      "definition": "Domain policy states the business decision when several technically possible behaviors exist.",
+      "example": "Decide whether cancellation requires reviewing captured evidence."
+    },
+    "audit history": {
+      "definition": "An audit history preserves attributable changes and decisions for investigation.",
+      "example": "Retain the cancellation and attempted completion."
+    },
+    "clock skew": {
+      "definition": "Clock skew means device timestamps can disagree and cannot alone prove global order.",
+      "example": "Do not choose a conflict winner solely by phone time."
+    },
+    "chunking": {
+      "definition": "Chunking divides a large payload into manageable pieces.",
+      "example": "Send a large photo archive in resumable chunks."
+    },
+    "checksums": {
+      "definition": "A checksum summarizes content so unexpected changes can be detected under its stated guarantees.",
+      "example": "Verify uploaded chunks and the assembled file."
+    },
+    "resumability": {
+      "definition": "Resumability continues from a durable checkpoint after interruption.",
+      "example": "Restart an upload from accepted chunks."
+    },
+    "file streams": {
+      "definition": "Streams process data incrementally instead of loading the entire payload at once.",
+      "example": "Stream report rows or attachment bytes."
+    },
+    "resource lifecycle": {
+      "definition": "A resource has creation, ownership, use, completion, and cleanup rules.",
+      "example": "A partial upload expires and its temporary chunks are removed."
+    },
+    "upload authorization": {
+      "definition": "Upload authorization checks who may create, continue, and attach a file to a resource.",
+      "example": "Revalidate ownership before accepting a resumed chunk."
+    },
+    "mobile background limits": {
+      "definition": "The OS can limit or stop background execution; clients must not rely on uninterrupted work.",
+      "example": "Resume a persisted upload after the app restarts."
+    },
+    "SSE versus WebSockets": {
+      "definition": "SSE sends a server-to-client event stream; WebSockets provide a bidirectional connection with different protocol needs.",
+      "example": "Choose a transport for live dispatch updates."
+    },
+    "ordering": {
+      "definition": "Ordering defines which sequence guarantees consumers can rely on.",
+      "example": "Specify whether job events are ordered per job or globally."
+    },
+    "cursors": {
+      "definition": "A cursor identifies a continuation position in results or event history.",
+      "example": "Resume updates after the last processed event."
+    },
+    "deduplication": {
+      "definition": "Deduplication recognizes repeated work or events and avoids repeated effects.",
+      "example": "Ignore a duplicate accepted-completion event."
+    },
+    "reconnect": {
+      "definition": "Reconnect restores a broken connection and may require application-state recovery.",
+      "example": "Reconnect and replay missed updates before marking the board current."
+    },
+    "authentication": {
+      "definition": "Authentication establishes identity; authorization decides whether that identity may perform an action.",
+      "example": "A logged-in technician still cannot edit another tenant's job."
+    },
+    "snapshot plus event stream": {
+      "definition": "A snapshot gives current state; an event stream carries changes. Their boundary must avoid a gap.",
+      "example": "Fetch a snapshot with a compatible stream cursor."
+    },
+    "transactional outbox": {
+      "definition": "An outbox stores side-effect intent in the same database transaction as the business change.",
+      "example": "Commit completion and its notification intent together."
+    },
+    "at-least-once processing": {
+      "definition": "At-least-once processing can repeat deliveries, so consumers must tolerate duplicates.",
+      "example": "A worker crash causes a notification attempt to be retried."
+    },
+    "idempotent consumers": {
+      "definition": "An idempotent consumer prevents duplicate deliveries from repeating a business effect.",
+      "example": "Record a processed operation ID before repeating a stock adjustment."
+    },
+    "queues": {
+      "definition": "Queues buffer work for later consumers and need admission, capacity, and failure policies.",
+      "example": "Hold notification jobs while the provider is unavailable."
+    },
+    "dead letters": {
+      "definition": "Dead letters retain work that cannot be processed normally for inspection or recovery.",
+      "example": "Inspect a repeatedly rejected notification."
+    },
+    "retry budgets": {
+      "definition": "A retry budget bounds attempts or time to avoid endless overload.",
+      "example": "Stop automatic retries after a defined limit and surface the failure."
+    },
+    "distributed transactions": {
+      "definition": "Distributed transactions coordinate changes across multiple systems; simpler local transactions do not cover remote effects.",
+      "example": "A database commit cannot atomically guarantee a third-party notification."
+    },
+    "Node streams": {
+      "definition": "Streams process data incrementally instead of loading the entire payload at once.",
+      "example": "Stream report rows or attachment bytes."
+    },
+    "backpressure": {
+      "definition": "Backpressure slows a producer when its consumer cannot keep up.",
+      "example": "A slow download prevents unbounded report buffering."
+    },
+    "pipeline": {
+      "definition": "A pipeline connects processing stages with error and cleanup coordination.",
+      "example": "Pipe generated rows through CSV formatting to a response."
+    },
+    "async iterators": {
+      "definition": "Async iterators yield values over time through an asynchronous iteration protocol.",
+      "example": "Read report rows using for await."
+    },
+    "buffering": {
+      "definition": "Buffering temporarily accumulates data; uncontrolled buffering can exhaust memory.",
+      "example": "Limit queued chunks between a database cursor and client."
+    },
+    "database cursors": {
+      "definition": "A database cursor incrementally reads query results while owning database resources.",
+      "example": "Close the cursor when the downloading client disconnects."
+    },
+    "CSV correctness": {
+      "definition": "CSV output needs proper quoting, line handling, encoding, and a policy for spreadsheet interpretation.",
+      "example": "Escape a comma-containing note and handle formula-leading text."
+    },
+    "event-loop delay": {
+      "definition": "Event-loop delay measures how long scheduled JS work is delayed by runtime load.",
+      "example": "Compare API responsiveness during a synchronous calculation."
+    },
+    "worker_threads": {
+      "definition": "Worker threads run JavaScript in separate execution contexts for suitable CPU work.",
+      "example": "Offload a scheduling simulation to a bounded pool."
+    },
+    "pool sizing": {
+      "definition": "Pool sizing balances concurrency against CPU, memory, and queue overhead.",
+      "example": "Too many CPU workers can reduce useful throughput."
+    },
+    "CPU versus I/O": {
+      "definition": "CPU work calculates; I/O waits for external resources. They require different scaling strategies.",
+      "example": "A report calculation and a database wait are different bottlenecks."
+    },
+    "message serialization": {
+      "definition": "Serialization converts values into a representation another process or storage can consume.",
+      "example": "A worker message must represent its payload safely."
+    },
+    "signals": {
+      "definition": "Process signals notify software about lifecycle or other operating-system events.",
+      "example": "Handle termination by stopping admission and draining accepted work."
+    },
+    "graceful shutdown": {
+      "definition": "Graceful shutdown stops new work and safely finishes or persists accepted work before exiting.",
+      "example": "Do not lose acknowledged worker jobs during deployment."
+    },
+    "timeouts": {
+      "definition": "A timeout bounds waiting but may leave an uncertain outcome if work committed elsewhere.",
+      "example": "A timed-out completion might still have succeeded."
+    },
+    "micro frontends versus modules": {
+      "definition": "Micro frontends compose separately built web features; modules can share one build and release."
+    },
+    "build-time versus runtime integration": {
+      "definition": "Build-time integration bundles features together; runtime integration loads or connects separately built features during execution."
+    },
+    "ownership": {
+      "definition": "Ownership identifies who maintains a feature, its public contracts and its recovery behavior."
+    },
+    "coupling": {
+      "definition": "Coupling is how strongly one component depends on another; stronger dependencies make independent change harder."
+    },
+    "shared dependencies": {
+      "definition": "Shared dependencies are libraries used by multiple features; their versions and runtime instances must remain compatible."
+    },
+    "architecture decisions": {
+      "definition": "An architecture decision explains a system choice, alternatives, evidence and consequences for future change."
+    },
+    "module federation or equivalent": {
+      "definition": "Module Federation lets separately built applications share code at runtime; alternatives must meet the same integration requirements."
+    },
+    "runtime manifests": {
+      "definition": "A runtime manifest tells the shell which feature version to load and where its artifact is located."
+    },
+    "shared React identity": {
+      "definition": "The shell and remotes must use compatible React runtime instances so component and Hook behavior remains valid."
+    },
+    "bundler configuration": {
+      "definition": "Bundler settings determine how source code becomes executable artifacts, including imports, chunks and shared libraries."
+    },
+    "CSS isolation": {
+      "definition": "CSS isolation prevents a feature's styles from accidentally changing another feature's interface."
+    },
+    "event contracts": {
+      "definition": "An event contract defines a message's name, payload, version and meaning for producers and consumers."
+    },
+    "schema validation": {
+      "definition": "A runtime schema checks actual data shapes; static types alone do not inspect incoming JSON.",
+      "example": "Reject a quantity string at the API boundary."
+    },
+    "version negotiation": {
+      "definition": "Version negotiation selects a contract version both communicating components can understand."
+    },
+    "cache invalidation": {
+      "definition": "Invalidation marks cached data as outdated after a relevant change.",
+      "example": "Completing a job invalidates affected status lists."
+    },
+    "rollbacks": {
+      "definition": "Rollback restores a safe earlier application or state version after failure; database reversal requires separate reasoning.",
+      "example": "Revert a failed optimistic change without losing newer accepted data."
+    },
+    "contract tests": {
+      "definition": "Contract tests check whether a producer and consumer agree on their shared inputs, outputs and errors."
+    },
+    "package boundaries": {
+      "definition": "Package boundaries define public imports and prevent consumers from relying on private implementation details."
+    },
+    "dependency graphs": {
+      "definition": "A dependency graph shows which packages rely on others; cycles and hidden dependencies make change harder."
+    },
+    "navigation contracts": {
+      "definition": "Navigation contracts define route names, parameters and expected destination behavior across mobile features."
+    },
+    "shared domain code": {
+      "definition": "Shared domain code contains platform-independent business rules reused by web, mobile and server features."
+    },
+    "native build compatibility": {
+      "definition": "Native build compatibility means feature code and native dependencies work with the application's platform toolchain and binary."
+    },
+    "mobile release constraints": {
+      "definition": "Mobile changes must respect native binary compatibility, platform requirements and the chosen release/update mechanism."
+    },
+    "threat modelling": {
+      "definition": "Threat modelling identifies assets, possible attackers and abuse paths so protections address actual product risks."
+    },
+    "secure storage": {
+      "definition": "Sensitive credentials need protected storage appropriate to the platform; ordinary preferences are not a secret store.",
+      "example": "Keep session credentials out of unencrypted draft storage."
+    },
+    "input and upload limits": {
+      "definition": "Size, count and format limits bound incoming data so requests cannot exhaust resources or bypass rules."
+    },
+    "content validation": {
+      "definition": "Content validation inspects the actual data or file, rather than trusting its name or declared type."
+    },
+    "credential lifecycle": {
+      "definition": "Credential lifecycle covers creation, storage, use, rotation, expiry and revocation of secrets or access credentials."
+    },
+    "CSRF CORS CSP": {
+      "definition": "CSRF protects authenticated actions, CORS governs browser cross-origin access, and CSP limits allowed content execution.",
+      "example": "Apply the controls relevant to the deployed browser architecture."
+    },
+    "least privilege": {
+      "definition": "Least privilege grants only the permissions needed for a person, service or database operation."
+    },
+    "dependency security": {
+      "definition": "Dependency security examines third-party packages, known vulnerabilities and update risks in the application's dependencies."
+    },
+    "load models": {
+      "definition": "A load model describes realistic request rates, users and workloads for a performance measurement."
+    },
+    "percentiles": {
+      "definition": "A percentile describes how much of a measured distribution falls below a value; p95 latency includes 95 percent of requests."
+    },
+    "profiling": {
+      "definition": "Profiling measures where time and resources go so changes address actual bottlenecks.",
+      "example": "Measure row renders before memoizing them."
+    },
+    "database plans": {
+      "definition": "A query plan shows how the database intends to execute a query.",
+      "example": "Inspect whether a job list scans all rows or uses an index."
+    },
+    "network cost": {
+      "definition": "Network cost includes transferred bytes, request overhead and delay between the client and server."
+    },
+    "memory leaks": {
+      "definition": "A memory leak retains data that is no longer needed, increasing memory use as the application runs."
+    },
+    "capacity and cost": {
+      "definition": "Capacity and cost relate required throughput, resource limits and operating expense under a defined workload."
+    },
+    "structured logging": {
+      "definition": "Structured logging records consistent named fields so events can be searched and compared reliably."
+    },
+    "metrics": {
+      "definition": "Metrics are numeric measurements over time, such as request count, latency or queue depth."
+    },
+    "tracing": {
+      "definition": "Tracing connects the steps of one operation across components to show where time or failure occurred."
+    },
+    "AsyncLocalStorage": {
+      "definition": "Node's AsyncLocalStorage associates context with an asynchronous operation, such as its request or correlation ID."
+    },
+    "SLIs and SLOs": {
+      "definition": "A service-level indicator measures behavior; a service-level objective sets a target for that measurement."
+    },
+    "alert design": {
+      "definition": "Alert design identifies a meaningful failure condition, threshold and response without generating unnecessary noise."
+    },
+    "privacy": {
+      "definition": "Privacy limits collection, use and exposure of personal or sensitive data, including logs and reports."
+    },
+    "CI/CD": {
+      "definition": "Continuous integration validates changes; continuous delivery or deployment prepares or releases reproducible application artifacts."
+    },
+    "artifact reproducibility": {
+      "definition": "Artifact reproducibility means the same declared source, dependencies and build settings produce a repeatable release."
+    },
+    "migration safety": {
+      "definition": "Migration safety preserves valid data and compatible clients while changing database structures or stored values."
+    },
+    "backups": {
+      "definition": "A backup is a preserved copy of data that can be used to recover from loss or corruption."
+    },
+    "restore verification": {
+      "definition": "Restore verification checks recovered data and business behavior; possessing a backup alone does not prove recovery works."
+    },
+    "recovery objectives": {
+      "definition": "Recovery objectives specify acceptable data loss and acceptable time to restore a working service."
+    },
+    "unit versus integration versus end-to-end tests": {
+      "definition": "Unit checks isolate a small behavior; integration checks connected parts; end-to-end checks exercise a complete user workflow."
+    },
+    "property-based testing": {
+      "definition": "Property-based testing generates varied inputs and checks general rules, such as stock never becoming negative."
+    },
+    "API compatibility": {
+      "definition": "API compatibility keeps existing clients working when request, response or business behavior changes."
+    },
+    "domain migrations": {
+      "definition": "Migrations change stored schema or data in a controlled, versioned way.",
+      "example": "Add approval state without corrupting existing jobs."
+    },
+    "local migrations": {
+      "definition": "Local migrations evolve device storage while preserving supported old data.",
+      "example": "Upgrade a queued v1 command record."
+    },
+    "feature negotiation": {
+      "definition": "Feature negotiation determines which capabilities a client and server both support before using them."
+    },
+    "deprecation": {
+      "definition": "Deprecation announces that a capability will be retired and gives consumers a supported transition path."
+    },
+    "contract testing": {
+      "definition": "Contract testing verifies producer and consumer agreement at a versioned boundary."
+    },
+    "domain invariants": {
+      "definition": "Domain invariants are business rules that must remain true, such as accepted consumption never exceeding available stock."
+    },
+    "state transitions": {
+      "definition": "A state transition changes an entity from one valid state to another according to business rules."
+    },
+    "compensating actions": {
+      "definition": "A compensating action creates a new business operation to correct an accepted effect while preserving its history."
+    },
+    "UX": {
+      "definition": "User experience includes how clearly a person can understand, complete and recover from a product workflow."
+    },
+    "audit trails": {
+      "definition": "An audit history preserves attributable changes and decisions for investigation.",
+      "example": "Retain the cancellation and attempted completion."
+    },
+    "cross-platform contracts": {
+      "definition": "Cross-platform contracts preserve business meaning across web, mobile and server implementations."
+    },
+    "debugging": {
+      "definition": "Debugging uses observations and controlled experiments to identify the cause of incorrect behavior."
+    },
+    "distributed failure": {
+      "definition": "Distributed failure occurs when connected components fail or disagree independently, including partial success and lost responses."
+    },
+    "observability": {
+      "definition": "Observability uses logs, metrics and traces to understand a system's internal behavior from its outputs."
+    },
+    "hypothesis testing": {
+      "definition": "In debugging, hypothesis testing proposes a cause, predicts evidence and runs an experiment to confirm or reject it."
+    },
+    "regression testing": {
+      "definition": "Regression testing checks that a change has not broken behavior that previously worked."
+    },
+    "incident communication": {
+      "definition": "Incident communication describes the observed impact, evidence, response and recovery status clearly to the relevant people."
+    },
+    "architecture tradeoffs": {
+      "definition": "Architecture tradeoffs compare the benefits and costs of a design under the product's actual constraints."
+    },
+    "system boundaries": {
+      "definition": "System boundaries identify responsibilities and interfaces between components, including where failures and trust assumptions change."
+    },
+    "cost": {
+      "definition": "Cost includes implementation effort, operating resources, maintenance burden and the effect of failure."
+    },
+    "communication": {
+      "definition": "Communication expresses a problem, evidence, decision and expected behavior clearly enough for others to act."
+    },
+    "fundamental recall": {
+      "definition": "Fundamental recall means explaining and applying basic concepts again without relying on memorized recipes."
+    },
+    "knowledge transfer": {
+      "definition": "Knowledge transfer enables another person to understand and apply a concept, while checking their independent reasoning."
+    }
+  }
+}

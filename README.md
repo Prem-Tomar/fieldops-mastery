@@ -16,6 +16,7 @@ This repository currently contains curriculum, assessment ledgers, contribution 
 6. Review [architecture and micro frontend scope](docs/ARCHITECTURE.md).
 7. Download the [printable six-month roadmap](output/pdf/fieldops-six-month-roadmap.pdf) for separate weekly contributions, concepts, mastery outcomes and the full glossary.
 8. Open the [progress dashboard](docs/DASHBOARD.md) to review both contributors, record concept evidence and accept gates that immediately update the finish forecast.
+9. Follow the [mandatory learning rules](docs/LEARNING_RULES.md), [review format](docs/REVIEW_GUIDE.md), and [Question of the Day from D2](docs/QUESTION_OF_THE_DAY.md). W1 D7 comes after D1-D6 for each contributor; implementation completion and mastery are separate outcomes.
 
 **The existing 14 week-one issues are the authorized batch; further issue creation is paused.** Neha builds job features and Madhavi builds complementary inventory features. Each planned task adds integrated behavior, a correctness fix, a measured improvement or a recovery capability. Both independently demonstrate every concept, while accepted production units are reused. See the [six-month roadmap](docs/ROADMAP.md), its [structured schedule](curriculum/roadmap.json), and the [issue lifecycle](docs/ISSUE_LIFECYCLE.md).
 

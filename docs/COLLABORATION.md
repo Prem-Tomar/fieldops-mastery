@@ -2,6 +2,8 @@
 
 Neha (@Neha2212-vi, 5 years) and Madhavi (@madhavichauhan1995, 10 years) build one FieldOps product. Both cover all 338 catalog concepts, including basics. Experience changes guidance and challenge depth, not coverage.
 
+Follow the [mandatory learning rules](LEARNING_RULES.md) and [review format](REVIEW_GUIDE.md). Each actual task teaches one primary idea through a bounded product increment, with explicit exclusions and research hints.
+
 ## Complementary product work
 
 Follow the [six-month roadmap](ROADMAP.md). Each learner owns a different integrated feature in each week; the 44 source definitions are concept references, not identical assignments to both people.
@@ -25,6 +27,8 @@ Record evidence in the individual [Neha ledger](../evidence/learner-5y/coverage.
 
 Each feature names prior units and a concrete integration point. Coordinate cross-lane imports before closing; do not implement a duplicate substitute when the peer's dependency is still pending. Keep one active learning task per person; already published later issues remain queued.
 
+The required first-week sequence is D1 → D2 → D3 → D4 → D5 → D6 → D7 for both contributors. D7 is not a starting task. Queue a later branch while predecessors are reviewed and their accepted units become available; do not erase work or bypass prerequisite gates.
+
 No new issues or generation automation are authorized by this roadmap update. The existing 14 week-one issues retain their distinct job/inventory asks. Future issue publication must follow the [issue lifecycle](ISSUE_LIFECYCLE.md).
 
 ## Coach responsibilities
@@ -32,6 +36,8 @@ No new issues or generation automation are authorized by this roadmap update. Th
 Explain unfamiliar terms plainly. State expected behavior before seeing solutions, then introduce one undisclosed input, timing or constraint change within scope. Reproduce findings, distinguish policy decisions from bugs and revise mistaken expectations.
 
 Assess each learner using the same independent pass threshold. Assess the coach's scenario clarity, reproducibility, fairness and willingness to reconsider. Both learners must pass shared gates; a successful feature does not hide the other person's concept gaps.
+
+Implementation completion and mastery are separate outcomes. Review an otherwise correct PR independently of unanswered learning questions. From D2, use [Question of the Day](QUESTION_OF_THE_DAY.md) to revisit earlier completed work in the review discussion. Both learners answer every part in their own words; the reviewer preserves the original response and gives specific corrections and targeted follow-ups. Concept gaps remain visible without becoming surprise implementation requirements.
 
 ## Pace and early advancement
 

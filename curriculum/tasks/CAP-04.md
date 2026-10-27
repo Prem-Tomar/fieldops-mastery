@@ -1,10 +1,18 @@
 # CAP-04 — Defend architecture and prove concept coverage
 
-Phase: P11 | Order: 44 | Prerequisite: CAP-03
+Phase: P11 | Order: 44 | Reference prerequisite: CAP-03
+
+**Concept reference, not a ready learner assignment.** The [mandatory learning rules](../../docs/LEARNING_RULES.md) and [roadmap](../../docs/ROADMAP.md) control actual scope and implementation order. Split this capability into small product increments before future publication. Existing GitHub issues remain unchanged.
+
+## Primary learning idea
+
+An independently defended cross-feature change
 
 ## Precise task
 
-Each developer presents the complete system and answers one unseen basic and one advanced question for every curriculum phase. Compare modular monolith and service extraction, modular web and micro frontends, and shared versus platform-specific code. Audit the personal coverage ledger.
+Deliver one agreed bounded change outside the contributor's usual feature lane, using the existing public contracts. Demonstrate its product behavior, then explain the decision and its limits in review. The separate final mastery audit revisits every catalog concept and compares the system's architectural choices; it does not require a duplicate implementation or a formal portfolio report.
+
+This reference scenario may span several tasks. Each actual assignment must select one bounded implementation goal, name the existing product integration, give exact function input/output/error contracts and worked examples, and state its observable completion criteria before work starts.
 
 ## Why we are doing this
 
@@ -12,48 +20,56 @@ Experience and shared commits do not prove individual mastery.
 
 ## What you achieve
 
-An independently assessed portfolio with no unverified concept coverage.
+An accepted cross-feature product improvement with independently explained decisions and separately tracked concept coverage.
+
+## Out of scope
+
+- Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.
+- Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.
+- Do not assign standalone tests, documentation or a duplicate accepted product capability.
 
 ## What this teaches
 
-- architecture tradeoffs
-- complexity analysis
-- system boundaries
-- cost
-- communication
-- fundamental recall
-- knowledge transfer
+- **architecture tradeoffs:** Architecture tradeoffs compare the benefits and costs of a design under the product's actual constraints.
+- **complexity analysis:** Describe how time and memory requirements grow with input size, rather than relying only on one timing. Example: Repeated linear searches may cost more than building an index once.
+- **system boundaries:** System boundaries identify responsibilities and interfaces between components, including where failures and trust assumptions change.
+- **cost:** Cost includes implementation effort, operating resources, maintenance burden and the effect of failure.
+- **communication:** Communication expresses a problem, evidence, decision and expected behavior clearly enough for others to act.
+- **fundamental recall:** Fundamental recall means explaining and applying basic concepts again without relying on memorized recipes.
+- **knowledge transfer:** Knowledge transfer enables another person to understand and apply a concept, while checking their independent reasoning.
 
-## Progressive hints
+## Research hints
 
-1. Use measurements and concrete failure scenarios.
-2. Identify conditions that would change a decision.
-3. Acknowledge gaps and schedule remediation rather than marking them passed.
+1. Search for "architecture tradeoffs" and "An independently defended cross-feature change"; find a small example and predict its observable result before trying it.
+2. Investigate "complexity analysis" in the current product unit; compare the valid and failing paths without copying a complete solution.
+3. Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change.
 
 ## Acceptance criteria
 
-- [ ] All catalog concepts have independent evidence for both learners.
-- [ ] Each phase has a score of at least 2/3 in understanding, implementation, debugging, tradeoffs, and transfer.
-- [ ] Unpassed concepts receive remediation tasks before final completion.
+- [ ] The bounded change meets its agreed function and product behavior.
+- [ ] The existing consumer integrates the change without an unrelated regression.
+- [ ] Relevant authorization, platform and recovery checks demonstrate the accepted behavior.
+
+Use these reference scenarios to choose observable criteria for the selected product increment. Maintainers may supply routine checks; a demonstration is required, while learner-authored tests or formal reports are not.
 
 ## Independent mastery challenge
 
 The coach changes team size, device constraints, or reliability requirements and asks for a revised architecture.
 
-The coach adds one undisclosed variation after both learners submit their own predictions and implementation evidence. Each learner explains every listed concept, predicts an observable behavior, and demonstrates it in code or an experiment. Fixing the shared product alone does not mark either learner's coverage complete.
+This is separate coaching, not a surprise product requirement. A short explanation, walkthrough or bounded unseen variation establishes understanding; any genuinely new product capability needs its own authorized successor. A failure of the original implementation contract remains an implementation defect. Both learners must independently cover every referenced concept before the relevant mastery gate passes.
 
 ## Pair collaboration
 
-Both learners complete the same concepts and criteria. Alternate driver/reviewer on shared integration; use isolated spikes for individual alternatives. The second PR adds tests, a validated alternative, or personal evidence rather than duplicating production code. Review each other's reasoning only after independent predictions are recorded. Pairing is allowed; assisted work remains marked assisted until independently repeated.
+Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.
+
+Each PR adds a different integrated behavior, correctness fix, measured improvement or recovery capability. Do not create a second PR merely for tests, documentation or personal evidence. Review the peer's decisions and use a small experiment only for an individual concept gap. Assistance remains recorded until independent verification.
 
 ## Evidence to submit
 
-- Linked personal issue (only after the owner authorizes issue creation), task ID, learner handle, and PR.
-- Predictions made before execution; observed output and explanation for every concept.
-- Tests or reproducible experiment, runtime/device details, and failures encountered.
-- Design alternatives, accepted tradeoffs, and the unseen challenge result.
-- Per-concept assessment in the learner's coverage ledger; five-dimension mastery score.
+A runnable product demonstration and short PR/review-session walkthrough are sufficient. Identify the learner, existing task/PR, relevant input and observed output. The reviewer records individual concept evidence, assistance and scores in the existing ledgers; the optional submission template is not a required document.
+
+Report the checks actually run and the concrete gap exposed by any failure. Keep implementation completion separate from mastery assessment. No new issue publication or issue editing is authorized by this reference.
 
 ## Coach checkpoint
 
-Record expected behavior before inspecting the solution. Inject a changed constraint, request a diagnosis, and score understanding, implementation, debugging, tradeoffs, and transfer from 0–3. Every dimension must reach 2 independently. Failed concepts receive remediation; experience level never waives a basic concept.
+State expected behavior before inspecting the solution. Use the [review format](../../docs/REVIEW_GUIDE.md): exact code location, requested change, components, unfamiliar terms explained briefly, behavior/risk and a research hint. Keep a high-level summary and distinguish implementation blockers, prerequisite blockers, optional feedback and mastery coaching. For mastery, score understanding, implementation, debugging, tradeoffs and transfer independently; every dimension must reach 2. Years of experience waive no concept.

@@ -21,6 +21,39 @@ def read_json(relative):
 
 
 catalog = read_json("curriculum/catalog.json")
+policy = read_json("curriculum/learning-policy.json")
+check(policy["version"] == 1 and policy["mandatory"] is True,
+      "Learning rules must remain mandatory")
+required_task_fields = {"primaryIdea", "goal", "context", "implementation", "unitContracts",
+                        "outOfScope", "completionCriteria", "explainedConcepts", "researchHints", "masteryCoaching"}
+required_review_fields = {"summary", "prerequisites", "location", "requestedChange", "components",
+                         "termExplanation", "behaviorOrRisk", "researchHint", "validation", "masteryStatus"}
+check(set(policy["taskFields"]) == required_task_fields, "Missing mandatory task format fields")
+check(set(policy["reviewFields"]) == required_review_fields, "Missing mandatory review format fields")
+required_rules = {"smallProductIncrements", "onePrimaryIdea", "exactUnitContracts", "explicitExclusions",
+                  "explainTerms", "researchHintsWithoutSolutions", "prerequisitesInOrder",
+                  "differentAsksForBothLearners", "allConceptsForBothLearners",
+                  "implementationSeparateFromMastery", "noSurpriseImplementationRequirements",
+                  "summaryAndPreciseInlineReview", "maintainersMayOwnRoutineValidation", "transparentValidation",
+                  "noStandaloneTestOrDocumentationAssignments", "oneCoherentSuccessorWhenAuthorized",
+                  "preserveOriginalLearningAnswers", "targetedLearningCorrections",
+                  "learningAnswersDoNotBlockCorrectImplementation", "ownerOnlyMerge"}
+check(set(policy["rules"]) == required_rules and all(value is True for value in policy["rules"].values()),
+      "A non-negotiable learning rule is missing or disabled")
+check(policy["weekOne"] == {
+    "days": [1, 2, 3, 4, 5, 6, 7], "daySevenRequires": [1, 2, 3, 4, 5, 6],
+    "existingIssueOrder": {"Neha2212-vi": [1, 2, 3, 4, 5, 6, 7],
+                           "madhavichauhan1995": [8, 9, 10, 11, 12, 13, 14]}},
+    "W1 D7 must follow D1-D6 in order for both contributors")
+qotd_policy = policy["questionOfTheDay"]
+check(qotd_policy["startsOnDay"] == 2, "Question of the Day must start from D2 using earlier learning")
+for field in ["previouslyCompletedWorkOnly", "noFutureTopicAssumptions", "answerEveryPartInOwnWords",
+              "answerInReviewDiscussion", "initialQuestionContainsNoAnswer", "recordUnderstandingSeparately"]:
+    check(qotd_policy[field] is True, f"Missing Question of the Day rule: {field}")
+for field in ["requiresLearnerTestsOrDocumentation", "blocksOtherwiseCorrectImplementation"]:
+    check(qotd_policy[field] is False, f"Question of the Day must not enable {field}")
+check(policy["issueMutationAuthorizedByThisChange"] is False and policy["automaticIssuePublication"] is False,
+      "Policy updates must not authorize issue mutations or automatic publication")
 tasks = catalog["tasks"]
 phases = catalog["phases"]
 phase_ids = {phase["id"] for phase in phases}
@@ -30,7 +63,7 @@ check(len(ids) == len(set(ids)), "Duplicate task IDs")
 check(catalog["owner"] == "Prem-Tomar", "Unexpected repository owner")
 check(catalog["issueCreationAuthorized"] is False,
       "Issue creation must remain gated until the owner's explicit instruction")
-fields = ["id", "phase", "title", "problem", "why", "outcome", "mastery", "workflow"]
+fields = ["id", "phase", "title", "problem", "why", "outcome", "mastery", "workflow", "primaryIdea"]
 concept_map = {}
 
 for index, task in enumerate(tasks):
@@ -42,7 +75,8 @@ for index, task in enumerate(tasks):
     check(task["order"] == index + 1, f"{task_id}: invalid sequence")
     expected = [] if index == 0 else [tasks[index - 1]["id"]]
     check(task["dependsOn"] == expected, f"{task_id}: broken prerequisites")
-    for field, minimum in [("concepts", 1), ("hints", 3), ("acceptance", 3)]:
+    check(task["publicationRole"] == "concept-reference", f"{task_id}: reference must not publish as a bundled assignment")
+    for field, minimum in [("concepts", 1), ("hints", 3), ("acceptance", 3), ("outOfScope", 1)]:
         values = task.get(field, [])
         check(isinstance(values, list) and len(values) >= minimum,
               f"{task_id}: insufficient {field}")
@@ -53,15 +87,73 @@ for index, task in enumerate(tasks):
     check(doc.is_file(), f"{task_id}: missing task document")
     if doc.is_file():
         text = doc.read_text(encoding="utf-8")
-        for field in ["title", "problem", "why", "outcome", "mastery"]:
+        for field in ["title", "problem", "why", "outcome", "mastery", "primaryIdea", "workflow"]:
             check(task[field] in text, f"{task_id}: document differs from catalog {field}")
-        for field in ["concepts", "hints", "acceptance"]:
+        for field in ["concepts", "hints", "acceptance", "outOfScope"]:
             for value in task[field]:
                 check(value in text, f"{task_id}: undocumented {field}: {value}")
-        for heading in ["Pair collaboration", "Evidence to submit", "Coach checkpoint"]:
+        for heading in ["Primary learning idea", "Out of scope", "Research hints", "Independent mastery challenge",
+                        "Pair collaboration", "Evidence to submit", "Coach checkpoint"]:
             check(f"## {heading}" in text, f"{task_id}: missing {heading}")
     for concept in task["concepts"]:
         concept_map.setdefault(concept, []).append(task_id)
+
+definitions = read_json("curriculum/concepts.json")
+check(definitions["version"] == 1 and set(definitions["concepts"]) == set(concept_map),
+      "Every catalog concept must have a plain-language explanation")
+for concept, details in definitions["concepts"].items():
+    check(isinstance(details.get("definition"), str) and bool(details["definition"].strip()),
+          f"{concept}: missing plain-language definition")
+    for task_id in concept_map.get(concept, []):
+        check(details["definition"] in (ROOT / "curriculum/tasks" / f"{task_id}.md").read_text(encoding="utf-8"),
+              f"{task_id}: missing explanation for {concept}")
+
+qotd = read_json("curriculum/qotd.json")
+prompt_bank = read_json("curriculum/qotd-prompts.json")
+check(prompt_bank["version"] == 1 and prompt_bank["publicationRole"] == "queued-coaching-prompts",
+      "Question bank must remain prepared coaching rather than published/answered learning evidence")
+prompt_keys = [(prompt["learner"], prompt["targetDay"]) for prompt in prompt_bank["prompts"]]
+check(len({prompt["id"] for prompt in prompt_bank["prompts"]}) == len(prompt_keys),
+      "Duplicate queued Question of the Day prompt ID")
+check(set(prompt_keys) == {(login, day) for login in policy["weekOne"]["existingIssueOrder"] for day in range(2, 8)}
+      and len(prompt_keys) == 12, "Prepare Question of the Day for D2-D7 for both contributors; none on D1")
+for prompt in prompt_bank["prompts"]:
+    check(type(prompt["sourceDay"]) is int and 1 <= prompt["sourceDay"] < prompt["targetDay"],
+          f"{prompt['id']}: question must revisit earlier work")
+    order = policy["weekOne"]["existingIssueOrder"][prompt["learner"]]
+    check(prompt["sourceIssue"] == order[prompt["sourceDay"] - 1] and prompt["targetIssue"] == order[prompt["targetDay"] - 1],
+          f"{prompt['id']}: incorrect existing task mapping")
+    check(prompt["primaryConcept"] in concept_map, f"{prompt['id']}: unknown concept")
+    check(prompt["initialAnswerIncluded"] is False, f"{prompt['id']}: initial prompt must not include an answer")
+    for field in ["question", "researchHint", "eligibility", "answerLocation"]:
+        check(isinstance(prompt[field], str) and bool(prompt[field].strip()), f"{prompt['id']}: missing {field}")
+check(qotd["version"] == 1, "Unexpected Question of the Day index version")
+question_ids = [entry["id"] for entry in qotd["entries"]]
+check(len(question_ids) == len(set(question_ids)), "Duplicate Question of the Day ID")
+for entry in qotd["entries"]:
+    label = f"Question {entry['id']}"
+    check(entry["learner"] in policy["weekOne"]["existingIssueOrder"], f"{label}: unexpected learner")
+    check(type(entry["day"]) is int and entry["day"] >= 2, f"{label}: questions start from D2")
+    check(entry["concept"] in concept_map, f"{label}: unknown concept")
+    for field in ["sourceEvidence", "questionDiscussion"]:
+        check(isinstance(entry[field], str) and bool(entry[field].strip()), f"{label}: missing {field}")
+    for field in ["originalAnswerDiscussion", "followUpDiscussion"]:
+        check(entry[field] is None or isinstance(entry[field], str) and bool(entry[field].strip()),
+              f"{label}: invalid {field}")
+    check(entry["status"] in {"pending", "partial", "needs-correction", "demonstrated", "revisit"},
+          f"{label}: invalid understanding status")
+    if entry["status"] in {"partial", "needs-correction", "demonstrated"}:
+        check(bool(entry["originalAnswerDiscussion"]), f"{label}: assessed understanding needs the preserved original answer")
+
+for path, required in {
+    "AGENTS.md": ["LEARNING_RULES.md", "REVIEW_GUIDE.md", "QUESTION_OF_THE_DAY.md"],
+    ".github/ISSUE_TEMPLATE/learning-task.yml": ["id: goal", "id: exclusions", "research hints", "Separate mastery"],
+    ".github/PULL_REQUEST_TEMPLATE.md": ["Scope and explicit exclusions", "Separate learning", "Question of the Day from D2"],
+    ".github/REVIEW_RESPONSE_TEMPLATE.md": ["Requested behavioral change", "Components involved", "Research hint", "Question of the Day from D2"],
+}.items():
+    contents = (ROOT / path).read_text(encoding="utf-8")
+    for value in required:
+        check(value in contents, f"{path}: missing mandatory format element: {value}")
 
 roadmap = read_json("curriculum/roadmap.json")
 learners = ["Neha2212-vi", "madhavichauhan1995"]
@@ -227,4 +319,5 @@ print(f"Validated {len(phases)} reference areas, {len(tasks)} concept groups, "
       f"{len(weeks)} roadmap weeks, {len(deliverables)} distinct contributions, "
       f"{len(stage_ids)} PostgreSQL stages, "
       f"{len(concept_map)} planned concepts per learner, "
+      f"{len(prompt_keys)} queued D2-D7 coaching prompts, mandatory learning rules, "
       "two ledgers, links, and governance. Actual mastery requires review evidence.")

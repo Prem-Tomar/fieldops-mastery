@@ -4,7 +4,7 @@ These 44 definitions retain every catalog concept and provide reference scenario
 
 Both learners independently demonstrate every reference concept through their own features or bounded experiments. Do not assign the same definition to both as duplicate production work. Where legacy examples describe evidence documents or test deliverables, apply the current roadmap and assessment policy: PR/session evidence is sufficient, test-writing feedback is optional, and neither tests nor documentation is a standalone assigned issue.
 
-Fourteen week-one issues already exist. No more issues are authorized by this index or roadmap update. Future issues need explained terms, unit input/output contracts, progressive hints, distinct product integration and frontend screen images where applicable.
+Fourteen week-one issues already exist. No more issues are authorized by this index or roadmap update. Future assignments must follow the [mandatory learning rules](../../docs/LEARNING_RULES.md): one main idea, bounded product work, explicit exclusions, exact unit contracts, explained terms, research hints and separate implementation/mastery outcomes. W1 D7 follows D1-D6 for both contributors. Existing issues remain untouched.
 
 | Order | Task | Phase | Prerequisite |
 |---|---|---|---|
@@ -19,7 +19,7 @@ Fourteen week-one issues already exist. No more issues are authorized by this in
 | 9 | [REACT-01: Build a predictable component and state model](REACT-01.md) | P03 | TS-04 |
 | 10 | [REACT-02: Build an accessible assignment form](REACT-02.md) | P03 | REACT-01 |
 | 11 | [REACT-03: Use effects and custom hooks safely](REACT-03.md) | P03 | REACT-02 |
-| 12 | [REACT-04: Test user behavior and isolate UI failures](REACT-04.md) | P03 | REACT-03 |
+| 12 | [REACT-04: Isolate UI failures and recover the affected widget](REACT-04.md) | P03 | REACT-03 |
 | 13 | [REACT-05: Design server-state caching and invalidation](REACT-05.md) | P04 | REACT-04 |
 | 14 | [REACT-06: Implement optimistic assignment with rollback](REACT-06.md) | P04 | REACT-05 |
 | 15 | [REACT-07: Compare client rendering and streamed rendering](REACT-07.md) | P04 | REACT-06 |

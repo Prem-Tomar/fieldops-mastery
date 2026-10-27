@@ -10,16 +10,16 @@ Fourteen week-one issues have been created and assigned: seven to Neha (@Neha221
 
 Use the [six-month roadmap](ROADMAP.md) and current feature state. Give each learner a different ask that integrates with accepted units; both cover the same concept requirements independently. The 44 source definitions organize concept references; publication counts follow the complementary product slices. Do not publish a generic source task verbatim or create test/documentation assignments.
 
-Every issue must include learner, distinct task ID, roadmap week, predecessor, product integration, plain-language concept explanations, per-function inputs/outputs/errors, worked examples, progressive hints, acceptance and mastery/coach criteria. Web/mobile implementation issues also include reference screen images and important states. Test-writing feedback remains optional in the PR.
+Future publication must satisfy the [mandatory learning rules](LEARNING_RULES.md): one primary idea, small product goal/context, explicit exclusions, reviewed predecessor, per-function inputs/outputs/errors and worked examples, explained concepts, three research-oriented hints, observable implementation completion and separate mastery coaching. Web/mobile implementation issues include reference screen images and important states. Test-writing feedback stays optional. Question of the Day starts from D2 and belongs in the review discussion, not a new daily issue. W1 D7 requires D1-D6 in order. No existing issue is edited by this update.
 
 ## Closure behavior after future authorization
 
 1. Validate that the closed issue is a recognized learner task and identify its learner and predecessor metadata.
-2. Require owner review of behavior, independent concept evidence, mastery result and integrated PR before successful advancement.
-3. First search for an existing successor in that learner's published batch. If present, make that queued issue ready instead of creating another.
+2. Confirm owner acceptance of the original bounded implementation and integrated behavior. Record implementation completion separately from learning/mastery. A missing coaching answer alone is not an implementation failure or a reason to keep adding product requirements.
+3. First search for an existing successor in that learner's published batch. Reuse it instead of creating another. It becomes active only when its reviewed implementation prerequisites and any required mastery gate have passed; otherwise keep it queued.
 4. If none exists and creation is explicitly authorized, create exactly one distinct product successor for that learner, with the predecessor and closure event recorded.
-5. If the gate failed, choose one targeted remediation slice/experiment with precise missing concepts and hints; do not advance or repeat an accepted capability wholesale.
-6. At the final roadmap gate, use concept gaps and product needs to choose a retention/remediation successor rather than copying a completed task.
+5. If understanding is incomplete, record targeted coaching in the existing review/ledger flow and revisit the concept. Do not invent an extra implementation issue just for an unanswered learning question. A defect in the original acceptance behavior must identify the concrete unmet requirement.
+6. At the final gate, resolve concept gaps with focused coaching or bounded experiments; create a product successor only for a genuine new need with authorization. Never repeat an accepted capability wholesale or claim mastery from closure.
 
 The requested one-successor-per-closure policy applies only when further publication is authorized and no planned successor already exists. The existing seven-day batch must not be duplicated.
 

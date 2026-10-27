@@ -121,11 +121,13 @@ This is evidence-driven planning, not an issue-creation monitor. Future issue pu
 
 ## Required format for a future task
 
-1. **Product problem:** who needs the behavior and which previous capability it extends; give the learner one distinct ask and a concrete integration point.
+The [learning rules](LEARNING_RULES.md) and [review format](REVIEW_GUIDE.md) are non-negotiable. A nominal weekly slice is a planning group, not permission to publish a large multi-feature assignment. Split it into small increments that each teach one primary idea; retain all concepts and distinct contributions for both learners. W1 D7 follows D1-D6 in order for each contributor.
+
+1. **Product problem and main idea:** who needs the behavior and which previous capability it extends; give the learner one bounded distinct ask, one primary learning idea and a concrete product integration point.
 2. **Purpose and learning:** why this belongs now, what product outcome it achieves, and plain-language explanations/examples for every named concept. Do not assume the term is already understood.
 3. **Unit contracts:** for every named function, list inputs/types/defaults, success output, invalid/error output, validation order, mutation/state rules and at least one worked valid and invalid example. For async work specify cancellation, timing, freshness and recovery.
-4. **Progressive hints:** three steps from a concept clue to an approach and then a diagnostic clue, without handing over the implementation.
-5. **Acceptance and mastery:** observable behavior, the integrated outcome, an independent unseen variation and the coach's expected result. The two learners' asks and feature paths must differ.
+4. **Out of scope and research hints:** explicitly defer adjacent features, optimizations and abstractions. Give three useful search phrases, comparisons or diagnostic questions without prescribing the full design or solution steps.
+5. **Separate implementation and mastery outcomes:** define observable product completion before work starts. Plan the explanation, walkthrough or unseen variation separately as coaching; it must not introduce surprise implementation requirements. The two learners' asks and feature paths must differ.
 6. **Frontend design:** include actual reference screen images for the web/mobile surface being built, including relevant loading, empty, error, success, offline and conflict states. Images are part of the future frontend task preparation.
 7. **PR feedback:** optional suggestions for writing meaningful tests, with scenario, hint and expected behavior. Tests and documentation are not separate assigned issues; formal evidence reports and mandatory test-authoring deliverables are not substitutes for product progress.
 
@@ -134,6 +136,8 @@ Example of complementary contracts: Neha's parseQuantityInput(' 003 ') returns {
 ## Weekly implementation and assessment rhythm
 
 Study the concepts and predict examples independently, then implement the distinct feature using accepted units. Integrate both branches through PRs, demonstrate the combined behavior, review the peer's decisions, and complete an unseen variation. The reviewer records per-concept evidence from the PR or session and maintains the ledgers; a separate learner-authored report is not required.
+
+Implementation may be accepted when the original bounded behavior is correct. Learning answers and mastery remain separate: from D2, [Question of the Day](QUESTION_OF_THE_DAY.md) revisits previously completed work in the review discussion. Preserve original answers, require every part in the learner's own words, correct specific gaps and ask targeted follow-ups. Unanswered learning questions alone do not block a correct implementation; required mastery gates and concept coverage still control learning advancement and the finish forecast.
 
 Each learner revisits an earlier basic and advanced concept weekly. Use a changed product input or failure case for retention rather than recreating an accepted feature. Assess understanding, implementation, debugging, tradeoffs and transfer at the same independent pass threshold for both learners; vary hints and challenge depth with need.
 

@@ -75,7 +75,7 @@
       "id": "JS-01",
       "phase": "P01",
       "title": "Build pure job and inventory utilities",
-      "problem": "Implement validateQuantity(value), summarizeJobs(jobs), and reservePart(stock, requested). Reject non-finite, fractional, negative, and zero requested quantities. Summaries count each job status; reservations return a new stock object or an explicit insufficient-stock result.",
+      "problem": "Implement the selected job or inventory domain unit using strict input boundaries. validateQuantity(value) accepts only a positive safe-integer number and returns {ok:true,quantity:value}; every other input returns {ok:false,code:\"INVALID_QUANTITY\"} without coercion or mutation. Related summary/allocation units belong to their own bounded increments and reuse this rule.",
       "why": "Business rules need deterministic behavior before UI and network complexity is introduced.",
       "outcome": "Reusable domain functions with unchanged inputs and explicit invalid-data behavior.",
       "concepts": [
@@ -95,27 +95,34 @@
         "complexity analysis"
       ],
       "hints": [
-        "Write input/output examples before code.",
-        "Check NaN, Infinity, numeric strings, and object references explicitly.",
-        "Compare loops, array methods, and a Map; justify the simplest implementation."
+        "Search for \"values and types\" and \"Strict numeric input boundaries\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"coercion and strict equality\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "Check valid, invalid, empty, and boundary inputs; define whether numeric strings are accepted.",
-        "Freeze fixtures and prove no input object is mutated.",
-        "Explain the chosen behavior for duplicate job IDs and test it."
+        "Positive safe-integer numbers retain their quantity; strings, zero, negative, fractional, non-finite and unsafe values return INVALID_QUANTITY.",
+        "The selected unit leaves caller inputs unchanged.",
+        "The product consumer uses the accepted boundary and preserves its explicit success/failure result."
       ],
       "mastery": "Process 100,000 jobs; identify time and space complexity and remove an unnecessary intermediate allocation.",
       "order": 1,
       "dependsOn": [],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Strict numeric input boundaries",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "JS-02",
       "phase": "P01",
       "title": "Predict scope, binding, prototypes, and module behavior",
-      "problem": "Write ten executable prediction cases: block scope, temporal dead zone, closure capture, detached method this, arrow this, prototype lookup, own versus inherited properties, destructuring defaults, a live ESM binding, and an ESM/CommonJS interop case. Record expected output or error before running. Add five predictions for finally on error, generator iteration, BigInt arithmetic, Symbol identity, and the limits of observing garbage collection/weak references.",
+      "problem": "Extend the current job-ID factory or reservation-session unit so independently created instances keep separate state and remain callable through the feature module. Use small executable cases to inspect scope, binding, prototype lookup and module behavior that the feature needs; use disposable experiments for the remaining reference concepts instead of duplicating accepted production units.",
       "why": "Many framework defects originate in misunderstood JavaScript semantics.",
-      "outcome": "A behavior notebook with predictions, actual outcomes, and corrected explanations.",
+      "outcome": "Product factories and module consumers preserve independent state, with behavior that can be traced in review.",
       "concepts": [
         "let const var",
         "scope and hoisting",
@@ -132,21 +139,28 @@
         "BigInt and Symbol"
       ],
       "hints": [
-        "Use minimal cases without framework code.",
-        "Separate object creation from prototype lookup.",
-        "Run module cases in the documented runtime and explain environment-specific behavior."
+        "Search for \"let const var\" and \"Independent state captured by closures\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"scope and hoisting\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "All ten cases include a pre-run prediction and an explanation.",
-        "Implement a factory and a class for the same tiny job counter; explain ownership of methods and state.",
-        "Reviewer changes three cases and the learner predicts the new result without execution."
+        "Separate product instances do not share mutable state.",
+        "The feature consumer can call the public unit through its module boundary.",
+        "Observed binding and cleanup behavior matches the declared function contract."
       ],
       "mastery": "Identify and fix a closure retaining a large object after a job view is discarded.",
       "order": 2,
       "dependsOn": [
         "JS-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Independent state captured by closures",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "JS-03",
@@ -166,9 +180,9 @@
         "cleanup"
       ],
       "hints": [
-        "Trace query generation and response arrival separately.",
-        "Cancellation and permission to update state solve different problems.",
-        "Use controllable promises and fake time rather than random delays."
+        "Search for \"promises\" and \"Permission for a response to update current state\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"async await\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Check reversed responses, stale failures, empty queries, and disposal.",
@@ -180,13 +194,20 @@
       "dependsOn": [
         "JS-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Permission for a response to update current state",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "JS-04",
       "phase": "P01",
       "title": "Implement bounded asynchronous work",
-      "problem": "Implement runTasks(tasks, limit, signal) for 20 asynchronous jobs with concurrency limit 3. Preserve input order in returned success/error results. Cancellation prevents new jobs starting; document how already-started jobs cooperate with the signal.",
+      "problem": "Implement runTasks(tasks, limit, signal) for 20 asynchronous jobs with concurrency limit 3. Preserve input order in returned success/error results. Cancellation prevents new jobs starting; demonstrate how already-started jobs cooperate with the signal.",
       "why": "Unbounded concurrency creates overload and unpredictable failures.",
       "outcome": "A bounded runner and a clear cancellation contract.",
       "concepts": [
@@ -198,9 +219,9 @@
         "resource cleanup"
       ],
       "hints": [
-        "Track active jobs and the next index separately.",
-        "Decide whether one failure stops the batch before choosing a combinator.",
-        "Predict a trace containing a promise, a timer, and synchronous code."
+        "Search for \"event loop\" and \"Bounded asynchronous concurrency\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"microtasks versus timers\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Peak active jobs never exceeds three; invalid limits are rejected.",
@@ -212,7 +233,14 @@
       "dependsOn": [
         "JS-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Bounded asynchronous concurrency",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "TS-01",
@@ -235,9 +263,9 @@
         "enum versus literal union"
       ],
       "hints": [
-        "Use status as a discriminator.",
-        "Check where optional fields allow contradictions.",
-        "Use intentional compiler-error fixtures and an exhaustive branch."
+        "Search for \"type inference\" and \"Legal domain states expressed by types\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"interfaces and type aliases\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Illegal completed and assigned objects fail compilation.",
@@ -249,7 +277,14 @@
       "dependsOn": [
         "JS-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Legal domain states expressed by types",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "TS-02",
@@ -273,9 +308,9 @@
         "optional and rest parameters"
       ],
       "hints": [
-        "Begin with concrete Job and Technician examples.",
-        "Separate compile-time readonly from runtime freezing.",
-        "Use the smallest helper signatures that preserve inference."
+        "Search for \"generics\" and \"Reusable type-safe projections\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"constraints\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Invalid field keys fail compilation; valid projections preserve exact types.",
@@ -287,7 +322,14 @@
       "dependsOn": [
         "TS-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Reusable type-safe projections",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "TS-03",
@@ -306,9 +348,9 @@
         "serialization"
       ],
       "hints": [
-        "List invalid JSON examples before choosing a validator.",
-        "Distinguish malformed input from a valid but forbidden operation.",
-        "Avoid returning the original untrusted value as a trusted type."
+        "Search for \"unknown versus any\" and \"Runtime validation of unknown input\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"type guards\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Null, arrays, missing fields, wrong types, and unknown commands are rejected.",
@@ -320,7 +362,14 @@
       "dependsOn": [
         "TS-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Runtime validation of unknown input",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "TS-04",
@@ -328,7 +377,7 @@
       "title": "Define versioned web and mobile contracts",
       "problem": "Define v1 and v2 job response contracts and explicit conversion to an internal domain model. v2 adds approval status while v1 clients retain their documented behavior. Enable strict, noUncheckedIndexedAccess, and exactOptionalPropertyTypes.",
       "why": "Client versions evolve at different speeds.",
-      "outcome": "A shared contracts package plan with explicit compatibility boundaries.",
+      "outcome": "A shared versioned contracts package consumed by the existing web/mobile feature boundary.",
       "concepts": [
         "strict compiler options",
         "exhaustiveness",
@@ -342,9 +391,9 @@
         "TypeScript compilation versus execution"
       ],
       "hints": [
-        "Keep wire DTOs separate from domain objects.",
-        "Define absent versus null fields.",
-        "Test the contract that an older client actually consumes."
+        "Search for \"strict compiler options\" and \"Backward-compatible transport contracts\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"exhaustiveness\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Both version fixtures parse and map correctly.",
@@ -356,7 +405,14 @@
       "dependsOn": [
         "TS-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Backward-compatible transport contracts",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-01",
@@ -381,9 +437,9 @@
         "Context"
       ],
       "hints": [
-        "Draw the ownership of selected ID, filter, and draft.",
-        "Use stable job IDs and deliberately reorder fixtures.",
-        "Decide when a component should preserve or reset state."
+        "Search for \"JSX\" and \"Predictable component state ownership\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"components\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Reordering and filtering never move one job's draft to another.",
@@ -395,7 +451,14 @@
       "dependsOn": [
         "TS-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Predictable component state ownership",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-02",
@@ -418,9 +481,9 @@
         "focus management"
       ],
       "hints": [
-        "Start with labels and keyboard interactions.",
-        "Separate field validity from server acceptance.",
-        "Define where focus moves after an error and successful submission."
+        "Search for \"controlled and uncontrolled inputs\" and \"Accessible form submission\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"form events\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "All controls work by keyboard and have accessible names.",
@@ -432,7 +495,14 @@
       "dependsOn": [
         "REACT-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Accessible form submission",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-03",
@@ -452,9 +522,9 @@
         "render versus commit"
       ],
       "hints": [
-        "List the external resource each effect owns.",
-        "Simulate setup-cleanup-setup before assuming one mount.",
-        "Prefer deriving values during render when no external synchronization is needed."
+        "Search for \"useEffect\" and \"Effect resource lifetime\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"dependency arrays\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "After changing job IDs exactly one current subscription remains.",
@@ -466,13 +536,20 @@
       "dependsOn": [
         "REACT-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Effect resource lifetime",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-04",
       "phase": "P03",
-      "title": "Test user behavior and isolate UI failures",
-      "problem": "Add component tests for assignment success, rejection, and job switching. Add one browser test through the full fixture workflow. A broken job detail widget must show a recovery fallback while navigation remains usable.",
+      "title": "Isolate UI failures and recover the affected widget",
+      "problem": "Make a broken job-detail or inventory widget show a recoverable fallback while unrelated navigation remains usable. Handle an asynchronous request failure explicitly. Demonstrate assignment, rejection and feature-switching behavior with controlled fixtures; maintainers may supply component/browser checks.",
       "why": "Behavioral evidence matters more than snapshots of markup.",
       "outcome": "A tested flow with intentional error boundaries.",
       "concepts": [
@@ -485,12 +562,12 @@
         "test isolation"
       ],
       "hints": [
-        "Test visible outcomes and interactions.",
-        "Distinguish exceptions an error boundary catches from rejected async operations.",
-        "Use controllable failures rather than arbitrary sleeps."
+        "Search for \"component testing\" and \"Recoverable widget failure isolation\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"integration testing\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "Tests expose an intentionally injected stale-response bug.",
+        "An injected stale response cannot replace the current feature state.",
         "A render failure is isolated; an API failure receives explicit handling.",
         "Recovery resets the failed widget without losing unrelated navigation."
       ],
@@ -499,7 +576,14 @@
       "dependsOn": [
         "REACT-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Recoverable widget failure isolation",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-05",
@@ -518,9 +602,9 @@
         "race conditions"
       ],
       "hints": [
-        "List every input that changes the response.",
-        "Separate cached remote data from unsaved local drafts.",
-        "Inspect actual requests during filter and tenant changes."
+        "Search for \"server state versus client state\" and \"Server-state cache identity\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"query keys\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Different tenants and filters never share results.",
@@ -532,7 +616,14 @@
       "dependsOn": [
         "REACT-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Server-state cache identity",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-06",
@@ -550,9 +641,9 @@
         "accessible status feedback"
       ],
       "hints": [
-        "Separate confirmed state from local intent.",
-        "Choose whether overlapping commands are queued, blocked, or superseded.",
-        "Consider which response is still allowed to update the UI."
+        "Search for \"optimistic state\" and \"Rollback of an optimistic change\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"mutation ordering\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Success, rejection, reversed responses, and competing updates follow the written policy.",
@@ -564,7 +655,14 @@
       "dependsOn": [
         "REACT-05"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Rollback of an optimistic change",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-07",
@@ -584,9 +682,9 @@
         "bundle size"
       ],
       "hints": [
-        "Keep the dispatcher SPA separate from this focused experiment.",
-        "Measure when useful content appears and when it becomes interactive.",
-        "Identify which data sources actually integrate with Suspense."
+        "Search for \"lazy loading\" and \"Useful page content during a slow render\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"Suspense\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Demonstrate slow history without blocking the useful page shell.",
@@ -598,7 +696,14 @@
       "dependsOn": [
         "REACT-06"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Useful page content during a slow render",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "REACT-08",
@@ -619,9 +724,9 @@
         "useMemo versus useCallback"
       ],
       "hints": [
-        "Profile before adding useMemo or memo.",
-        "Separate update ingestion from visible rendering.",
-        "Test whether a high-level context update rerenders unrelated rows."
+        "Search for \"React Profiler\" and \"A measured rendering bottleneck\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"memoization\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Record hardware, dataset, render costs, and interaction latency before and after.",
@@ -633,7 +738,14 @@
       "dependsOn": [
         "REACT-07"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "A measured rendering bottleneck",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RN-01",
@@ -653,9 +765,9 @@
         "accessibility"
       ],
       "hints": [
-        "Specify the expected back stack for an external deep link.",
-        "Test with the keyboard open and enlarged text.",
-        "Separate reusable domain behavior from platform-specific presentation."
+        "Search for \"native components\" and \"Navigation to a valid technician screen\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"Flexbox\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Demonstrate the flow on Android and iOS and record device/OS versions.",
@@ -667,7 +779,14 @@
       "dependsOn": [
         "REACT-08"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Navigation to a valid technician screen",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RN-02",
@@ -685,9 +804,9 @@
         "secure versus ordinary storage"
       ],
       "hints": [
-        "Determine whether the camera returns a temporary file.",
-        "Distinguish draft saving from server submission.",
-        "A background callback is not a guarantee of execution before termination."
+        "Search for \"camera and media permissions\" and \"Durable local evidence drafts\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"local files\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "After saved appears, termination and reopen preserve notes and photo.",
@@ -699,7 +818,14 @@
       "dependsOn": [
         "RN-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Durable local evidence drafts",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RN-03",
@@ -719,9 +845,9 @@
         "Hermes profiling"
       ],
       "hints": [
-        "Test a release build rather than using only development timings.",
-        "Distinguish a JS-thread stall from a UI-thread problem.",
-        "Compare image dimensions with the size actually displayed."
+        "Search for \"FlatList\" and \"Measured list interaction performance\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"virtualization\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Publish reproducible before/after measurements and device details.",
@@ -733,15 +859,22 @@
       "dependsOn": [
         "RN-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Measured list interaction performance",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RN-04",
       "phase": "P05",
       "title": "Implement and diagnose native integration",
-      "problem": "Create a small typed native module exposing device uptime on Android and iOS. Document availability and error behavior. Trace its invocation through the React Native rendering and native-module architecture.",
+      "problem": "Create a small typed native module exposing device uptime on Android and iOS. Demonstrate availability, units and error behavior, then trace the call through the native boundary.",
       "why": "Senior mobile work sometimes requires crossing the JavaScript/native boundary.",
-      "outcome": "A minimal native integration and a reproducible build/debug guide.",
+      "outcome": "A minimal native integration works in the product path with explicit availability and failure behavior.",
       "concepts": [
         "native modules",
         "typed specifications",
@@ -753,9 +886,9 @@
         "native build tools"
       ],
       "hints": [
-        "Choose one small API with no sensitive data.",
-        "Investigate whether a call must be synchronous.",
-        "Keep rendering architecture separate from the native module system."
+        "Search for \"native modules\" and \"An explicit native-call boundary\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"typed specifications\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "The module builds and returns a documented unit on both platforms.",
@@ -767,15 +900,22 @@
       "dependsOn": [
         "RN-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "An explicit native-call boundary",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "NODE-01",
       "phase": "P06",
       "title": "Build validated HTTP job endpoints",
-      "problem": "Implement create, list, detail, assign, and complete job endpoints with runtime validation, stable error codes, pagination, request IDs, and centralized error handling. Document response behavior for malformed and missing resources. Include isolated experiments for a Buffer, a filesystem promise, EventEmitter subscription cleanup, headers/cookies, and an oversized JSON body.",
+      "problem": "Implement the selected job or inventory endpoint with runtime validation, stable error codes and the existing repository boundary. Demonstrate malformed and missing-resource responses. Separate create, list, detail and transactional writes into bounded increments at their roadmap gates; use small runtime experiments only where a listed concept is not exposed by the selected endpoint.",
       "why": "Clients need stable HTTP contracts under valid and invalid input.",
-      "outcome": "A documented API with integrated request-level tests.",
+      "outcome": "Validated API behavior with consistent request, response and failure boundaries.",
       "concepts": [
         "HTTP semantics",
         "routing",
@@ -794,21 +934,28 @@
         "package scripts and lockfiles"
       ],
       "hints": [
-        "Separate transport validation from business rules.",
-        "Decide which errors are client conflicts versus internal failures.",
-        "Exercise thrown synchronous errors and rejected asynchronous operations."
+        "Search for \"HTTP semantics\" and \"A validated HTTP boundary\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"routing\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "Invalid input, not-found resources, conflicts, and unexpected failures have tested responses.",
+        "The selected endpoint returns the agreed valid, invalid, missing-resource and failure responses.",
         "Logs correlate to a request without including credentials.",
-        "Pagination ordering is deterministic when records share a timestamp."
+        "Its consumer receives the agreed data/error shape and can handle the demonstrated failure."
       ],
       "mastery": "Disconnect a client mid-request and account for cleanup of owned resources.",
       "order": 21,
       "dependsOn": [
         "RN-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "A validated HTTP boundary",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "NODE-02",
@@ -830,9 +977,9 @@
         "query plans"
       ],
       "hints": [
-        "Write stock and tenant invariants before choosing tables.",
-        "Force requests to overlap at the read/write boundary.",
-        "Compare optimistic updates and locks; document any transaction retry policy."
+        "Search for \"relational modelling\" and \"Atomic concurrent stock protection\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"foreign keys\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Exactly one of two final-part reservations succeeds.",
@@ -844,7 +991,14 @@
       "dependsOn": [
         "NODE-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Atomic concurrent stock protection",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "NODE-03",
@@ -863,9 +1017,9 @@
         "business-state guards"
       ],
       "hints": [
-        "Define key scope, retention, and response replay.",
-        "Enforce the guarantee in storage, not only an in-memory map.",
-        "Consider a crash after commit but before response."
+        "Search for \"idempotency\" and \"Replay-safe accepted operations\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"transactions\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Concurrent duplicates have one effect and a consistent documented result.",
@@ -877,13 +1031,20 @@
       "dependsOn": [
         "NODE-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Replay-safe accepted operations",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "NODE-04",
       "phase": "P06",
       "title": "Protect tenant and role boundaries",
-      "problem": "Implement dispatcher, technician, and administrator permissions. Scope list, detail, write, and attachment access to an organization. A technician can modify only their assigned jobs. Document session expiration and revocation.",
+      "problem": "Implement the selected dispatcher, technician or administrator resource permission within an organization. A technician can modify only their assigned jobs. Demonstrate the selected access boundary and its session expiration/revocation behavior; extend other routes in later bounded increments.",
       "why": "Authentication does not prove access to a particular resource.",
       "outcome": "An API that enforces identity, tenant, role, and resource permissions.",
       "concepts": [
@@ -898,9 +1059,9 @@
         "HTTP security headers"
       ],
       "hints": [
-        "Build an actor-resource-operation matrix.",
-        "Change IDs in valid requests instead of testing only logged-out access.",
-        "Never trust a tenant ID merely because the client supplied it."
+        "Search for \"authentication versus authorization\" and \"Resource authorization within a tenant\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"sessions versus tokens\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Cross-tenant IDs fail for reads, writes, lists, and attachments.",
@@ -912,7 +1073,14 @@
       "dependsOn": [
         "NODE-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Resource authorization within a tenant",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "SYNC-01",
@@ -930,9 +1098,9 @@
         "app lifecycle"
       ],
       "hints": [
-        "Specify crash behavior around each state transition.",
-        "Keep local ordering independent from device wall-clock accuracy.",
-        "Separate immutable command intent from current UI state."
+        "Search for \"local transactions\" and \"Durability of a queued operation\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"state machines\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Termination after local acknowledgement loses no operation.",
@@ -944,7 +1112,14 @@
       "dependsOn": [
         "NODE-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Durability of a queued operation",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "SYNC-02",
@@ -963,9 +1138,9 @@
         "connectivity signals"
       ],
       "hints": [
-        "A connectivity indicator does not prove the API is reachable.",
-        "Do not let one permanently invalid item block unrelated work forever.",
-        "Reuse durable operation IDs across retries."
+        "Search for \"retry and backoff\" and \"Bounded retry of pending work\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"jitter\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Network loss and restart resume from durable state.",
@@ -977,7 +1152,14 @@
       "dependsOn": [
         "SYNC-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Bounded retry of pending work",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "SYNC-03",
@@ -996,9 +1178,9 @@
         "reconciliation"
       ],
       "hints": [
-        "Identify which fields can merge independently.",
-        "Ask whether completion evidence should survive cancellation.",
-        "Consider why latest timestamp is unreliable across devices."
+        "Search for \"optimistic concurrency\" and \"Explicit stale-write conflicts\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"versions\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "The conflict is detected rather than silently overwritten.",
@@ -1010,7 +1192,14 @@
       "dependsOn": [
         "SYNC-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Explicit stale-write conflicts",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "SYNC-04",
@@ -1029,9 +1218,9 @@
         "mobile background limits"
       ],
       "hints": [
-        "Choose a protocol before choosing a library.",
-        "Do not assume background execution will finish.",
-        "Make retried chunks safe and verify tenant/job ownership on each relevant step."
+        "Search for \"chunking\" and \"Resuming an interrupted attachment\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"checksums\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Interrupt and restart after several chunks without uploading the whole file again.",
@@ -1043,7 +1232,14 @@
       "dependsOn": [
         "SYNC-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Resuming an interrupted attachment",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RT-01",
@@ -1062,9 +1258,9 @@
         "snapshot plus event stream"
       ],
       "hints": [
-        "Define delivery and ordering guarantees explicitly.",
-        "Find the gap between fetching a snapshot and subscribing.",
-        "Treat transport connection and application synchronization as separate states."
+        "Search for \"SSE versus WebSockets\" and \"Recovery from a live-event cursor\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"ordering\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Disconnected clients recover missed changes or request a fresh snapshot.",
@@ -1076,7 +1272,14 @@
       "dependsOn": [
         "SYNC-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Recovery from a live-event cursor",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RT-02",
@@ -1095,9 +1298,9 @@
         "distributed transactions"
       ],
       "hints": [
-        "Distinguish exactly one business effect from exactly one transport delivery.",
-        "Check whether the downstream provider supports an idempotency key.",
-        "Retain enough state to retry or investigate failures."
+        "Search for \"transactional outbox\" and \"Recovery of a committed side effect\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"at-least-once processing\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "A committed completion always has durable notification intent.",
@@ -1109,7 +1312,14 @@
       "dependsOn": [
         "RT-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Recovery of a committed side effect",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RT-03",
@@ -1129,9 +1339,9 @@
         "cancellation"
       ],
       "hints": [
-        "Measure retained memory while slowing the consumer.",
-        "Inspect where data can accumulate between producer and client.",
-        "Define handling of CSV formula-leading values for spreadsheet consumers."
+        "Search for \"Node streams\" and \"Bounded buffering under backpressure\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"backpressure\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Memory stays within a declared budget on documented hardware.",
@@ -1143,7 +1353,14 @@
       "dependsOn": [
         "RT-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Bounded buffering under backpressure",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "RT-04",
@@ -1163,9 +1380,9 @@
         "timeouts"
       ],
       "hints": [
-        "Profile CPU use and event-loop delay before offloading.",
-        "Account for worker startup and serialization cost.",
-        "Define what accepted means before choosing shutdown behavior."
+        "Search for \"event-loop delay\" and \"CPU work outside the request thread\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"worker_threads\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Compare unrelated API latency and throughput for both implementations.",
@@ -1177,15 +1394,22 @@
       "dependsOn": [
         "RT-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "CPU work outside the request thread",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "MFE-01",
       "phase": "P09",
       "title": "Define and challenge micro frontend boundaries",
-      "problem": "Compare a modular React application with a shell plus dispatch and reporting micro frontends. Define ownership of routes, authentication context, navigation, design tokens, data access, and deployment. Write an architecture decision record before implementation.",
+      "problem": "Place one existing dispatch or reporting route behind an explicit public feature boundary and integrate it with the current shell. Keep navigation and authorization working. Compare a modular build with runtime composition in review; introduce deployment boundaries only when a concrete product task requires them.",
       "why": "Independent deployment can introduce costs that a two-person team must justify.",
-      "outcome": "A bounded experiment with explicit reasons for using or rejecting each boundary.",
+      "outcome": "A working product route uses an explicit feature boundary whose costs can be demonstrated.",
       "concepts": [
         "micro frontends versus modules",
         "build-time versus runtime integration",
@@ -1195,21 +1419,28 @@
         "architecture decisions"
       ],
       "hints": [
-        "Choose a feature whose release can be independent.",
-        "List everything the shell must know about a remote.",
-        "Count deployment, testing, and runtime costs alongside benefits."
+        "Search for \"micro frontends versus modules\" and \"A product route behind an explicit feature boundary\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"build-time versus runtime integration\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "Compare at least two integration approaches and a modular monolith.",
-        "Document contracts and a measurable independence goal.",
-        "Explain why code splitting alone does not demonstrate independent deployment."
+        "The selected route remains usable through the shell after extraction.",
+        "The consumer uses only the declared public feature interface.",
+        "The change preserves the existing navigation and authorization behavior."
       ],
       "mastery": "Add a third team requirement and identify which boundary would fail first.",
       "order": 33,
       "dependsOn": [
         "RT-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "A product route behind an explicit feature boundary",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "MFE-02",
@@ -1228,9 +1459,9 @@
         "routing"
       ],
       "hints": [
-        "Use a supported integration tool and pin compatible versions.",
-        "Inspect whether host and remote load incompatible React runtimes.",
-        "Treat a remote URL as trusted executable code configuration."
+        "Search for \"module federation or equivalent\" and \"Independent deployment of one web feature\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"runtime manifests\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Record shell and dispatch artifact hashes before and after the reporting-only deployment; they stay unchanged.",
@@ -1242,7 +1473,14 @@
       "dependsOn": [
         "MFE-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Independent deployment of one web feature",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "MFE-03",
@@ -1262,13 +1500,13 @@
         "contract tests"
       ],
       "hints": [
-        "Distinguish load errors, render errors, and asynchronous operation failures.",
-        "Publish the minimum event payload needed.",
-        "Verify compatibility with the previously deployed shell."
+        "Search for \"event contracts\" and \"Recovery from an incompatible remote\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"schema validation\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "All three injected failures leave unrelated routes usable.",
-        "Contract tests cover supported previous/current versions.",
+        "Supported previous/current contract fixtures demonstrate compatible behavior.",
         "A reporting rollback works without a synchronized shell release."
       ],
       "mastery": "Change an event field and support old and new remotes during a staged rollout.",
@@ -1276,13 +1514,20 @@
       "dependsOn": [
         "MFE-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Recovery from an incompatible remote",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "MFE-04",
       "phase": "P09",
       "title": "Create mobile feature modules with clear boundaries",
-      "problem": "Split the technician app into jobs, evidence, and sync feature packages with explicit public interfaces. Give each feature a focused test harness. Share contracts/domain rules with web where useful, while keeping native UI and lifecycle behavior platform-specific.",
+      "problem": "Split the technician app into jobs, evidence and sync feature packages with explicit public interfaces. Integrate each through its consumer and demonstrate the flow using controlled fixtures. Share contracts/domain rules where useful while preserving native UI and lifecycle behavior; maintainers may supply focused package checks.",
       "why": "Mobile teams benefit from modular ownership, but web runtime loading assumptions cannot simply be copied.",
       "outcome": "A modular mobile app and a comparison with web micro frontend deployment.",
       "concepts": [
@@ -1295,21 +1540,28 @@
         "mobile release constraints"
       ],
       "hints": [
-        "Inspect accidental imports across feature internals.",
-        "Treat sync as an explicit service boundary.",
-        "Separate independent testing from independent native app delivery."
+        "Search for \"package boundaries\" and \"An explicit mobile feature interface\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"dependency graphs\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "Feature tests run through public interfaces.",
+        "Product consumers work through public feature interfaces.",
         "A dependency rule detects imports into another feature's internals.",
-        "Document what requires a native rebuild/release and what the selected update mechanism can actually change."
+        "Demonstrate which changes require a native rebuild/release and which the selected update mechanism can apply."
       ],
       "mastery": "Replace the evidence implementation without changing job-domain rules or breaking stored drafts.",
       "order": 36,
       "dependsOn": [
         "MFE-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "An explicit mobile feature interface",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "OPS-01",
@@ -1317,7 +1569,7 @@
       "title": "Threat-model and test sensitive boundaries",
       "problem": "Threat-model tenant access, file uploads, credentials, and offline cached data. Add focused checks for malicious uploads, request flooding, leaked logs, revoked sessions, and unauthorized cached-data exposure after logout.",
       "why": "Security depends on several layers agreeing on access and data lifetime.",
-      "outcome": "An attack-to-control matrix with reproducible regression tests.",
+      "outcome": "Sensitive product paths reject hostile inputs and unauthorized operations in reproducible scenarios.",
       "concepts": [
         "threat modelling",
         "secure storage",
@@ -1329,9 +1581,9 @@
         "dependency security"
       ],
       "hints": [
-        "Start from what an authenticated attacker can change.",
-        "Do not assume a client bundle can keep a server secret.",
-        "Test cached data and local files as well as API endpoints."
+        "Search for \"threat modelling\" and \"An enforced sensitive-resource boundary\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"secure storage\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Each listed threat has an explicit control and verification.",
@@ -1343,7 +1595,14 @@
       "dependsOn": [
         "MFE-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "An enforced sensitive-resource boundary",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "OPS-02",
@@ -1363,9 +1622,9 @@
         "capacity and cost"
       ],
       "hints": [
-        "Separate end-to-end latency from server processing time.",
-        "Use release builds for native measurements.",
-        "Change one suspected bottleneck at a time."
+        "Search for \"load models\" and \"A measured end-to-end capacity limit\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"percentiles\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Publish dataset, hardware, build mode, load script, duration, and results.",
@@ -1377,7 +1636,14 @@
       "dependsOn": [
         "OPS-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "A measured end-to-end capacity limit",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "OPS-03",
@@ -1397,9 +1663,9 @@
         "privacy"
       ],
       "hints": [
-        "Trace a single operation through all boundaries.",
-        "Use low-cardinality metric labels.",
-        "Choose alerts that indicate user impact rather than every retry."
+        "Search for \"structured logging\" and \"Tracing a failed product operation\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"metrics\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "A command can be traced through the worker using a stable correlation.",
@@ -1411,7 +1677,14 @@
       "dependsOn": [
         "OPS-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Tracing a failed product operation",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "OPS-04",
@@ -1433,9 +1706,9 @@
         "property-based testing"
       ],
       "hints": [
-        "Keep application rollback separate from database rollback.",
-        "Declare recovery-time and data-loss objectives before rehearsal.",
-        "A backup exists only usefully if a restore succeeds."
+        "Search for \"CI/CD\" and \"Recovery of an accepted deployment\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"artifact reproducibility\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "A failed required check blocks a PR and secrets are not in artifacts.",
@@ -1447,7 +1720,14 @@
       "dependsOn": [
         "OPS-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Recovery of an accepted deployment",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "CAP-01",
@@ -1465,9 +1745,9 @@
         "contract testing"
       ],
       "hints": [
-        "Compare wire compatibility with business-semantic compatibility.",
-        "Replay old serialized commands.",
-        "Write the supported-version policy before adapting the response."
+        "Search for \"API compatibility\" and \"Compatibility during a domain change\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"domain migrations\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Previous-client fixtures and stored commands still work within the policy.",
@@ -1479,7 +1759,14 @@
       "dependsOn": [
         "OPS-04"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Compatibility during a domain change",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "CAP-02",
@@ -1498,9 +1785,9 @@
         "cross-platform contracts"
       ],
       "hints": [
-        "Do not edit historical stock movements silently.",
-        "Separate evidence preservation from job status.",
-        "Compare compensating entries with destructive updates."
+        "Search for \"domain invariants\" and \"A traceable compensating business action\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"state transitions\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Retries cannot reverse stock twice.",
@@ -1512,7 +1799,14 @@
       "dependsOn": [
         "CAP-01"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "A traceable compensating business action",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "CAP-03",
@@ -1530,9 +1824,9 @@
         "incident communication"
       ],
       "hints": [
-        "Identify the earliest violated invariant.",
-        "Use telemetry to falsify hypotheses.",
-        "Reduce the reproduction before changing multiple layers."
+        "Search for \"debugging\" and \"Diagnosis of an unfamiliar failure\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"distributed failure\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
         "Each developer explains cause versus symptom and demonstrates a regression check.",
@@ -1544,15 +1838,22 @@
       "dependsOn": [
         "CAP-02"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "Diagnosis of an unfamiliar failure",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     },
     {
       "id": "CAP-04",
       "phase": "P11",
       "title": "Defend architecture and prove concept coverage",
-      "problem": "Each developer presents the complete system and answers one unseen basic and one advanced question for every curriculum phase. Compare modular monolith and service extraction, modular web and micro frontends, and shared versus platform-specific code. Audit the personal coverage ledger.",
+      "problem": "Deliver one agreed bounded change outside the contributor's usual feature lane, using the existing public contracts. Demonstrate its product behavior, then explain the decision and its limits in review. The separate final mastery audit revisits every catalog concept and compares the system's architectural choices; it does not require a duplicate implementation or a formal portfolio report.",
       "why": "Experience and shared commits do not prove individual mastery.",
-      "outcome": "An independently assessed portfolio with no unverified concept coverage.",
+      "outcome": "An accepted cross-feature product improvement with independently explained decisions and separately tracked concept coverage.",
       "concepts": [
         "architecture tradeoffs",
         "complexity analysis",
@@ -1563,21 +1864,28 @@
         "knowledge transfer"
       ],
       "hints": [
-        "Use measurements and concrete failure scenarios.",
-        "Identify conditions that would change a decision.",
-        "Acknowledge gaps and schedule remediation rather than marking them passed."
+        "Search for \"architecture tradeoffs\" and \"An independently defended cross-feature change\"; find a small example and predict its observable result before trying it.",
+        "Investigate \"complexity analysis\" in the current product unit; compare the valid and failing paths without copying a complete solution.",
+        "Search the relevant runtime or framework guide for the observed failure; trace one input through the existing caller and boundary before choosing a change."
       ],
       "acceptance": [
-        "All catalog concepts have independent evidence for both learners.",
-        "Each phase has a score of at least 2/3 in understanding, implementation, debugging, tradeoffs, and transfer.",
-        "Unpassed concepts receive remediation tasks before final completion."
+        "The bounded change meets its agreed function and product behavior.",
+        "The existing consumer integrates the change without an unrelated regression.",
+        "Relevant authorization, platform and recovery checks demonstrate the accepted behavior."
       ],
       "mastery": "The coach changes team size, device constraints, or reliability requirements and asks for a revised architecture.",
       "order": 44,
       "dependsOn": [
         "CAP-03"
       ],
-      "workflow": "Both learners complete this task independently; alternate shared product driver and reviewer."
+      "workflow": "Both learners independently cover these reference concepts through different product asks. Split broad capabilities into bounded single-idea tasks in roadmap order; reuse accepted units. Implementation completion and mastery acceptance are separate outcomes.",
+      "publicationRole": "concept-reference",
+      "primaryIdea": "An independently defended cross-feature change",
+      "outOfScope": [
+        "Do not publish this whole reference group as one learner task; select one bounded increment from the current roadmap slice.",
+        "Do not add a new subsystem or abstraction without a need in that selected increment; defer adjacent capabilities to their own successor.",
+        "Do not assign standalone tests, documentation or a duplicate accepted product capability."
+      ]
     }
   ]
 }

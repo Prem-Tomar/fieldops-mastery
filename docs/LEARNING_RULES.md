@@ -45,6 +45,8 @@ Closing an issue or merging a PR does not pass a mastery gate. Both contributors
 
 Every review must have a high-level outcome, affected product behavior, prerequisite status, validation performed/limits and a separately identified mastery status. Each actionable code finding must identify an exact file/line, requested change, affected components, a brief explanation of unfamiliar terms, observed versus expected behavior or risk, and a research hint. Use the [review guide](REVIEW_GUIDE.md); give enough direction to investigate without supplying the complete implementation.
 
+Explain terminology once at first relevant project use and retain a canonical [shared glossary entry](REVIEW_TERMS.md); later reviews link it instead of repeating definitions. Do not assume that naming a term teaches it. Use language-tagged fenced code blocks for code/input/output examples, with observed and expected behavior clearly separated. Targeted corrections may revisit a misunderstanding, while initial coaching questions remain answer-free.
+
 Distinguish an implementation blocker from a prerequisite blocker, optional suggestion or mastery coaching. Do not request unrelated architecture, mandatory test authoring or documentation as a condition of accepting a bounded learner feature. Review the target skill at the contributor's demonstrated level; years of experience waive neither basics nor independent assessment.
 
 ## Question of the Day starts from D2

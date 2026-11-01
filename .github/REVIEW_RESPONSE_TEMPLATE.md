@@ -15,9 +15,31 @@ Keep the high-level consequences here and place precise code guidance inline.
 - Exact file and line:
 - Requested behavioral change:
 - Components involved:
-- Unfamiliar term, explained briefly:
+- Unfamiliar term: canonical glossary link, or one first-use explanation recorded in the shared glossary:
 - Input/timing scenario, expected versus actual behavior and risk:
 - Research hint or search phrase:
+
+Use language-tagged fenced blocks for snippets; keep examples out of dense prose. Give only the code needed to explain the finding, not the complete solution. For implementation findings, use this layout when useful:
+
+Scenario/input:
+
+```js
+// Minimal reviewed call or fragment.
+```
+
+Observed result:
+
+```json
+{"result": "observed behavior"}
+```
+
+Expected result:
+
+```json
+{"result": "original contract behavior"}
+```
+
+Initial Question of the Day prompts may show the scenario code but must not include the answer or expected result. Later reviews link existing definitions rather than restating them; corrections still address the learner's actual misunderstanding.
 
 ## Validation performed and limits
 

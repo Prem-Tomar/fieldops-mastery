@@ -1,4 +1,16 @@
 {
   "version": 1,
-  "entries": []
+  "entries": [
+    {
+      "id": "W01-D02-INV-Q01",
+      "learner": "madhavichauhan1995",
+      "day": 2,
+      "concept": "strings and numbers",
+      "sourceEvidence": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#pullrequestreview-5728269841",
+      "questionDiscussion": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#pullrequestreview-5728270530",
+      "originalAnswerDiscussion": null,
+      "status": "pending",
+      "followUpDiscussion": null
+    }
+  ]
 }

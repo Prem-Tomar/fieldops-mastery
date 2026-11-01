@@ -40,6 +40,29 @@ required_rules = {"smallProductIncrements", "onePrimaryIdea", "exactUnitContract
                   "learningAnswersDoNotBlockCorrectImplementation", "ownerOnlyMerge"}
 check(set(policy["rules"]) == required_rules and all(value is True for value in policy["rules"].values()),
       "A non-negotiable learning rule is missing or disabled")
+presentation = policy["reviewPresentation"]
+presentation_rules = {"defineTermsOncePerProject", "reuseCanonicalGlossaryLinks", "recordDefinitionDiscussion",
+                      "targetedCorrectionsStillAllowed", "languageTaggedFencedSnippets",
+                      "separateObservedAndExpectedResults", "initialQuestionsRemainAnswerFree"}
+check(set(presentation) == presentation_rules and all(value is True for value in presentation.values()),
+      "Shared definitions and fenced review snippets must remain mandatory")
+review_terms = read_json("curriculum/review-terms.json")
+check(review_terms["version"] == 1 and bool(review_terms["terms"]), "Missing shared review terminology")
+term_doc = (ROOT / "docs/REVIEW_TERMS.md").read_text(encoding="utf-8")
+for slug, term in review_terms["terms"].items():
+    check(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) is not None, f"Invalid review term anchor: {slug}")
+    for field in ["name", "definition", "explainedInReview"]:
+        check(isinstance(term.get(field), str) and bool(term[field].strip()), f"{slug}: missing {field}")
+    check(term["definition"] in term_doc and term["explainedInReview"] in term_doc,
+          f"{slug}: glossary differs from its canonical definition/discussion")
+    for field in ["examples", "nonExamples"]:
+        check(isinstance(term.get(field), list) and all(isinstance(value, str) and value.strip() for value in term[field]),
+              f"{slug}: invalid {field}")
+review_template = (ROOT / ".github/REVIEW_RESPONSE_TEMPLATE.md").read_text(encoding="utf-8")
+check("```js" in review_template and "```json" in review_template,
+      "Review template must show language-tagged fenced snippets")
+check("Observed result:" in review_template and "Expected result:" in review_template,
+      "Review template must separate observed and expected behavior")
 check(policy["weekOne"] == {
     "days": [1, 2, 3, 4, 5, 6, 7], "daySevenRequires": [1, 2, 3, 4, 5, 6],
     "existingIssueOrder": {"Neha2212-vi": [1, 2, 3, 4, 5, 6, 7],

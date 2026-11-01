@@ -64,7 +64,8 @@ def forecast(roadmap, progress, ledgers, as_of):
         "projectedFinish": projected.isoformat() if projected else None,
         "daysEarlierThanPlan": (baseline - projected).days if projected else None,
         "observedDaysPerSlice": round(pace, 2) if pace else None,
-        "scopeUnchanged": True, "issuePublicationPaused": not roadmap["issueCreationAuthorized"],
+        "scopeUnchanged": True,
+        "issuePublicationPaused": not (roadmap["issueCreationAuthorized"] or roadmap.get("queueReplenishmentAuthorized", False)),
     }
 
 

@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-10-10T15:24:22.343912+00:00",
+  "syncedAt": "2026-11-01T13:38:48.692769+00:00",
   "items": [
     {
       "assignees": [
@@ -11,9 +11,9 @@
         }
       ],
       "number": 1,
-      "state": "OPEN",
-      "title": "[W1 D1] Parse quantity text for the job form \u2014 @Neha2212-vi",
-      "updatedAt": "2026-10-10T10:35:26Z",
+      "state": "CLOSED",
+      "title": "[W1 D1] Parse quantity text for the job form — @Neha2212-vi",
+      "updatedAt": "2026-11-01T13:30:26Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/1"
     },
     {
@@ -27,7 +27,7 @@
       ],
       "number": 2,
       "state": "OPEN",
-      "title": "[W1 D2] Calculate a job's requested stock from form input \u2014 @Neha2212-vi",
+      "title": "[W1 D2] Calculate a job's requested stock from form input — @Neha2212-vi",
       "updatedAt": "2026-10-10T10:35:30Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/2"
     },
@@ -42,7 +42,7 @@
       ],
       "number": 3,
       "state": "OPEN",
-      "title": "[W1 D3] Build the dispatcher job summary and ID lookup \u2014 @Neha2212-vi",
+      "title": "[W1 D3] Build the dispatcher job summary and ID lookup — @Neha2212-vi",
       "updatedAt": "2026-10-10T10:35:34Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/3"
     },
@@ -57,7 +57,7 @@
       ],
       "number": 4,
       "state": "OPEN",
-      "title": "[W1 D4] Generate local job IDs and bind job labels \u2014 @Neha2212-vi",
+      "title": "[W1 D4] Generate local job IDs and bind job labels — @Neha2212-vi",
       "updatedAt": "2026-10-10T10:35:37Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/4"
     },
@@ -72,7 +72,7 @@
       ],
       "number": 5,
       "state": "OPEN",
-      "title": "[W1 D5] Add the draft job queue and job module entry point \u2014 @Neha2212-vi",
+      "title": "[W1 D5] Add the draft job queue and job module entry point — @Neha2212-vi",
       "updatedAt": "2026-10-10T10:35:40Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/5"
     },
@@ -87,7 +87,7 @@
       ],
       "number": 6,
       "state": "OPEN",
-      "title": "[W1 D6] Load a job through a validated async adapter \u2014 @Neha2212-vi",
+      "title": "[W1 D6] Load a job through a validated async adapter — @Neha2212-vi",
       "updatedAt": "2026-10-10T10:35:43Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/6"
     },
@@ -102,7 +102,7 @@
       ],
       "number": 7,
       "state": "OPEN",
-      "title": "[W1 D7] Build the debounced job lookup state controller \u2014 @Neha2212-vi",
+      "title": "[W1 D7] Build the debounced job lookup state controller — @Neha2212-vi",
       "updatedAt": "2026-10-10T10:35:46Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/7"
     },
@@ -116,9 +116,9 @@
         }
       ],
       "number": 8,
-      "state": "OPEN",
-      "title": "[W1 D1] Enforce the inventory quantity boundary \u2014 @madhavichauhan1995",
-      "updatedAt": "2026-10-10T10:18:40Z",
+      "state": "CLOSED",
+      "title": "[W1 D1] Enforce the inventory quantity boundary — @madhavichauhan1995",
+      "updatedAt": "2026-11-01T13:30:28Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/8"
     },
     {
@@ -131,9 +131,9 @@
         }
       ],
       "number": 9,
-      "state": "OPEN",
-      "title": "[W1 D2] Price an inventory reservation safely \u2014 @madhavichauhan1995",
-      "updatedAt": "2026-10-10T10:18:43Z",
+      "state": "CLOSED",
+      "title": "[W1 D2] Price an inventory reservation safely — @madhavichauhan1995",
+      "updatedAt": "2026-11-01T13:30:29Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/9"
     },
     {
@@ -147,7 +147,7 @@
       ],
       "number": 10,
       "state": "OPEN",
-      "title": "[W1 D3] Reserve a part immutably and index warehouse stock \u2014 @madhavichauhan1995",
+      "title": "[W1 D3] Reserve a part immutably and index warehouse stock — @madhavichauhan1995",
       "updatedAt": "2026-10-10T10:18:46Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/10"
     },
@@ -162,7 +162,7 @@
       ],
       "number": 11,
       "state": "OPEN",
-      "title": "[W1 D4] Manage an isolated reservation session with a closure \u2014 @madhavichauhan1995",
+      "title": "[W1 D4] Manage an isolated reservation session with a closure — @madhavichauhan1995",
       "updatedAt": "2026-10-10T10:18:49Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/11"
     },
@@ -177,7 +177,7 @@
       ],
       "number": 12,
       "state": "OPEN",
-      "title": "[W1 D5] Add the warehouse catalog and inventory module entry point \u2014 @madhavichauhan1995",
+      "title": "[W1 D5] Add the warehouse catalog and inventory module entry point — @madhavichauhan1995",
       "updatedAt": "2026-10-10T10:18:52Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/12"
     },
@@ -192,7 +192,7 @@
       ],
       "number": 13,
       "state": "OPEN",
-      "title": "[W1 D6] Submit inventory reservations through an async adapter \u2014 @madhavichauhan1995",
+      "title": "[W1 D6] Submit inventory reservations through an async adapter — @madhavichauhan1995",
       "updatedAt": "2026-10-10T10:18:55Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/13"
     },
@@ -207,9 +207,54 @@
       ],
       "number": 14,
       "state": "OPEN",
-      "title": "[W1 D7] Build the reservation submission and retry controller \u2014 @madhavichauhan1995",
+      "title": "[W1 D7] Build the reservation submission and retry controller — @madhavichauhan1995",
       "updatedAt": "2026-10-10T10:18:58Z",
       "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/14"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOBqefAg",
+          "login": "Neha2212-vi",
+          "name": "Neha Surendra Shukla",
+          "databaseId": 111648514
+        }
+      ],
+      "number": 24,
+      "state": "OPEN",
+      "title": "[W2 D1] Prefetch job details with a bounded number of active loads — @Neha2212-vi",
+      "updatedAt": "2026-11-01T13:38:00Z",
+      "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/24"
+    },
+    {
+      "assignees": [
+        {
+          "id": "MDQ6VXNlcjU1MDI4NjQ1",
+          "login": "madhavichauhan1995",
+          "name": "",
+          "databaseId": 55028645
+        }
+      ],
+      "number": 25,
+      "state": "OPEN",
+      "title": "[W2 D1] Preview a batch of stock reservations with isolated line failures — @madhavichauhan1995",
+      "updatedAt": "2026-11-01T13:38:12Z",
+      "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/25"
+    },
+    {
+      "assignees": [
+        {
+          "id": "MDQ6VXNlcjU1MDI4NjQ1",
+          "login": "madhavichauhan1995",
+          "name": "",
+          "databaseId": 55028645
+        }
+      ],
+      "number": 26,
+      "state": "OPEN",
+      "title": "[W2 D2] Preserve exact supplier part identities beyond the Number safe range — @madhavichauhan1995",
+      "updatedAt": "2026-11-01T13:38:20Z",
+      "url": "https://github.com/Prem-Tomar/fieldops-mastery/issues/26"
     }
   ]
 }

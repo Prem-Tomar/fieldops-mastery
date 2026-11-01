@@ -54,5 +54,6 @@
     "blocksOtherwiseCorrectImplementation": false
   },
   "issueMutationAuthorizedByThisChange": false,
-  "automaticIssuePublication": false
+  "automaticIssuePublication": false,
+  "issuePublicationPolicy": "curriculum/queue-policy.json"
 }

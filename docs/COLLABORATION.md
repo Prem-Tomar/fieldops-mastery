@@ -29,7 +29,7 @@ Each feature names prior units and a concrete integration point. Coordinate cros
 
 The required first-week sequence is D1 → D2 → D3 → D4 → D5 → D6 → D7 for both contributors. D7 is not a starting task. Queue a later branch while predecessors are reviewed and their accepted units become available; do not erase work or bypass prerequisite gates.
 
-No new issues or generation automation are authorized by this roadmap update. The existing 14 week-one issues retain their distinct job/inventory asks. Future issue publication must follow the [issue lifecycle](ISSUE_LIFECYCLE.md).
+The owner-authorised [rolling issue lifecycle](ISSUE_LIFECYCLE.md) keeps seven open tasks per contributor. Replacements append distinct queued work after the current tail; faster completion waives neither prerequisites nor mastery, and queue size does not change the forecast.
 
 ## Coach responsibilities
 

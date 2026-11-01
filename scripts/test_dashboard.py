@@ -64,7 +64,7 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(reloaded["forecast"]["acceptedSlices"], 1)
         self.assertGreater(reloaded["forecast"]["daysEarlierThanPlan"], 0)
         self.assertEqual(reloaded["progress"]["acceptedGates"][0]["acceptedBy"], dashboard.OWNER)
-        self.assertTrue(reloaded["forecast"]["issuePublicationPaused"])
+        self.assertFalse(reloaded["forecast"]["issuePublicationPaused"])
 
     def test_missing_or_assisted_learner_blocks_acceptance(self):
         first, second = dashboard.FOLDERS

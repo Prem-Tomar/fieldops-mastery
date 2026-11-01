@@ -76,7 +76,21 @@ for field in ["previouslyCompletedWorkOnly", "noFutureTopicAssumptions", "answer
 for field in ["requiresLearnerTestsOrDocumentation", "blocksOtherwiseCorrectImplementation"]:
     check(qotd_policy[field] is False, f"Question of the Day must not enable {field}")
 check(policy["issueMutationAuthorizedByThisChange"] is False and policy["automaticIssuePublication"] is False,
-      "Policy updates must not authorize issue mutations or automatic publication")
+      "General automatic publication and unrelated issue mutations remain disabled")
+check(policy["issuePublicationPolicy"] == "curriculum/queue-policy.json", "Missing bounded publication policy")
+queue_policy = read_json("curriculum/queue-policy.json")
+check(queue_policy["version"] == 1 and queue_policy["authorizedBy"] == "Prem-Tomar"
+      and queue_policy["authorizedOn"] == "2026-11-01" and bool(queue_policy["ownerInstruction"]),
+      "Rolling publication must retain its explicit owner authorisation")
+check(queue_policy["mode"] == "rolling-open-queue" and queue_policy["targetOpenPerLearner"] == 7,
+      "Queue publication must remain bounded to seven open issues per learner")
+check(queue_policy["learners"] == ["Neha2212-vi", "madhavichauhan1995"], "Unexpected queue learners")
+for field in ["appendAfterPublishedTail", "publishOnlyDeficit", "preserveExistingIssues",
+              "deduplicateByLearnerAndSequence", "keepPrerequisitesAndMasteryGates", "stopWhenRoadmapComplete"]:
+    check(queue_policy[field] is True, f"Missing rolling queue safeguard: {field}")
+check(queue_policy["checkIntervalMinutes"] == 15 and queue_policy["automaticMerging"] is False,
+      "Queue checks must preserve the authorised timing and owner-only merge policy")
+check(type(queue_policy["automaticRefillEnabled"]) is bool, "Missing bounded refill activation state")
 tasks = catalog["tasks"]
 phases = catalog["phases"]
 phase_ids = {phase["id"] for phase in phases}
@@ -85,7 +99,7 @@ ids = [task["id"] for task in tasks]
 check(len(ids) == len(set(ids)), "Duplicate task IDs")
 check(catalog["owner"] == "Prem-Tomar", "Unexpected repository owner")
 check(catalog["issueCreationAuthorized"] is False,
-      "Issue creation must remain gated until the owner's explicit instruction")
+      "Generic concept-reference publication remains disabled")
 fields = ["id", "phase", "title", "problem", "why", "outcome", "mastery", "workflow", "primaryIdea"]
 concept_map = {}
 
@@ -130,6 +144,36 @@ for concept, details in definitions["concepts"].items():
     for task_id in concept_map.get(concept, []):
         check(details["definition"] in (ROOT / "curriculum/tasks" / f"{task_id}.md").read_text(encoding="utf-8"),
               f"{task_id}: missing explanation for {concept}")
+
+queued = read_json("curriculum/queued-tasks.json")
+check(queued["version"] == 1 and queued["publicationRole"] == "bounded-product-successors",
+      "Replacement sources must remain bounded product tasks")
+queued_keys = [(task["learner"], task["sequence"]) for task in queued["tasks"]]
+check(len(set(queued_keys)) == len(queued_keys), "Duplicate replacement learner/sequence")
+check(len({task["id"] for task in queued["tasks"]}) == len(queued["tasks"]), "Duplicate replacement task ID")
+causes = [(task["learner"], task["replenishesIssue"]) for task in queued["tasks"]]
+check(len(set(causes)) == len(causes), "Duplicate replenished closure")
+for task in queued["tasks"]:
+    label = task["id"]
+    check(task["learner"] in queue_policy["learners"] and task["sequence"] >= 8,
+          f"{label}: invalid queued ownership/sequence")
+    check(task["predecessorSequence"] == task["sequence"] - 1, f"{label}: broken predecessor")
+    check(task["parentTask"] in ids and task["primaryConcept"] in concept_map,
+          f"{label}: unknown source concept")
+    check(type(task["replenishesIssue"]) is int and task["replenishesIssue"] > 0,
+          f"{label}: missing closure cause")
+    check(task["issueNumber"] is None or type(task["issueNumber"]) is int and task["issueNumber"] > 0,
+          f"{label}: invalid published issue number")
+    source = (ROOT / task["bodyFile"]).resolve()
+    check(source.is_relative_to(ROOT / "curriculum/queued-tasks") and source.is_file(),
+          f"{label}: invalid task source path")
+    if source.is_file():
+        body = source.read_text(encoding="utf-8")
+        for heading in ["Goal, main idea and purpose", "Prerequisites and explicit exclusions", "Concepts explained",
+                        "Exact unit contract", "Observable completion and examples", "Progressive research hints",
+                        "Separate mastery coaching"]:
+            check(f"## {heading}" in body, f"{label}: missing {heading}")
+        check("```js" in body and task["learner"] in body, f"{label}: missing examples/ownership")
 
 qotd = read_json("curriculum/qotd.json")
 prompt_bank = read_json("curriculum/qotd-prompts.json")
@@ -182,8 +226,8 @@ roadmap = read_json("curriculum/roadmap.json")
 learners = ["Neha2212-vi", "madhavichauhan1995"]
 check(roadmap["reviewer"] == catalog["owner"], "Unexpected roadmap reviewer")
 check(roadmap["learners"] == learners, "Unexpected roadmap learners")
-check(roadmap["issueCreationAuthorized"] is False,
-      "Further roadmap issue publication must remain paused")
+check(roadmap["issueCreationAuthorized"] is False and roadmap["queueReplenishmentAuthorized"] is True,
+      "Only bounded queue replenishment, not bulk roadmap publication, is authorised")
 weeks = roadmap["weeks"]
 check([week["week"] for week in weeks] == list(range(1, 27)),
       "Roadmap must contain exactly 26 consecutive learning slices")
@@ -194,7 +238,7 @@ check(plan["mode"] == "mastery-gated", "Advancement must use mastery gates")
 for field in ["advanceImmediatelyOnGatePass", "allowEarlyCompletion",
               "requireBothLearners", "requireAllConcepts"]:
     check(plan[field] is True, f"Missing mastery-gated planning rule: {field}")
-check(plan["autoPublishIssues"] is False, "Automatic issue publication remains paused")
+check(plan["autoPublishIssues"] is False, "General automatic roadmap publication remains disabled")
 stage_ids = ["none", "foundation", "queries", "correctness",
              "sync", "delivery", "operations", "evolution"]
 check([stage["id"] for stage in roadmap["postgresStages"]] == stage_ids,

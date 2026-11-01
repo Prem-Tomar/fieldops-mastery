@@ -117,7 +117,7 @@ Until work begins, the forecast reports the six-month baseline; after starting, 
 
 Advance to the next available slice immediately after both learners pass; do not wait for a nominal week to end. A PR or issue closure by itself is not a mastery gate. Finishing early requires all 26 product slices and independent verification of every catalog concept for both people. The six-month budget can compress without deleting work or claiming unverified learning.
 
-This is evidence-driven planning, not an issue-creation monitor. Future issue publication remains paused until explicitly authorized, even if contributors advance faster. The PDF is a dated planning snapshot; rerun the forecast for the latest estimate.
+This forecast is evidence-driven planning, separate from the owner-authorised [seven-open-issue queue](ISSUE_LIFECYCLE.md). Queue replacement does not pass mastery or change the finish date. The PDF is a dated planning snapshot; rerun the forecast for the latest estimate and follow the current issue lifecycle for publication policy.
 
 ## Required format for a future task
 
@@ -145,7 +145,7 @@ The coach predicts the expected behavior before inspecting the solution, checks 
 
 ## Publication and environment
 
-The existing 14 week-one issues remain the authorized batch. **Do not create more issues or activate issue-generation automation yet.** After future explicit authorization, a closure advances only that learner to an uncreated complementary successor; if the successor already exists in the published batch, reuse it. See [issue lifecycle](ISSUE_LIFECYCLE.md).
+Prem-Tomar authorised a **rolling queue of seven open learning issues per contributor** on 1 November 2026. After each recognised task closure, publish one distinct queued increment after that learner's current tail. Reuse the existing successor as the next active task; do not duplicate it or skip prerequisites. Recurring automation requires its separate activation approval; general roadmap publication stays disabled. See [issue lifecycle](ISSUE_LIFECYCLE.md).
 
 Only Prem-Tomar merges to master; neither the reviewer nor the peer is assigned the other's implementation. This roadmap does not publish new learning issues or an AI/ML extension. The [printable edition](../output/pdf/fieldops-six-month-roadmap.pdf) includes both learners' distinct contributions, shared concepts, mastery outcomes and the full glossary.
 

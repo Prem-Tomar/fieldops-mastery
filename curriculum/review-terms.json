@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "terms": {
+    "positive-integer": {
+      "name": "positive integer",
+      "definition": "A whole number greater than zero. It has no fractional part; zero and negative numbers are not positive integers.",
+      "examples": [
+        "1",
+        "2",
+        "3"
+      ],
+      "nonExamples": [
+        "0",
+        "-1",
+        "2.5"
+      ],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434718224"
+    },
+    "integer": {
+      "name": "integer",
+      "definition": "A whole number with no fractional part. Integers may be negative, zero or positive; being an integer alone does not make a value a valid positive quantity.",
+      "examples": [
+        "-2",
+        "0",
+        "3"
+      ],
+      "nonExamples": [
+        "0.1",
+        "2.5"
+      ],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434718224"
+    },
+    "safe-integer": {
+      "name": "safe integer",
+      "definition": "An integer inside JavaScript Number's reliable integer range, from -9,007,199,254,740,991 through 9,007,199,254,740,991 inclusive. Adjacent integers in this range can be represented and distinguished exactly. This quantity contract additionally requires the integer to be positive.",
+      "examples": [
+        "0",
+        "3",
+        "Number.MAX_SAFE_INTEGER"
+      ],
+      "nonExamples": [
+        "2.5",
+        "Number.MAX_SAFE_INTEGER + 1"
+      ],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654134"
+    },
+    "finite-number": {
+      "name": "finite number",
+      "definition": "A JavaScript number that is neither NaN nor positive or negative Infinity. Finite numbers can have fractional parts, so finiteness alone is not integer validation.",
+      "examples": [
+        "0",
+        "3",
+        "2.5"
+      ],
+      "nonExamples": [
+        "NaN",
+        "Infinity",
+        "-Infinity"
+      ],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434289519"
+    },
+    "predicate": {
+      "name": "predicate",
+      "definition": "A function that returns true or false to answer a condition about the input it receives.",
+      "examples": [
+        "Number.isInteger(3)"
+      ],
+      "nonExamples": [],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434718224"
+    },
+    "argument": {
+      "name": "argument",
+      "definition": "A value supplied when calling a function. An omitted argument is undefined unless the function supplies a default; a function does not automatically read a similarly named local value from its caller.",
+      "examples": [
+        "Number.isInteger(3) // 3 is the argument supplied to this call"
+      ],
+      "nonExamples": [],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434718224"
+    }
+  }
+}

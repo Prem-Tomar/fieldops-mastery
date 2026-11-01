@@ -1,7 +1,8 @@
-function validateQuantity(value) {
+export default function validateQuantity(value) {
   if (
     typeof value === "number" &&
     Number.isFinite(value) &&
+    Number.isInteger() &&
     Number.MAX_SAFE_INTEGER >= value &&
     value > 0
   ) {
@@ -20,3 +21,6 @@ function validateQuantity(value) {
 // console.log(validateQuantity(undefined), "testcase");
 // console.log(validateQuantity(null), "testcase");
 // console.log(validateQuantity(Number.MAX_SAFE_INTEGER + 1), "testcase");
+// console.log(validateQuantity(2.5));
+// console.log(validateQuantity(0.1));
+// console.log(validateQuantity(Number.MIN_VALUE));

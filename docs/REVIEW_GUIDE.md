@@ -15,11 +15,23 @@ Use this format for every actionable code finding:
 - **Location and category:** exact file and smallest relevant line range; label implementation blocker, prerequisite blocker, optional feedback or mastery coaching.
 - **Requested change:** describe the behavior to correct, not a complete replacement solution.
 - **Components involved:** name the caller, unit, adapter/module or consumer affected.
-- **Term explained:** briefly define any unfamiliar term used in the finding.
+- **Term explained:** check the shared definitions first. Explain a new term briefly at its first project use and add a canonical entry; later reviews link to it instead of repeating the definition.
 - **Behavior or risk:** show a concrete input/timing scenario, expected and observed results, and why the difference matters. Trace it to the original contract for a blocker.
 - **Research hint:** provide a useful concept/search phrase or diagnostic question. Leave design decisions and implementation with the learner.
 
 Keep the overall summary as well as inline guidance. Put sequence/process feedback in the summary when it has no meaningful changed code line. Do not attach a fabricated code location. A finding that spans unrelated problems must be split so each ask is independently understandable.
+
+## Define terms once and link them thereafter
+
+Do not assume that a phrase such as positive integer is already understood. Check the existing [concept explanations](../curriculum/concepts.json) and [review term glossary](REVIEW_TERMS.md) before adding an explanation. Define a new term in plain language with a small example at its first relevant project review, record the explanation link in [review-terms.json](../curriculum/review-terms.json), and maintain one canonical glossary entry. In later reviews, link the appropriate entry rather than copying the same definition again. Both contributors use the same glossary; a glossary link does not itself establish their understanding.
+
+The [positive integer entry](REVIEW_TERMS.md#positive-integer), for example, includes examples and non-examples. Do not repeat that explanation in every review. Targeted corrections and worked examples are still appropriate when a learner's answer reveals a specific misunderstanding; preserve their original response.
+
+## Make snippets stand out
+
+Use fenced code blocks with a language such as js or json for runnable fragments, input examples and result objects. Label the scenario, observed result and expected result clearly. Keep inline code for short identifiers, not dense multi-part examples buried in prose. Show only enough code to reproduce the finding; do not supply the full replacement implementation.
+
+For an initial Question of the Day, fence the question's example code when needed but keep answers and expected outcomes out of that initial prompt. Worked answer snippets belong in the correction after the learner responds.
 
 ## Coaching and optional validation feedback
 

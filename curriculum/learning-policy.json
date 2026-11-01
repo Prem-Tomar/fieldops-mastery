@@ -25,6 +25,15 @@
     "learningAnswersDoNotBlockCorrectImplementation": true,
     "ownerOnlyMerge": true
   },
+  "reviewPresentation": {
+    "defineTermsOncePerProject": true,
+    "reuseCanonicalGlossaryLinks": true,
+    "recordDefinitionDiscussion": true,
+    "targetedCorrectionsStillAllowed": true,
+    "languageTaggedFencedSnippets": true,
+    "separateObservedAndExpectedResults": true,
+    "initialQuestionsRemainAnswerFree": true
+  },
   "weekOne": {
     "days": [1, 2, 3, 4, 5, 6, 7],
     "daySevenRequires": [1, 2, 3, 4, 5, 6],

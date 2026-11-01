@@ -12,7 +12,7 @@ export default function calculateReservationValue(
     };
   }
 
-  if (!validateQuantity(quantity)) {
+  if (!validateQuantity(quantity)?.ok) {
     return {
       ok: false,
       code: "INVALID_QUANTITY",
@@ -39,7 +39,7 @@ export default function calculateReservationValue(
     };
   }
 
-  const netCents = Math.round(grossCents * ((100 - discountPercent) / 100));
+  const netCents = Math.round(grossCents * (1 - discountPercent / 100));
 
   return {
     ok: true,

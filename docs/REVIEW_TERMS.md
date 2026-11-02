@@ -113,3 +113,28 @@ Number.isInteger(3) // 3 is the argument supplied to this call
 ```
 
 [Recorded review explanation](https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434718224).
+
+## Truthiness
+
+How JavaScript treats a value in a condition. null acts as false, while an object acts as true.
+
+Examples:
+
+```js
+Boolean(null) // false
+Boolean({}) // true
+```
+
+[Recorded review explanation](https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654121).
+
+## Module export
+
+A value that a file makes available so another file can import and use it.
+
+Examples:
+
+```js
+export const featureName = "inventory";
+```
+
+[Recorded review explanation](https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654138).

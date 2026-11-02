@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "authorizedBy": "Prem-Tomar",
+  "authorizedOn": "2026-11-01",
+  "ownerInstruction": "Any closes, we create replacement, keeping 7 issues at any given point in time",
+  "mode": "rolling-open-queue",
+  "targetOpenPerLearner": 7,
+  "learners": ["Neha2212-vi", "madhavichauhan1995"],
+  "appendAfterPublishedTail": true,
+  "publishOnlyDeficit": true,
+  "preserveExistingIssues": true,
+  "deduplicateByLearnerAndSequence": true,
+  "keepPrerequisitesAndMasteryGates": true,
+  "stopWhenRoadmapComplete": true,
+  "checkIntervalMinutes": 15,
+  "automaticRefillEnabled": false,
+  "automaticMerging": false
+}

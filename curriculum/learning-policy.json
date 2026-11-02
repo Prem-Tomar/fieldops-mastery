@@ -26,6 +26,8 @@
     "ownerOnlyMerge": true
   },
   "reviewPresentation": {
+    "plainEnglishRequired": true,
+    "bugLocationBehaviorExpectationAndTaskLink": true,
     "defineTermsOncePerProject": true,
     "reuseCanonicalGlossaryLinks": true,
     "recordDefinitionDiscussion": true,

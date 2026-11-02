@@ -2,6 +2,21 @@
 
 Apply these requirements to every contributor PR. Review the agreed task and prerequisites before judging implementation. Preserve the [learning rules](LEARNING_RULES.md): code acceptance and mastery are different outcomes, and coaching cannot introduce surprise implementation requirements.
 
+## Plain English is mandatory
+
+Write for contributors who may use English as an additional language. Use short, direct sentences and familiar words. Keep the technical meaning precise; avoid idioms, unexplained abbreviations and several instructions packed into one sentence. Address the code respectfully. Do not make assumptions about a contributor's ability or mention their language background in public feedback.
+
+Every bug comment must let the contributor answer these questions without guessing:
+
+1. **Where is the problem?** Give the file, function and smallest useful line range. Point to the relevant code fragment when useful.
+2. **What happens now?** Show one concrete input or action and the result actually observed.
+3. **What should happen?** State the expected result, including the exact output/error and relevant call/event counts.
+4. **Which task requirement does this affect?** Link the agreed issue and identify the specific input/output or behavior rule. For maintainer work, link the agreed policy. Explain how the bug prevents that ask from working; do not add a new requirement.
+5. **What change is needed, and why?** Describe the behavior to correct and the caller/component affected. Keep separate bugs separate.
+6. **What can help the contributor investigate?** Give a focused research hint without the full replacement implementation.
+
+Use those plain labels in inline feedback. Keep inputs, observed outputs and expected outputs in separate language-tagged fenced blocks where code helps. Explain a new technical term once and record its shared glossary entry; link the entry later. Keep Question of the Day answer-free at first. A clear explanation does not replace actual validation, and automated format checks cannot prove that a comment is understandable.
+
 ## High-level summary
 
 State the implementation outcome (changes needed, ready for implementation acceptance, or blocked on prerequisites), the product behavior reviewed and any required predecessor still missing. Summarize the code findings and their consequences. Identify the exact revision reviewed, checks actually run, expected/actual results and what those checks do not establish. State mastery as unassessed, pending coaching or evidence-backed verified; do not infer it from working code or green CI.

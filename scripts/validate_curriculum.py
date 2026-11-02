@@ -41,7 +41,8 @@ required_rules = {"smallProductIncrements", "onePrimaryIdea", "exactUnitContract
 check(set(policy["rules"]) == required_rules and all(value is True for value in policy["rules"].values()),
       "A non-negotiable learning rule is missing or disabled")
 presentation = policy["reviewPresentation"]
-presentation_rules = {"defineTermsOncePerProject", "reuseCanonicalGlossaryLinks", "recordDefinitionDiscussion",
+presentation_rules = {"plainEnglishRequired", "bugLocationBehaviorExpectationAndTaskLink",
+                      "defineTermsOncePerProject", "reuseCanonicalGlossaryLinks", "recordDefinitionDiscussion",
                       "targetedCorrectionsStillAllowed", "languageTaggedFencedSnippets",
                       "separateObservedAndExpectedResults", "initialQuestionsRemainAnswerFree"}
 check(set(presentation) == presentation_rules and all(value is True for value in presentation.values()),
@@ -63,6 +64,9 @@ check("```js" in review_template and "```json" in review_template,
       "Review template must show language-tagged fenced snippets")
 check("Observed result:" in review_template and "Expected result:" in review_template,
       "Review template must separate observed and expected behavior")
+for label in ["Where is the problem?", "What happens now?", "What should happen?",
+              "Which task requirement does this affect?", "What change is needed, and why?", "Research hint:"]:
+    check(label in review_template, f"Plain-English review template is missing: {label}")
 check(policy["weekOne"] == {
     "days": [1, 2, 3, 4, 5, 6, 7], "daySevenRequires": [1, 2, 3, 4, 5, 6],
     "existingIssueOrder": {"Neha2212-vi": [1, 2, 3, 4, 5, 6, 7],
@@ -216,7 +220,7 @@ for path, required in {
     "AGENTS.md": ["LEARNING_RULES.md", "REVIEW_GUIDE.md", "QUESTION_OF_THE_DAY.md"],
     ".github/ISSUE_TEMPLATE/learning-task.yml": ["id: goal", "id: exclusions", "research hints", "Separate mastery"],
     ".github/PULL_REQUEST_TEMPLATE.md": ["Scope and explicit exclusions", "Separate learning", "Question of the Day from D2"],
-    ".github/REVIEW_RESPONSE_TEMPLATE.md": ["Requested behavioral change", "Components involved", "Research hint", "Question of the Day from D2"],
+    ".github/REVIEW_RESPONSE_TEMPLATE.md": ["What change is needed, and why?", "affected caller/components", "Research hint", "Question of the Day from D2"],
 }.items():
     contents = (ROOT / path).read_text(encoding="utf-8")
     for value in required:

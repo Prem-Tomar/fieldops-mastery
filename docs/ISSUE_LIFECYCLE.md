@@ -1,36 +1,38 @@
-# Complementary learner issue lifecycle
+# Seven open learning issues per contributor
 
-## Current publication state
+## Owner authorisation and scope
 
-Fourteen week-one issues have been created and assigned: seven to Neha (@Neha2212-vi, #1–7) and seven to Madhavi (@madhavichauhan1995, #8–14). Both collaborators have accepted their invitations. Prem-Tomar is the reviewer, not an implementation assignee.
+On **1 November 2026**, Prem-Tomar instructed: “Any closes, we create replacement, keeping 7 issues at any given point in time.” This authorises bounded replacement publication. The target is **seven OPEN learning issues for Neha2212-vi and seven for madhavichauhan1995**, not seven in total. PRs, unrelated bugs and maintainer work do not count.
 
-**Further issue creation and issue-generation automation are paused until Prem-Tomar explicitly authorizes them.** Updating the roadmap does not grant publication authorization. Keep curriculum/catalog.json and curriculum/roadmap.json creation gates false for further publication.
+The structured policy is [queue-policy.json](../curriculum/queue-policy.json). It supersedes the earlier publication pause for this rolling queue only. It does not authorise bulk publication of the roadmap, changing existing task contracts/assignees, closing unfinished tasks, merging PRs, or marking mastery. Only Prem-Tomar merges to master.
 
-## Planning a future successor
+## Refill the tail, preserve the next active task
 
-Use the [six-month roadmap](ROADMAP.md) and current feature state. Give each learner a different ask that integrates with accepted units; both cover the same concept requirements independently. The 44 source definitions organize concept references; publication counts follow the complementary product slices. Do not publish a generic source task verbatim or create test/documentation assignments.
+The first batch contained sequences 1–7 per learner. Closing Neha's #1 leaves six open tasks: #2 remains next, while sequence 8 follows #7. Closing Madhavi's #8 and #9 leaves five: #10 remains next, while sequences 8 and 9 follow #14. A replacement is additional future product work, not another implementation of the immediate successor.
 
-Future publication must satisfy the [mandatory learning rules](LEARNING_RULES.md): one primary idea, small product goal/context, explicit exclusions, reviewed predecessor, per-function inputs/outputs/errors and worked examples, explained concepts, three research-oriented hints, observable implementation completion and separate mastery coaching. Web/mobile implementation issues include reference screen images and important states. Test-writing feedback stays optional. Question of the Day starts from D2 and belongs in the review discussion, not a new daily issue. W1 D7 requires D1-D6 in order. No existing issue is edited by this update.
+New tasks stay **queued** until their prerequisites are reviewed and integrated and any required mastery gate passes. W1 D1–D7 order remains mandatory. Seven open issues do not mean seven active tasks; keep one active curricular task per person. Both learners independently cover all 338 concepts through different product asks.
 
-## Closure behavior after future authorization
+## Reconciliation procedure
 
-1. Validate that the closed issue is a recognized learner task and identify its learner and predecessor metadata.
-2. Confirm owner acceptance of the original bounded implementation and integrated behavior. Record implementation completion separately from learning/mastery. A missing coaching answer alone is not an implementation failure or a reason to keep adding product requirements.
-3. First search for an existing successor in that learner's published batch. Reuse it instead of creating another. It becomes active only when its reviewed implementation prerequisites and any required mastery gate have passed; otherwise keep it queued.
-4. If none exists and creation is explicitly authorized, create exactly one distinct product successor for that learner, with the predecessor and closure event recorded.
-5. If understanding is incomplete, record targeted coaching in the existing review/ledger flow and revisit the concept. Do not invent an extra implementation issue just for an unanswered learning question. A defect in the original acceptance behavior must identify the concrete unmet requirement.
-6. At the final gate, resolve concept gaps with focused coaching or bounded experiments; create a product successor only for a genuine new need with authorization. Never repeat an accepted capability wholesale or claim mastery from closure.
+1. Read the learning rules, roadmap, review guide and this policy. Fetch all live issues, including closed tasks; never rely on a stale dashboard snapshot.
+2. Count recognised curriculum metadata with the correct single learner assignment. Run `python scripts/plan_issue_replacements.py --issues <snapshot.json>`. This planner reports deficits, the published tail and closure causes; it never creates or closes an issue.
+3. For each deficit, author one coherent next product increment after that learner's tail. Use the roadmap, accepted contracts and individual coverage gaps; never publish a whole concept reference or copy the peer's ask.
+4. Each issue needs one main idea, purpose/outcome, implementation location, exclusions, explained terms, exact per-function inputs/defaults/outputs/errors/validation order/mutation/timing, worked examples, observable completion, three research hints and separate mastery coaching. Frontend work includes real screen images and relevant states. No standalone tests/documentation tasks or complete solutions in hints.
+5. Immediately before each create, refetch issues. Search all states by learner/sequence/task ID and closure cause. If the replacement exists or the queue is full, do not create another. Publish serially, assign only its learner, label it queued, and include metadata below. A creation timeout is ambiguous: search before retrying.
+6. Refetch and verify the created issue, assignment, predecessor and count. Continue only until that learner has seven open issues. Record source/number in [queued-tasks.json](../curriculum/queued-tasks.json) and refresh the dated dashboard snapshot through a maintainer PR. Publication records no scores and accepts no gates.
 
-The requested one-successor-per-closure policy applies only when further publication is authorized and no planned successor already exists. The existing seven-day batch must not be duplicated.
+Metadata example; use actual predecessor and closure numbers:
 
-## Idempotency, prerequisites and assignments
+```json
+{"schema":1,"kind":"curriculum","learner":"Neha2212-vi","sequence":8,"parentTask":"JS-04","task":"W02-D1-JOB","predecessorIssue":7,"replenishesIssue":1,"roadmapWeek":2}
+```
 
-Before creation, search by learner, predecessor and closure event. Retries and reopen/reclose events must not create duplicate successors. Ignore unrelated discussion/bug closures. Use explicit metadata, not title matching.
+`predecessorIssue` is the previous task at the tail. `replenishesIssue` is the closed task whose queue space this issue fills; they usually differ. Learner/sequence and replenished closure must be unique and stable on retries.
 
-Keep at most one active curricular issue per learner; future published issues remain queued until prerequisites pass. Cross-lane integrations may wait for the peer's accepted unit. Do not count a peer's completed work as the learner's mastery.
+## Timing and exceptional states
 
-Assign implementation only to the specified collaborator. If the invitation is pending, record intended ownership and awaiting-acceptance status; never assign the reviewer instead. Do not invent usernames or send duplicate invitations.
+During authorised closure handling, refill in the same work session. A recurring check every **15 minutes** is prepared to catch closures made elsewhere; activation requires the owner's pending automation confirmation. Its activation state is recorded in queue-policy.json. Until enabled, refill during authorised work sessions only. A recurring check is reconciliation, not an instantaneous webhook: counts can briefly fall below seven between a closure and a successful run. The computer and desktop app must be running for a local recurring check.
 
-## Monitor behavior when activated later
+If reopening creates more than seven open issues, stop creating and report the excess; do not discard work or close an unfinished issue to hide it. Missing/duplicate metadata, unavailable access or an unexplainable deficit also needs attention. Failed publication stays retryable. At full roadmap and concept-audit completion, stop replenishing rather than invent filler.
 
-No monitor is activated by this change. When explicitly activated, remain quiet while unchanged and notify only for successor creation, failure, roadmap completion or required action. Failed creation stays retryable. Only Prem-Tomar merges to master; no automation merges.
+Report replacement creation, failed publication, completion or required owner action; unchanged state produces no report. No duplicate monitor or automatic merge is authorised. Question of the Day stays in PR discussions from D2, answer-free initially and non-blocking for correct implementation; it is never a queue-filling issue.

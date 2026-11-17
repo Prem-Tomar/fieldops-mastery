@@ -26,6 +26,8 @@
     "ownerOnlyMerge": true
   },
   "reviewPresentation": {
+    "plainEnglishRequired": true,
+    "bugLocationBehaviorExpectationAndTaskLink": true,
     "defineTermsOncePerProject": true,
     "reuseCanonicalGlossaryLinks": true,
     "recordDefinitionDiscussion": true,
@@ -54,5 +56,6 @@
     "blocksOtherwiseCorrectImplementation": false
   },
   "issueMutationAuthorizedByThisChange": false,
-  "automaticIssuePublication": false
+  "automaticIssuePublication": false,
+  "issuePublicationPolicy": "curriculum/queue-policy.json"
 }

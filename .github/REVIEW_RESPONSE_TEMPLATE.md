@@ -11,13 +11,23 @@ Keep the high-level consequences here and place precise code guidance inline.
 
 ## Inline finding format
 
-- Category (implementation blocker / prerequisite blocker / optional feedback / mastery coaching):
-- Exact file and line:
-- Requested behavioral change:
-- Components involved:
-- Unfamiliar term: canonical glossary link, or one first-use explanation recorded in the shared glossary:
-- Input/timing scenario, expected versus actual behavior and risk:
-- Research hint or search phrase:
+Plain English is mandatory. Use short, direct sentences and familiar words. Avoid idioms, unexplained abbreviations and remarks about the contributor's language background.
+
+**Category:** implementation blocker / prerequisite blocker / optional feedback / mastery coaching.
+
+**Where is the problem?** File, function and exact line(s):
+
+**What happens now?** Concrete input/action and observed behavior:
+
+**What should happen?** Exact expected output/error and relevant call/event counts:
+
+**Which task requirement does this affect?** Link the issue or agreed policy and name the specific requirement:
+
+**What change is needed, and why?** Requested behavior, affected caller/components and practical consequence:
+
+**Research hint:** A focused search phrase or diagnostic question, without a complete solution:
+
+**Term link, if needed:** Canonical glossary entry, or one first-use explanation recorded there:
 
 Use language-tagged fenced blocks for snippets; keep examples out of dense prose. Give only the code needed to explain the finding, not the complete solution. For implementation findings, use this layout when useful:
 

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "publicationRole": "bounded-product-successors",
+  "tasks": [
+    {
+      "id": "W02-D1-JOB",
+      "learner": "Neha2212-vi",
+      "sequence": 8,
+      "predecessorSequence": 7,
+      "roadmapWeek": 2,
+      "parentTask": "JS-04",
+      "primaryConcept": "concurrency versus parallelism",
+      "title": "[W2 D1] Prefetch job details with a bounded number of active loads — @Neha2212-vi",
+      "bodyFile": "curriculum/queued-tasks/W02-D1-JOB.md",
+      "replenishesIssue": 1,
+      "issueNumber": 24
+    },
+    {
+      "id": "W02-D1-INV",
+      "learner": "madhavichauhan1995",
+      "sequence": 8,
+      "predecessorSequence": 7,
+      "roadmapWeek": 2,
+      "parentTask": "JS-01",
+      "primaryConcept": "arrays and objects",
+      "title": "[W2 D1] Preview a batch of stock reservations with isolated line failures — @madhavichauhan1995",
+      "bodyFile": "curriculum/queued-tasks/W02-D1-INV.md",
+      "replenishesIssue": 8,
+      "issueNumber": 25
+    },
+    {
+      "id": "W02-D2-INV",
+      "learner": "madhavichauhan1995",
+      "sequence": 9,
+      "predecessorSequence": 8,
+      "roadmapWeek": 2,
+      "parentTask": "JS-02",
+      "primaryConcept": "BigInt and Symbol",
+      "title": "[W2 D2] Preserve exact supplier part identities beyond the Number safe range — @madhavichauhan1995",
+      "bodyFile": "curriculum/queued-tasks/W02-D2-INV.md",
+      "replenishesIssue": 9,
+      "issueNumber": 26
+    }
+  ]
+}

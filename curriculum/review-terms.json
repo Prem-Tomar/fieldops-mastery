@@ -76,6 +76,34 @@
       ],
       "nonExamples": [],
       "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/19#discussion_r4434718224"
+    },
+    "truthiness": {
+      "name": "truthiness",
+      "definition": "How JavaScript treats a value in a condition. null acts as false, while an object acts as true.",
+      "examples": [
+        "Boolean(null) // false",
+        "Boolean({}) // true"
+      ],
+      "nonExamples": [],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654121"
+    },
+    "module-export": {
+      "name": "module export",
+      "definition": "A value that a file makes available so another file can import and use it.",
+      "examples": [
+        "export const featureName = \"inventory\";"
+      ],
+      "nonExamples": [],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654138"
+    },
+    "reference-error": {
+      "name": "ReferenceError",
+      "definition": "A ReferenceError is an error raised when JavaScript tries to use a name that is not available where it is being used.",
+      "examples": [
+        "notDeclaredYet(); // ReferenceError if this name has not been defined"
+      ],
+      "nonExamples": [],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/28#discussion_r4603287939"
     }
   }
 }

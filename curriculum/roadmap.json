@@ -1,6 +1,7 @@
 {
   "version": 2,
   "issueCreationAuthorized": false,
+  "queueReplenishmentAuthorized": true,
   "reviewer": "Prem-Tomar",
   "learners": [
     "Neha2212-vi",

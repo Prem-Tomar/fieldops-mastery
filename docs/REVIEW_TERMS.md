@@ -138,3 +138,15 @@ export const featureName = "inventory";
 ```
 
 [Recorded review explanation](https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654138).
+
+## Reference error
+
+A ReferenceError is an error raised when JavaScript tries to use a name that is not available where it is being used.
+
+Example:
+
+```js
+notDeclaredYet(); // ReferenceError if this name has not been defined
+```
+
+[Recorded review explanation](https://github.com/Prem-Tomar/fieldops-mastery/pull/28#discussion_r4603287939).

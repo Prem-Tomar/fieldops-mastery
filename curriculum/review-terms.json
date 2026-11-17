@@ -95,6 +95,15 @@
       ],
       "nonExamples": [],
       "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/17#discussion_r4384654138"
+    },
+    "reference-error": {
+      "name": "ReferenceError",
+      "definition": "A ReferenceError is an error raised when JavaScript tries to use a name that is not available where it is being used.",
+      "examples": [
+        "notDeclaredYet(); // ReferenceError if this name has not been defined"
+      ],
+      "nonExamples": [],
+      "explainedInReview": "https://github.com/Prem-Tomar/fieldops-mastery/pull/28#discussion_r4603287939"
     }
   }
 }
